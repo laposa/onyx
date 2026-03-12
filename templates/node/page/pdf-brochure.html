@@ -63,16 +63,20 @@
 
       async function saveToOnyxBackoffice(manifest) {
         const url = "/request/bo/component/x_leaflet_generator?id={NODE.id}";
+        const post_data = new URLSearchParams({});
+
+        post_data.append('node[id]', '{NODE.id}');
+        post_data.append('node[custom_fields][pdf2Web]', JSON.stringify(manifest));
+        post_data.append('csrf_token', '{CSRF_TOKEN}');
+        post_data.append('save', 'save');
+
         try {
           const response = await fetch(url, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: new URLSearchParams({
-                  manifest: JSON.stringify(manifest),
-                  csrf_token: '{CSRF_TOKEN}'
-                })
+            body: post_data
           });
           if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
