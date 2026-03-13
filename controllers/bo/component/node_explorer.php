@@ -18,6 +18,7 @@ class Onyx_Controller_Bo_Component_Node_Explorer extends Onyx_Controller {
         require_once('models/common/common_node.php');
         $this->Node = new common_node();
         
+        //NOTE: content exlorer refreshing relies heavily on the session, is this approach bulletproof?
         $node_id = is_numeric($this->GET['id'] ?? null) 
             ? $this->GET['id'] 
             : $_SESSION['active_pages'][0] ?? null;

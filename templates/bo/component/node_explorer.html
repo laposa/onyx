@@ -17,6 +17,13 @@
         }
     });
 
+    //rewrite node name in explorer after edit
+    document.body.addEventListener('updateNodeName', function(event) {
+        if (event.detail && event.detail.nodeId) {
+            document.getElementById('navigation-node-' + event.detail.nodeId).querySelector('.item-label').innerText = event.detail.nodeName;
+        }
+    });
+
     function scrollToActive(list) {
         var activeItem = list.querySelector('li.active');
         var explorer = document.querySelector('.levels');
@@ -59,16 +66,35 @@
         });
 
         explorer.addEventListener('dragend', function (e) {
+            e.preventDefault();
             draggedItem.classList.remove('dragging', 'hidden');
 
             let parentId = 0;
             let position = 0;
             let targetList = draggedItem.parentElement;
             let message;
+            let isActive = draggedItem.classList.contains('active');
+            let activeId = document.querySelector('.levels ul.navigation-list:nth-last-child(2)').dataset.parentId;
 
             // check for drop on item first
             const acceptChild = document.querySelector('li.accept-child');
             if (acceptChild) {
+                // do not allow adding under it's current parent
+                if(acceptChild.dataset.sourceId == draggedItem.dataset.parentId) {
+                    acceptChild.classList.remove('accept-child');
+                    sourceList.insertBefore(draggedItem, sourceList.children[sourcePosition]);
+                    return;
+                }
+
+                //if acceptChild is active, insert the dragged item into next column
+                if(acceptChild.classList.contains('active')) {
+                    let acceptChildList = targetList.nextElementSibling;
+                    //for some reason does not work without cloning the node first
+                    let newItem = draggedItem.cloneNode(true);
+                    newItem.setAttribute('data-parent-id', acceptChild.dataset.sourceId);
+                    acceptChildList.insertBefore(newItem, acceptChildList.children[0]);
+                }
+
                 parentId = acceptChild.dataset.sourceId;
                 parentTitle = acceptChild.querySelector('.item-label').innerText;
                 message = "Are you sure you want to move the node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") under the parent node \"" + parentTitle + "\" (" + parentId + ")?"
@@ -85,7 +111,7 @@
                 parentTitle = parentId == 0 ? 'Home' : document.querySelector('#navigation-node-' + parentId + ' .item-label').innerText;
                 message = "Are you sure you want to move the node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") under the parent node \"" + parentTitle + "\" (" + parentId + ") to position " + (position + 1) + "?"
             }
-
+            
             if (confirm(message)) {
                 document.querySelector('#explorer-loading').classList.add('htmx-request');
                 updateNodePosition(sourceNodeId, parentId, position, function() {
@@ -96,7 +122,17 @@
 
                     if (acceptChild) acceptChild.classList.remove('accept-child');
                     document.querySelector('#explorer-loading').classList.remove('htmx-request');
+                    
                     //if moving last child of the list, remove parent's has-children class
+                    if(sourceList.querySelectorAll('li.navigation-list-item').length == 0) {
+                        const parentItem = document.querySelector('#navigation-node-' + sourceList.dataset.parentId);
+                        if(parentItem) parentItem.classList.remove('has-children');
+                    }
+
+                    //refresh explorer if moving active items
+                    if(isActive && targetList != sourceList) {
+                        htmx.trigger(document.querySelector('#node-explorer'), 'explorerRefresh');
+                    }
                 });
             } else {
                 if (acceptChild) acceptChild.classList.remove('accept-child');
@@ -137,7 +173,7 @@
             document.querySelectorAll('li.accept-child').forEach((el) => {
                 el.classList.remove('accept-child');
             })
-            draggedItem.classList.remove('inactive');;
+            draggedItem.classList.remove('inactive');
 
             if (listItem && listItem !== draggedItem) {
                 listItem.classList.add('accept-child');
@@ -173,6 +209,7 @@
         actualLevel.setAttribute('hx-swap', 'innerHTML');
         actualLevel.setAttribute('hx-on::after-request', 'scrollToActive(this);');
         actualLevel.setAttribute('hx-indicator', '#navigation-level-' + actualLevelId);
+        actualLevel.setAttribute('data-parent-id', event.target.dataset.sourceId);
 
         htmx.process(actualLevel);
 
