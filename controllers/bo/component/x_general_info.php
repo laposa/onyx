@@ -40,6 +40,11 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
             if($_POST['node']['node_group'] != $node_data['node_group'] || $_POST['node']['node_controller'] != $node_data['node_controller']) {
                 header('HX-Trigger: {"loadDetail":{"nodeId" :"'.$node_data['id'].'"}}');
             }
+
+            //trigger name refresh if node name changed
+            if($_POST['node']['title'] != $node_data['title']) {
+                header('HX-Trigger: {"updateNodeName":{"nodeId" :"'.$node_data['id'].'", "nodeName" : "'.$_POST['node']['title'].'"}}');
+            }
         }
 
         $node_type = 
