@@ -41,7 +41,7 @@
                 <span class="label"><input type="text" placeholder="Attribute" value="{OTHER_DATA.key|htmlspecialchars}" /></span>
                 <span class="field"><textarea placeholder="Value" name="product[other_data][{OTHER_DATA.key|htmlspecialchars}]" rows="1">{OTHER_DATA.value|htmlspecialchars}</textarea></span>
 
-                <a class="onyx-delete onyx-icon" href="javascript: return false;" onclick="$(this).parent().remove()"></a>
+                <a class="onyx-delete action" href="javascript: return false;" onclick="$(this).parent().remove()"></a>
             </div>
             <!-- END: item -->
         </div>
@@ -75,7 +75,7 @@
                 <div class="item">
                     <span class="label"><input type="text" placeholder="Attribute" value=""/></span>
                     <span class="field"><textarea name="" rows="1" placeholder="Value"></textarea></span>
-                    <a class="onyx-delete onyx-icon" href="javascript: return false;" onclick="$(this).parent().remove()"></a>
+                    <a class="onyx-delete action" href="javascript: return false;" onclick="$(this).parent().remove()"></a>
                 </div>
             `;
             $(row).appendTo('div.product-other-data');

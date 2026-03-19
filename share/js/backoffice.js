@@ -171,12 +171,6 @@ function initBackofficeUI() {
             setTimeout(function() { window.location = targetUrl; }, 5000); // try again after 5 seconds
         }
     });
-    
-    // add feedback on save button
-    $('button.save').on('click', function() {
-        console.log('SAVING CLASS : A');
-        $(this).addClass('saving');
-    });
 
     // create dialog
     $("<div/>").attr('id','onyx-dialog').appendTo('body');
@@ -490,26 +484,10 @@ function refreshNodeList(id, node_group) {
     refreshNodes(id);
 }
 
-function refreshCards(id) {
-    if ($('#content-list-' + id).length > 0) {
-        var pods_refresh_url = '/request/bo/component/node_list_cards~id=' + id + ':node_group=content~';
-        makeAjaxRequest('#content-list-' + id, pods_refresh_url);
-    }
-}
-
 function refreshNodes(id) {
     if($('#child-list-' + id).length > 0) {
         var refresh_url = '/request/bo/component/node_list~id=' + id + '~';
         makeAjaxRequest('#child-list-' + id, refresh_url);
-    }
-}
-
-function refreshPages(id) {
-    if ($('#page-list-' + id).length > 0) {
-        var pages_refresh_url = '/request/bo/component/node_list_pages~id=' + id + ':node_group=page~';
-        makeAjaxRequest('#page-list-' + id, pages_refresh_url, function() {
-            makeAjaxRequest('#pages-node-menu', '/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~');
-        });
     }
 }
 

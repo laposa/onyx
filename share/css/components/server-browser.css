@@ -149,6 +149,7 @@
             line-height: 30px; 
             opacity: 0.7; 
             color: white;
+            text-decoration: none;
 
             > span {
               display: none;
@@ -161,13 +162,13 @@
             }
 
             &::before {
-              font-family: 'onyx'; 
-              font-size: 20px;
+              font-family: 'Material Icons'; 
+              font-size: 30px;
             }
 
-            &.view::before {content:'\f06e';}
-            &.download::before {content:'\f019';}
-            &.info::before {content:'\f05a';}
+            &.view::before {content:'\e8f4';} /*visibility*/
+            &.download::before {content:'\f090';} /*download*/
+            &.info::before {content:'\e88e';} /*info*/
           }
         }
 
@@ -187,8 +188,8 @@
         justify-content: center;
 
         &::before {
-          content:'\f00d'; 
-          font-family: 'onyx'; 
+          content:'\e5cd'; /*close*/
+          font-family: 'Material Icons'; 
           font-size: 20px; 
           color: #cc0000;
         }
@@ -327,14 +328,15 @@
       transition: 0.3s ease;
       margin-bottom: 10px;
       break-inside: avoid;
+      text-decoration: none;
+      color: var(--text-color);
 
       &:before {
-        content:"";
+        content:"\e2c8"; /*folder_open*/
+        font-family: 'Material Icons';
         position: relative;
-        height: 13px;
-        width: 13px;
-        background-image: url(/share/images/icons/folder.svg);
-        background-size: 13px;
+        font-size: 18px;
+        line-height: 18px;
         background-repeat: no-repeat;
         display: inline-block;
         margin-right: 5px;
@@ -343,7 +345,6 @@
       &:hover {
         text-decoration: none;
         background-color: rgb(214, 214, 214);
-        color: black;
       }
     }
 
@@ -352,7 +353,7 @@
       background-color: white;
 
       &:before {
-        background-image: url(/share/images/icons/arrow_up.png);
+        content: "\eef6"; /*arrow_shape_up*/
       }
 
       &:hover {

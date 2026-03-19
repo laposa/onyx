@@ -76,7 +76,7 @@ $templates_info['container'] = [
 
 $templates_info['site'] = [
     'default'=>['title' => 'Site', 'description'=>'', 'visibility'=>true],
-    'print'=>['title' => 'Printe template', 'description'=>'', 'visibility'=>false],
+    'print'=>['title' => 'Print template', 'description'=>'', 'visibility'=>false],
     'facebook'=>['title' => 'Facebook', 'description'=>'', 'visibility'=>false],
     'default_template' => 'default'
     ];

@@ -1,190 +1,184 @@
 /**
- * Backoffice iconns
+ * Backoffice icons
  
- * using http://fontawesome.io/
- * and http://www.famfamfam.com/
- *  
+ * using https://fonts.google.com/icons?selected=Material+Symbols+Outlined
  */
+
 @font-face {
-    font-family: 'onyx';
-    src:url('../fonts/onyx.eot?-yjb9qm');
-    src:url('../fonts/onyx.eot?#iefix-yjb9qm') format('embedded-opentype'),
-        url('../fonts/onyx.woff?-yjb9qm') format('woff'),
-        url('../fonts/onyx.ttf?-yjb9qm') format('truetype'),
-        url('../fonts/onyx.svg?-yjb9qm#icomoon') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Material Icons';
+  src: url('../fonts/MaterialSymbolsRounded-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-#onyx-header li a:before {display: inline-block; font-family: 'onyx'; font-style: normal; font-weight: normal;  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-size: 1.3em; line-height: 1; margin: 0 8px 0 10px; vertical-align: -15%; width: 1.2em; text-align: center; content: "\f013"; /*default fa-gear*/}
+#onyx-menu-bar {
+  li {
+    a:before {
+      font-family: 'Material Icons';
+      font-size: 20px; 
+      margin: 0 8px; 
+      width: 1.2em; 
+      text-align: center; 
+      content: "\e8b8"; /*settings*/
+    }
 
-#menu-frontoffice li.frontoffice a:before {content: '\f108';} /*fa-desktop*/
+    /* Menu sections */
+    &.content a:before {content: "\f51f";} /*two_pager*/
+    &.build a:before {content: "\f10b";} /*handyman*/
+    &.news a:before {content: "\eb12";} /*full_coverage*/
+    &.components a:before {content: "\e574";} /*category*/
+    &.products a:before {content: "\e8cc";} /*shopping_cart*/
+    &.recipes a:before {content: "\f357";} /*chef_hat*/
+    &.stores a:before {content: "\ea12";} /*storefront*/
+    &.orders a:before {content: "\f812";} /*order_approve*/
+    &.stock a:before {content: "\ebb8";} /*warehouse*/
+    &.customers a:before {content: "\f233";} /*groups*/
+    &.stats a:before {content: "\f20c";} /*leaderboard*/
+    &.marketing a:before {content: "\ef91";} /*featured_seasonal_and_gifts*/
+    &.comments a:before {content: "\e0bf";} /*forum*/
+    &.surveys a:before {content: "\f04c";} /*quiz*/
+    &.media a:before {content: "\e8a7";} /*perm_media*/
+    &.taxonomy a:before {content: "\e892";} /*label*/
+    &.seo-manager a:before {content: "\eefa";} /*search_gear*/
+    &.advanced a:before {content: "\e897";} /*lock*/
 
-#menu-sections li.pages a:before {content: "\f0e8";} /*fa-sitemap*/
-#menu-sections li.components a:before {content: "\f022";} /*fa-list-alt*/
-#menu-sections li.news a:before {content: "\f0f6";} /*fa-file-text-o*/
-#menu-sections li.products a:before {content: "\f02a";} /*fa-barcode*/
-#menu-sections li.recipes a:before {content: "\f0f5";} /*fa-cutlery*/
-#menu-sections li.stores a:before {content: "\f1ad";} /*fa-building*/
-#menu-sections li.orders a:before {content: "\f07a";} /*fa-shopping-cart*/
-#menu-sections li.stock a:before {content: "\f1b3";} /*fa-cubes*/
-#menu-sections li.customers a:before {content: "\f0c0";} /*fa-users*/
-#menu-sections li.staff a:before {content: "\f0c0";}/*fa-users -------- set as default icon*/
-#menu-sections li.clients a:before {content: "\f0e8";} /*fa-sitemap*/
-#menu-sections li.stats a:before {content: "\f080";} /*fa-bar-chart-o*/
-#menu-sections li.marketing a:before {content: "\f06b";} /*fa-gift*/
-#menu-sections li.comments a:before {content: "\f086";} /*fa-comments*/
-#menu-sections li.surveys a:before {content: "\f046";} /*fa-check-square-o*/
-#menu-sections li.advanced a:before {content: "\f013";} /*fa-gear*/
+    /* Advanced */
+    &.back a:before {content: "\f656";} /*lock_open_right*/
+    &.database a:before {content: "\f20e";} /*database*/
+    &.templates a:before {content: "\f863";} /*format_image_left*/
+    &.scheduler a:before {content: "\e855";} /*alarm*/
+    &.tools a:before {content: "\f100";} /*home_repair_service*/
+    &.logs a:before {content: "\e889";} /*history*/
+    &.configuration a:before {content: "\ef48";} /*build_circle*/
+    &.currency a:before {content: "\e926";} /*euro_symbol*/
+    &.api a:before {content: "\f41a";} /*sync_desktop*/
 
-#menu-advanced li.back a:before {content: "\f0a8";} /*arrow-circle-left*/
-#menu-advanced li.media a:before {content: "\f03e";} /*fa-picture-o*/
-#menu-advanced li.taxonomy a:before {content: "\f02c";} /*fa-tags*/
-#menu-advanced li.seo-manager a:before {content: "\f1de";} /*fa-sliders*/
-#menu-advanced li.database a:before {content: "\f1c0";} /*fa-database*/
-#menu-advanced li.templates a:before {content: "\f1c9";} /*fa-file-code-o*/
-#menu-advanced li.scheduler a:before {content: "\f017";} /*fa-clock-o*/
-#menu-advanced li.currency a:before {content: "\f154";} /*fa-gbp*/
-#menu-advanced li.search-index a:before {content: "\f002";} /*fa-search*/
-#menu-advanced li.tools a:before {content: "\f0ad";} /*fa-wrench*/
-#menu-advanced li.logs a:before {content: "\f1b0";} /*fa-paw*/
-#menu-advanced li.configuration a:before {content: "\f085";} /*fa-gears*/
+    /* Misc */
+    &.onyx-version a:before {content: "\e88e";} /*info*/
+    &.frontoffice a:before {content: "\e30b";} /*desktop_mac*/
+    &.flush-cache a:before {content: "\e86a";} /*cached*/
+    &.support a:before {content: "\e94c";} /*contact_support*/
+    &.logout a:before {content: "\e8ac";} /*power_settings_new*/
+  }
 
-#menu-actions li.flush-cache a:before {content: "\f021";} /*fa-refresh*/
-#menu-actions li.support a:before {content: "\f059";} /*fa-question-circle*/
-#menu-actions li.logout a:before {content: "\f011";} /*fa-power-off*/
+  /* FE edit bar*/
+  .frontend & {
+    a:before {
+      font-family: 'Material Icons';
+      font-size: 24px; 
+    }
 
-/**
- * fe-edit
- */
+    li {
+      &.backoffice a:before {content: "\e8b8";} /*settings*/
+      &.preview a:before {content: "\e30b";} /*desktop_mac*/
+      &.edit a:before {content: "\f88d";} /*edit_square*/
+      &.move a:before {content: "\e94f";} /*expand*/
+      &.css-edit a:before {content: "\f84d";} /*code_blocks*/
+    }
+  }
+}
 
-#menu-backoffice li.backoffice a:before {content: "\f013";} /*fa-gear*/
+/* BE Actions */
+button.action, a.action {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-primary);
+  font-weight: normal;
 
-#menu-edit-mode li.preview a:before {content: "\f108";} /*fa-desktop*/
-#menu-edit-mode li.edit a:before {content: "\f044";} /*fa-edit*/
-#menu-edit-mode li.move a:before {content: "\f0db";} /*fa-columns*/
+  &:before {
+    font-family: 'Material Icons';
+    font-size: 20px; 
+    margin: 0 5px; 
+    content: "\e8b8"; /*settings*/
+  }
+  
+  &.onyx-duplicate:before {content: "\e14d";} /*content_copy*/
+  &.onyx-bin:before {content: "\e872"; color: var(--color-danger);} /*delete*/
+  &.onyx-delete:before {content: "\e5cd"; color: var(--color-danger);} /*close*/
+}
 
-/**
- * General
- */
- 
-a.onyx-edit, button.onyx-edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-a.onyx-edit-layout {background-image: url(/share/images/famfamfam_icons/layout.png);}
-a.onyx-edit-page {background-image: url(/share/images/famfamfam_icons/page.png);}
-a.onyx-duplicate, button.onyx-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
-a.onyx-trash, button.onyx-trash {background-image: url(/share/images/famfamfam_icons/bin_closed.png);}
-a.onyx-delete, button.onyx-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
-a.onyx-edit-source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
-a.onyx-new-content {background-image: url(/share/images/famfamfam_icons/add.png);}
-a.onyx-new-layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
-a.onyx-edit-main-content {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-a.onyx-edit-page-add {background-image: url(/share/images/famfamfam_icons/page_add.png);}
+.node-edit .actions button.action:before {
+    font-size: 30px; 
+}
 
-/*
-* Container Frontend Icons
-*/
-
-option.onyx-edit-default.container {background-image: url(/share/images/famfamfam_icons/folder.png);}
-
-/*
-* Page Frontend Icons
-*/
-
-.onyx-edit-commerce {background-image: url(/share/images/famfamfam_icons/key.png);}
-.onyx-edit-partner {background-image: url(/share/images/famfamfam_icons/key.png);}
-.onyx-edit-product-browse {background-image: url(/share/images/famfamfam_icons/building.png);}
-.onyx-edit-symbolic {background-image: url(/share/images/famfamfam_icons/page_go.png);}
-.onyx-edit-blank {background-image: url(/share/images/famfamfam_icons/page.png);}
-.onyx-edit-default {background-image: url(/share/images/famfamfam_icons/page.png);}
-.onyx-edit-print {background-image: url(/share/images/famfamfam_icons/printer.png);}
-.onyx-edit-news {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
-.onyx-edit-product {background-image: url(/share/images/famfamfam_icons/page_white_ruby.png);}
-
-
-/*
-* Content Frontend Icons
-*/
-
+/* FE Edit */
 div.onyx-add-content,
-div.onyx-edit-content {clear: both; padding: 0 0 50px 5px;}
-
-div.onyx-add-content a.onyx-new-content,
-div.onyx-edit-content a,
-div.onyx-edit-layout a,
-div.onyx-edit-page a,
-div.onyx-edit-page button {display: block; cursor:pointer; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
-
-div.onyx-edit-page button {background-color: transparent; border: none; outline: none; box-shadow: none;}
-
-div.onyx-add-content a.onyx-new-content span,
-div.onyx-edit-content a span,
-div.onyx-edit-layout a span,
-div.onyx-edit-page a span {display: none;}
-
-div.onyx-edit-page a.verbose {width: auto; text-decoration: none; background-position: left;}
-div.onyx-edit-page a.verbose span {display: inline; padding: 0 25px;}
-
-a.onyx-edit-articlebox {background-image: url(/share/images/famfamfam_icons/page_edit.png);}
-a.onyx-edit-print-article-list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
-a.onyx-edit-component {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-a.onyx-edit-quote {background-image: url(/share/images/famfamfam_icons/rosette.png);}
-a.onyx-edit-divider {background-image: url(/share/images/famfamfam_icons/text_horizontalrule.png);}
-a.onyx-edit-teaser {background-image: url(/share/images/famfamfam_icons/page_go.png);}
-a.onyx-edit-imagemap {background-image: url(/share/images/famfamfam_icons/map_edit.png);}
-a.onyx-edit-contact-form {background-image: url(/share/images/famfamfam_icons/email.png);}
-a.onyx-edit-comment {background-image: url(/share/images/famfamfam_icons/comment.png);}
-a.onyx-edit-image-gallery {background-image: url(/share/images/famfamfam_icons/photo.png);}
-a.onyx-edit-image {background-image: url(/share/images/famfamfam_icons/photo.png);}
-a.onyx-edit-file {background-image: url(/share/images/famfamfam_icons/disk.png);}
-a.onyx-edit-product-list {background-image: url(/share/images/famfamfam_icons/building.png);}
-a.onyx-edit-feed {background-image: url(/share/images/famfamfam_icons/rss.png);}
-a.onyx-edit-rte {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-a.onyx-edit-shared {background-image: url(/share/images/famfamfam_icons/link.png);}
-a.onyx-edit-news-list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
-a.onyx-edit-menu {background-image: url(/share/images/famfamfam_icons/sitemap_color.png);}
-a.onyx-edit-content-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-a.onyx-edit-page-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-a.onyx-edit-html {background-image: url(/share/images/famfamfam_icons/html.png);}
-a.onyx-edit-product-highlights {background-image: url(/share/images/famfamfam_icons/award_star_bronze_2.png);}
-a.onyx-edit-special-offer-list {background-image: url(/share/images/famfamfam_icons/money.png);}
-a.onyx-edit-filter {background-image: url(/share/images/famfamfam_icons/page_white_find.png);}
-a.onyx-edit-external-source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-a.onyx-edit-textile {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-a.onyx-edit-survey {background-image: url(/share/images/famfamfam_icons/application_form.png);}
-a.onyx-edit-video {background-image: url(/share/images/famfamfam_icons/film.png);}
-a.onyx-edit-recipe-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-a.onyx-edit-adaptive {background-image: url(/share/images/famfamfam_icons/table_key.png);}
-a.onyx-edit-text {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-/**
- * Other Icons
- */
-
-a.onyx-icon {display: block; width: 19px; height: 19px; background-repeat: no-repeat;}
-a.onyx-icon span {display: none;}
-a.onyx-magnifier {background-image: url(/share/images/famfamfam_icons/magnifier.png);}
-div.node-node-controller option {background-repeat: no-repeat; background-position: 5px center; padding: 0.2em 0 0.2em 30px; height:1.4em;}
-
-/**
- *  New Icons
- */
-
-#onyx-backoffice {
-  .action { background: transparent no-repeat; background-size: contain; border: 0;}
-  .action:hover {  }
-  .action.onyx-duplicate { background-image: url(/share/images/icons/duplicate.png); }
-  .action.onyx-bin { background-image: url(/share/images/icons/bin.png); }
-  .action.onyx-delete { background-image: url(/share/images/icons/delete.png); }
-  .action.onyx-edit { background-image: url(/share/images/icons/edit.png); }
+div.onyx-edit-content {
+  padding: 0 0 50px 5px;
 }
 
-div.content-pods__item--actions .action { height: 25px; width: 35px; }
-a.page-edit { display: flex; align-items: center; transition: 0.3s ease; }
-a.page-edit:before { content:""; display: block; width: 30px; height: 19px;  background: url(/share/images/icons/edit.png) no-repeat; background-size: contain;}
-a.page-edit:hover { color: var(--color-primary); }
-a.page-edit:hover:before {}
+.onyx-fe-edit-node-container a.onyx-fe-action {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  &:before {
+    font-family: 'Material Icons';
+    font-size: 30px; 
+    margin: 0 5px; 
+    content: "\f88d"; /*edit_square*/
+  }
+
+  &:not(.new-content) span {
+    display: none;
+  }
+  
+  /* pages */
+  &.onyx-edit-default:before {content: "\f88c";} /*edit_document*/
+  &.onyx-edit-page:before {content: "\eaf3";} /*file_open*/
+  &.onyx-edit-layout:before {content: "\fffd7";} /*dashboard_2_edit*/
+  &.onyx-edit-product-browse:before {content: "\f86e";} /*shelves*/
+  &.onyx-edit-symbolic:before {content: "\f8ef";} /*dataset_linked*/
+  &.onyx-edit-news:before {content: "\eb81";} /*newspaper*/
+  &.onyx-edit-product:before {content: "\f5a4";} /*box*/
+
+  /* actions */
+  &.onyx-duplicate:before {content: "\e14d";} /*content_copy*/
+  &.onyx-bin:before {content: "\e872"; color: var(--color-danger);} /*delete*/
+  &.new-content:before {content: "\e147";} /*add_circle*/
+
+  /* content */
+  &.onyx-new-layout:before {content: "\e99b";} /*dashboard_customize*/
+  &.onyx-edit-source:before {content: "\f846";} /*rebase_edit*/
+  &.onyx-edit-print-article-list:before {content: "\eb81";} /*newspaper*/
+  &.onyx-edit-news-list:before {content: "\eb81";} /*newspaper*/
+  &.onyx-edit-component:before {content: "\e87b";} /*extension*/
+  &.onyx-edit-external-source:before {content: "\e87b";} /*extension*/
+  &.onyx-edit-quote:before {content: "\e244";} /*format_quote*/
+  &.onyx-edit-divider:before {content: "\eabd";} /*unknown_med*/
+  &.onyx-edit-teaser:before {content: "\e728";} /*text_ad*/
+  &.onyx-edit-imagemap:before {content: "\efa2";} /*imagesmode*/
+  &.onyx-edit-image:before {content: "\efa2";} /*imagesmode*/
+  &.onyx-edit-image-gallery:before {content: "\f86f";} /*gallery_thumbnail*/
+  &.onyx-edit-contact-form:before {content: "\e158";} /*mail*/
+  &.onyx-edit-comment:before {content: "\e625";} /*sms*/
+  &.onyx-edit-file:before {content: "\f88c";} /*edit_document*/
+  &.onyx-edit-product-list:before {content: "\f86e";} /*shelves*/
+  &.onyx-edit-feed:before {content: "\e0e5";} /*rss_feed*/
+  &.onyx-edit-rte:before {content: "\e745";} /*edit_note*/
+  &.onyx-edit-textile:before {content: "\e745";} /*edit_note*/
+  &.onyx-edit-text:before {content: "\e745";} /*edit_note*/
+  &.onyx-edit-shared:before {content: "\fffb5";} /*link_2*/
+  &.onyx-edit-menu:before {content: "\e97a";} /*account_tree*/
+  &.onyx-edit-content-list:before {content: "\e0ee";} /*list_alt*/
+  &.onyx-edit-page-list:before {content: "\f51f";} /*two_pager*/
+  &.onyx-edit-html:before {content: "\e86f";} /*code*/
+  &.onyx-edit-product-highlights:before {content: "\ea12";} /*storefront*/
+  &.onyx-edit-special-offer-list:before {content: "\ef91";} /*featured_seasonal_and_gifts*/
+  &.onyx-edit-filter:before {content: "\ef4f";} /*filter_alt*/
+  &.onyx-edit-survey:before {content: "\f04c";} /*quiz*/
+  &.onyx-edit-video:before {content: "\ea75";} /*video_settings*/
+  &.onyx-edit-recipe-list:before {content: "\f357";} /*chef_hat*/
+  &.onyx-edit-adaptive:before {content: "\e9da";} /*responsive_layout*/
+}
 
 /**
- * spinnig effect
+ * spinning effect
  */
  
 .onyx-effect-spin:before {-webkit-animation: spin 2s infinite linear; -moz-animation: spin 2s infinite linear; -o-animation: spin 2s infinite linear; animation: spin 2s infinite linear;}

@@ -1,6 +1,7 @@
 #bo-search {
 	.search-bar {
 		position: relative;
+		border-bottom: 1px solid #e0e0e0;
 
 		.onyx-loading {
 			position: absolute;
@@ -27,16 +28,14 @@
 		}
 
 		&:before {
-			content: "\f002";
+			content: "\e8b6"; /*search */
 			position: absolute;
-			font-family: 'onyx';
+			font-family: 'Material Icons';
 			color: var(--color-primary);
-			font-size: 19px;
-			top: 10px;
-			left: 10px;
+			font-size: 30px;
+			top: 3px;
+			left: 5px;
 		}
-
-		border-bottom: 1px solid #e0e0e0;
 	}
 
 	.search-results {
@@ -107,14 +106,14 @@
 		position: absolute;
 		top: -1px;
 		right: 15px;
-		font-family: 'onyx';
+		font-family: 'Material Icons';
 		font-size: 25px;
-		color: var(--color-primary);
+		color: var(--color-danger);
 		pointer-events: all;
 		z-index: 10;
 
 		&:before {
-			content: "\f00d";
+			content: "\e5cd"; /*close */
 		}
 	}
 }

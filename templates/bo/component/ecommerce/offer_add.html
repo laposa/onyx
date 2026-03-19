@@ -62,7 +62,7 @@
         if(html) {
             html = html.replace(/\{\d+\}/g, '');
             html = html.replace(/[\n\r]/g, '<br>');
-            html = html.replace('__price__', '<select class="prices-select" style="vertical-align: middle" onchange="$(this).parents(\'.offer\').find(\'input.price-id\').val($(this).val())"></select><a onclick="addPriceForOffer(); return false;" href="#" title="Add a New Price" style="display: inline-block; width: 16px; height: 16px; vertical-align: middle; background: url(/share/images/famfamfam_icons/add.png)"></a>');
+            html = html.replace('__price__', '<select class="prices-select" style="vertical-align: middle" onchange="$(this).parents(\'.offer\').find(\'input.price-id\').val($(this).val())"></select><a onclick="addPriceForOffer(); return false;" href="#" title="Add a New Price" style="display: inline-block; width: 16px; height: 16px; vertical-align: middle; background: url(/share/images/icons/add.png)"></a>');
             html = html.replace('__quantity__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.quantity\').val($(this).val())" value="' + quantity + '"/>');
             html = html.replace('__saving__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.saving\').val($(this).val())" value="' + saving + '"/>');
         }

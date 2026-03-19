@@ -246,23 +246,6 @@ dialog.edit-dialog {
 		}
 	}
 
-	.onyx-delete {
-			background-image: none;
-			height: auto;
-			padding-top: 1px;
-
-			&:hover {
-				text-decoration: none;
-			}
-
-			&:before {
-				content: '✕';
-				font-weight: bold;
-				font-size: 18px;
-				color: var(--color-danger);
-			}
-		}
-
 	.scheduler-list {
 		input {
 			padding: 10px;

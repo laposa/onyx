@@ -2,15 +2,10 @@
  * Simple Tree
  */
  
-.simple-tree a { text-decoration: none; }
+.simple-tree a { text-decoration: none; color: var(--color-text);}
 
-div.twoColumnPage.page .simple-tree
-{
-    padding-bottom: 80px; 
-}
 .simple-tree
 {
-    
     margin:0;
     padding:0;
 }
@@ -35,7 +30,7 @@ div.twoColumnPage.page .simple-tree
 }
 .simple-tree .root
 {
-    margin-left: -18px;
+    padding-left: 0;
     background: none;
 }
 .simple-tree li.root:before,
@@ -47,83 +42,15 @@ div.twoColumnPage.page .simple-tree
 .simple-tree li.doc:before,
 .simple-tree li.doc-last:before
 {
+  content: "\ea7d"; /* docs */
   display: inline-block;
-  font-family: 'onyx';
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  content: "\f15c"; /* page icon */
-  margin-left: -16px;
-  line-height: 18px;
-  color: #4260a3;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
   position: absolute;
-  font-size: 14px;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  margin-left: -22px;
+  color: var(--color-primary);
+  font-size: 22px;
   z-index: 10;
-}
-
-.server_browser_menu .simple-tree li.folder-open:before,
-.server_browser_menu .simple-tree li.folder-open-last:before {
-  content: "\f07c"; /* folder icon (open) */
-}
-
-.server_browser_menu .simple-tree li.root:before,
-.server_browser_menu .simple-tree li.folder:before,
-.server_browser_menu .simple-tree li.folder-close:before,
-.server_browser_menu .simple-tree li.folder-close-last:before {
-  content: "\f07b"; /* folder icon (closed) */
-}
-
-.server_browser_menu .simple-tree li.doc:before,
-.server_browser_menu .simple-tree li.doc-last:before {
-  content: "\f1c9"; /* file icon */
-}
-
-.server_browser .server_browser_menu .simple-tree li.doc:before,
-.server_browser .server_browser_menu .simple-tree li.doc-last:before {
-  content: "\f07b"; /* file icon */
-}
-
-#database .server_browser_menu .simple-tree li.doc:before,
-#database .server_browser_menu .simple-tree li.doc-last:before {
-  content: "\f1c0"; /* file icon */
-}
-
-#taxonomy_tree_menu .simple-tree li.folder-open:before,
-#taxonomy_tree_menu .simple-tree li.folder-open-last:before,
-#taxonomy_tree_menu .simple-tree li.root:before,
-#taxonomy_tree_menu .simple-tree li.folder:before,
-#taxonomy_tree_menu .simple-tree li.folder-close:before,
-#taxonomy_tree_menu .simple-tree li.folder-close-last:before,
-#taxonomy_tree_menu .simple-tree li.doc:before,
-#taxonomy_tree_menu .simple-tree li.doc-last:before,
-#filterTaxonomy .simple-tree li.folder-open:before,
-#filterTaxonomy .simple-tree li.folder-open-last:before,
-#filterTaxonomy .simple-tree li.root:before,
-#filterTaxonomy .simple-tree li.folder:before,
-#filterTaxonomy .simple-tree li.folder-close:before,
-#filterTaxonomy .simple-tree li.folder-close-last:before,
-#filterTaxonomy .simple-tree li.doc:before,
-#filterTaxonomy .simple-tree li.doc-last:before,
-#newsTaxonomyFilter .simple-tree li.folder-open:before,
-#newsTaxonomyFilter .simple-tree li.folder-open-last:before,
-#newsTaxonomyFilter .simple-tree li.root:before,
-#newsTaxonomyFilter .simple-tree li.folder:before,
-#newsTaxonomyFilter .simple-tree li.folder-close:before,
-#newsTaxonomyFilter .simple-tree li.folder-close-last:before,
-#newsTaxonomyFilter .simple-tree li.doc:before,
-#newsTaxonomyFilter .simple-tree li.doc-last:before,
-.taxonomy_menu .simple-tree li.folder-open:before,
-.taxonomy_menu .simple-tree li.folder-open-last:before,
-.taxonomy_menu .simple-tree li.root:before,
-.taxonomy_menu .simple-tree li.folder:before,
-.taxonomy_menu .simple-tree li.folder-close:before,
-.taxonomy_menu .simple-tree li.folder-close-last:before,
-.taxonomy_menu .simple-tree li.doc:before,
-.taxonomy_menu .simple-tree li.doc-last:before {
-  content: "\f02b"; /* tag icon */
 }
 
 .simple-tree li.folder-open:after,
@@ -131,29 +58,22 @@ div.twoColumnPage.page .simple-tree
 .simple-tree li.folder-close:after,
 .simple-tree li.folder-close-last:after
 {
-  content: "\f0d7"; /* right arrow (open) */
+  content: "\e313"; /* keyboard_arrow_down */
   display: inline-block;
-  font-family: 'onyx';
-  font-style: normal;
+  font-family: 'Material Icons';
   font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 18px;
   color: #333;
   position: absolute;
-  left: 0;
+  left: -6px;
   top: 0;
-  font-size: 14px;
+  font-size: 25px;
   z-index: 10;
-  margin: 0 0 0 1px;
 }
 
 .simple-tree li.folder-close:after,
 .simple-tree li.folder-close-last:after
 {
-  content: "\f0da"; /* down arrow (closed) */
-  margin: 0 0 0 3px;
+  content: "\f46a"; /* chevron_forward */
 }
 
 .simple-tree .line
