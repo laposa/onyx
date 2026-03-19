@@ -87,10 +87,13 @@
 			padding-right: 5px;
 
 			&:after {
-				content: url(/share/images/icons/chevron_right.svg);
+				content: "\f46a"; /* chevron_forward */
+				font-family: 'Material Icons';
+				font-weight: normal;
 				margin-left: auto;
-				height: 24px;
-				opacity: 0.3;
+				font-size: 24px;
+				line-height: 24px;
+				opacity: 0.4;
 			}
 		}
 
@@ -137,7 +140,7 @@
 		}
 		
 		&.content:before, &.layout:before {
-			background-image: url(/share/images/icons/icon_content_2.png);
+			background-image: url(/share/images/icons/icon_content.png);
 		}
 
 		&.container:before {

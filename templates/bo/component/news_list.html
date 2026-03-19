@@ -52,8 +52,8 @@ function refreshNewsList() {
                 <td>{ITEM.created}<br />{ITEM.modified}</td>
                 <td>
                     <div class="onyx-edit-content">
-                        <a class="onyx-duplicate" title="Duplicate {ITEM.node_controller}" href="#{ITEM.id}"><span>Duplicate</span></a>
-                        <a class="onyx-trash" title="Move {ITEM.title} to bin" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/node_bin~id={ITEM.id}:trash=1~', 'Move to bin'); return false"><span>Move to bin</span></a>
+                        <a class="onyx-duplicate action" title="Duplicate {ITEM.node_controller}" href="#{ITEM.id}"><span>Duplicate</span></a>
+                        <a class="onyx-bin action" title="Move {ITEM.title} to bin" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/node_bin~id={ITEM.id}:trash=1~', 'Move to bin'); return false"><span>Move to bin</span></a>
                     </div>
                 </td>
             </tr>

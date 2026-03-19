@@ -4,7 +4,7 @@
 class OnyxComponentsPanel implements \Tracy\IBarPanel {
     function getTab()
     {
-        return '<img src="/share/images/famfamfam_icons/bricks.png"/> <span>Components</span>';
+        return '<img src="/share/images/icons/bricks.png"/> <span>Components</span>';
     }
 
     function getPanel()

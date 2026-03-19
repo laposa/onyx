@@ -9,9 +9,7 @@
         <li class="backoffice"><a href="/backoffice/content"><span>Back Office</span></a></li>
     </ul>
     <!-- END: backoffice -->
-    <ui id="menu-editing-mode">
-        {ONYX_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
-    </ui>
+    {ONYX_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
 
     {ONYX_REQUEST_fe_menu_actions #bo/fe_menu_actions}
 

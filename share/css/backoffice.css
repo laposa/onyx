@@ -2,29 +2,11 @@
 * Backoffice CSS
 */
 
+@import url(/share/css/variables.css);
 @import url(/share/css/reset.css);
 @import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
 @import url(/share/css/simple-tree.css);
 @import url(/share/css/backoffice-icons.css);
-
-/*
-* Variables
-*/
-
-:root {
-  --color-primary: cadetblue;
-  --color-primary-opaque: rgba(95, 158, 160, 0.1);
-  --color-secondary: #6c757d;
-  --color-success: #28a745;
-  --color-info: #17a2b8;
-  --color-warning: #ffc107;
-  --color-danger: #dc3545;
-  --color-background-light: rgba(95, 158, 160, 0.05);
-  --color-background-dark: #343a40;
-  --color-text: #1e1e1e;
-  --color-text-grey: #6f6f6f;
-  --color-text-light: #ffffff;
-}
 
 
 body {font-size: 12px; color: black; font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; background: white; margin-bottom: 100px;}
@@ -150,7 +132,7 @@ div.onyx-messages {margin: 1em; border: none; background: black; color: white; b
     clear: both; border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
     z-index: 1000; position: relative;}
 div.onyx-messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
-div.onyx-messages p.onyx-error-msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
+div.onyx-messages p.onyx-error-msg {background: transparent url(/share/images/icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
 
 .error-message {
   color: var(--color-danger);
@@ -216,11 +198,6 @@ div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba
   width: calc(100% - 130px);
 }
 
-#layout-icon {
-  background-position: top right; 
-  background-repeat: no-repeat;
-}
-
 div.wrapper {
   margin: 0 10px;
 }
@@ -260,14 +237,12 @@ div.wrapper {
 
 #onyx-menu-bar ul { margin: 0; padding: 10px 0; list-style: none; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); border-top: 1px solid #33373c; box-shadow: 0 -1px 0 #0f1112; }
 #onyx-menu-bar ul li { margin: 0; padding: 0; width: 130px; white-space: nowrap;}
-#onyx-menu-bar ul li a { text-decoration: none; display: block; width: 130px; height: 28px; line-height: 24px; transition: color 200ms linear; }
+#onyx-menu-bar ul li a { text-decoration: none; display: flex; width: 130px; height: 28px; line-height: 24px; transition: color 200ms linear; align-items: center; }
 #onyx-menu-bar ul li.active a { color: #fff; margin-top: 0; border-top: 1px solid #6d97d0; background-image: -webkit-linear-gradient(top, #5685c4, #4c6cb8); background-image: -moz-linear-gradient(top, #5685c4, #4c6cb8); background-image: -ms-linear-gradient(top, #5685c4, #4c6cb8); background-image: -o-linear-gradient(top, #5685c4, #4c6cb8); background-image: linear-gradient(to bottom, #5685c4, #4c6cb8); }
 #onyx-menu-bar ul li a:hover { color: #fff !important; }
 
 #onyx-menu-bar ul#menu-system { padding: 10px 0 13px 0; }
-#menu-system a.onyx-version {color: white; height: auto; line-height: 1.2;}
-#menu-system li a.onyx_version:before {display: inline-block; font-family: 'onyx'; content: '\e601'; font-size: 31px; vertical-align: -15%; margin-left: 0; margin-right: 4px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
-#menu-system a.onyx-version span {display: inline-block; vertical-align: -15%; max-width: 80px; max-height: 25px; overflow: hidden;}
+#menu-system li.onyx-version a {color: white; height: auto; line-height: 1.2;}
 div.backoffice-menu { position: relative; }
 ul#menu-advanced { position: absolute; top: 0; left: 130px; }
 
@@ -360,9 +335,6 @@ div.two-column-page div.two-column-page { padding: 0; margin: 0;}
 
 
 div.popup div.row-bottom div.row-wrapper { margin: 0; }
-button.saving { opacity: 0.7; }
-button.saving span { visibility: hidden; }
-button.saving:before { content: "\f013"; position: absolute; left: 50%; top: 50%; margin-left: -6px; margin-top: -10px; display: inline-block; font-family: 'onyx'; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-animation: spin 2s infinite linear; -moz-animation: spin 2s infinite linear; -o-animation: spin 2s infinite linear; animation: spin 2s infinite linear; font-size: 20px;}
 div.page-header { height: 50px; border-bottom: 1px solid #e0e0e0; margin: 0 0 10px 0; }
 div.page-header h1 { font-size: 30px; }
 div.horizontal-filter { border-bottom: 1px solid #e0e0e0; margin: 0 0 20px 0; height: 64px;}
@@ -546,9 +518,20 @@ div.survey-detail table td.answers ul { list-style: none; margin: 0; padding: 0;
 div.survey-detail table td.answers a.button:hover { text-decoration: none; }
 div.survey-detail table td.answers a.is-correct-0 { color: #444; position: relative; }
 div.survey-detail table td.answers a.is-correct-1 { color: #000; position: relative; font-weight: bold;}
-div.survey-detail table td.answers a.is-correct-0:before { content: "\f096"; }
-div.survey-detail table td.answers a.is-correct-1:before { content: "\f046"; }
-div.survey-detail table td.answers li a:before {display: inline-block; font-family: 'onyx'; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 18px; color: #333; position: absolute; left: -18px; top: -1px;} 
+div.survey-detail table td.answers a.is-correct-0:before { content: "\e835"; } /*check_box_outline_blank*/
+div.survey-detail table td.answers a.is-correct-1:before { content: "\f1fe"; } /*select_check_box*/
+div.survey-detail table td.answers li a:before {
+  display: inline-block; 
+  font-family: 'Material Icons'; 
+  line-height: 1; 
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale; 
+  color: #333; 
+  position: absolute; 
+  left: -20px; 
+  top: -1px;
+  font-size: 17px;
+} 
 
 /*
 * Tabs

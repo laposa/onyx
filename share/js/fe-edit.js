@@ -1,6 +1,6 @@
 function initFrontofficeEditUI() {
 
-    $('a.onyx-new-content').live('click', function() {
+    $('a.new-content').live('click', function() {
         $($(this).attr('href') + ' > div.new-node').removeClass("onyx-highlight-new");
         var temp = $(this).attr('href').replace('#onyx-layout-container-','');
         var info = temp.split('-');
@@ -40,7 +40,7 @@ $(function() {
  */
 function refreshDeleteContent() {
     
-    $('a.onyx-trash').live('click', function() {
+    $('a.onyx-bin').live('click', function() {
         var node_id = $(this).attr('href').replace('#','');
         $("#onyx-dialog").dialog({
             bgiframe: true,
@@ -87,9 +87,9 @@ function duplicateNode(node_id) {
  */
 
 function refreshAddContent(selector) {
-    $(selector).append('<div class="onyx-add-content new-node"><a class="onyx-new-content" title="Add New Content" href="#"><span>New Content</span></a></div>');
+    $(selector).append('<div class="onyx-add-content new-node"><a class="onyx-fe-action new-content" title="Add New Content" href="#"><span>Add New Content</span></a></div>');
     $(selector).each(function () {
-        $("a.onyx-new-content", this).attr("href", "#" + this.id);
+        $("a.onyx-fe-action.new-content", this).attr("href", "#" + this.id);
     });
 }
 

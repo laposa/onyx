@@ -7,7 +7,7 @@ class OnyxDBProfilerPanel implements \Tracy\IBarPanel
 
 	function getTab()
 	{
-		return '<img src="/share/images/famfamfam_icons/database.png"/> <span>Database</span>';
+		return '<img src="/share/images/icons/database.png"/> <span>Database</span>';
 	}
 
 	function getPanel()
@@ -45,8 +45,8 @@ class OnyxDBProfilerPanel implements \Tracy\IBarPanel
 				$elapsed = $item['executionMS'];
 
 				$content .= "<tr>";
-				if ($elapsed > 1) $content .= '<td><img src="/share/images/famfamfam_icons/exclamation.png" /></td>';
-				else if ($elapsed > 0.4) $content .= '<td><img src="/share/images/famfamfam_icons/error.png" /></td>';
+				if ($elapsed > 1) $content .= '<td><img src="/share/images/icons/exclamation.png" /></td>';
+				else if ($elapsed > 0.4) $content .= '<td><img src="/share/images/icons/error.png" /></td>';
 				else $content .= "<td>&nbsp;</td>";
 				$content .= "<td>" . $sql . "</td>";
 				$content .= "<td>" . format_time($elapsed) . "</td>";

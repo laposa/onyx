@@ -10,9 +10,10 @@
     }
 
     span::before {
-      content: '\f019';
-      font-family: 'onyx';
+      content:'\f090'; /*download*/
+      font-family: 'Material Icons';
       margin-right: 5px;
+      font-size: 20px;
     }
   }
 
