@@ -1590,12 +1590,12 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 LEFT JOIN page_content_grouped AS pcg ON pcg.id = n.id
                 LEFT JOIN products p ON n.node_controller = 'product' AND
                     CASE 
-                        WHEN n.node_controller = 'product' THEN n.content::int
+                        WHEN n.node_controller = 'product' AND n.content != '' THEN n.content::int
                         ELSE 0
                     END = p.id
                 LEFT JOIN ecommerce_store s ON n.node_controller = 'store' AND
                     CASE 
-                        WHEN n.node_controller = 'store' THEN n.content::int
+                        WHEN n.node_controller = 'store' AND n.content != '' THEN n.content::int
                         ELSE 0
                     END = s.id
                 WHERE 
