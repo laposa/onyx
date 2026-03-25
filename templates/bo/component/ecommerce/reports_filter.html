@@ -11,8 +11,7 @@ function onReportFilterSuccess() {
     makeAjaxRequest('#promotion-report', '/request/bo/component/ecommerce/promotion_list_report');
 }
 </script>
-
-<form hx-get="/request/bo/component/ecommerce/reports_filter" hx-on::after-request="onReportFilterSuccess();">
+<form hx-get="/request/bo/component/ecommerce/reports_filter" hx-on::after-request="onReportFilterSuccess();" hx-swap="none">
 
     <div class="row">
         <span class="label"><label>From Date <small>(inclusive)</small></label></span>

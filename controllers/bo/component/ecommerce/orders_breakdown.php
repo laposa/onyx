@@ -1,10 +1,11 @@
 <?php
 /**
- * Copyright (c) 2008-2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2008-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
+require_once('controllers/bo/component/ecommerce/reports_filter.php');
 class Onyx_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onyx_Controller {
 
     protected $home_country_name;
@@ -28,7 +29,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onyx_Contr
         $this->prouduct_types = $this->getProductTypes();
 
         // load raw data
-        $range = $this->getDateRange();
+        $range = Onyx_Controller_Bo_Component_Ecommerce_Reports_Filter::getDateRange();
         $sales = $this->Order->getSales($range['from'], $range['to']);
 
         if ($sales['all']) {
@@ -214,43 +215,6 @@ class Onyx_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onyx_Contr
 
         return $types;
     }
-
-    /**
-     * prepare date range
-     */
-    protected function getDateRange()
-    {
-        if (is_array($this->GET['reports-filter'])) {
-            
-            $range['from'] = $this->GET['reports-filter']['from'];
-            $range['to'] = $this->GET['reports-filter']['to'];
-            
-        } else if (is_array($_SESSION['bo']['reports-filter'])) {
-            $range['from'] = $_SESSION['bo']['reports-filter']['from'];
-            $range['to'] = $_SESSION['bo']['reports-filter']['to'];
-        } else {
-            //get actual date
-            $this_year = date('Y');
-            $this_month = date('m');
-            
-            //get last month
-            $previous_month = $this_month - 1;
-            if ($previous_month < 1) {
-                    $previous_month = "12";
-                    $year_previous_month = $this_year - 1;
-            } else {
-                $year_previous_month = $this_year;
-            }
-            if ($previous_month < 10) $previous_month = "0$previous_month";
-            
-            //format
-            $range['from'] = "$year_previous_month-$previous_month-01";
-            $range['to'] = "$this_year-$this_month-01";
-        }
-
-        return $range;
-    }
-
 
     /**
      * convert given one dimensional product sales list to two dimensional 

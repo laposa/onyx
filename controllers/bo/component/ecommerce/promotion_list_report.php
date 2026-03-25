@@ -6,7 +6,7 @@
  */
 
 require_once('controllers/bo/component/ecommerce/promotion_list.php');
-
+require_once('controllers/bo/component/ecommerce/reports_filter.php');
 class Onyx_Controller_Bo_Component_Ecommerce_Promotion_List_Report extends Onyx_Controller_Bo_Component_Ecommerce_Promotion_List {
 
     /**
@@ -34,7 +34,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Promotion_List_Report extends Onyx_
      
     public function getList() {
         
-        $breakdown_period = $this->getBreakdownPeriod();
+        $breakdown_period = Onyx_Controller_Bo_Component_Ecommerce_Reports_Filter::getDateRange();;
         
         $filter = array();
         $filter['created_from'] = $breakdown_period['from'];
@@ -73,28 +73,6 @@ class Onyx_Controller_Bo_Component_Ecommerce_Promotion_List_Report extends Onyx_
         $this->tpl->assign('TOTAL_FACE_VALUE_VOUCHER', $total_face_value_voucher);
         $this->tpl->assign('TOTAL_DISCOUNT', $total_discount);
             
-    }
-
-
-    /**
-     * get breakdown period
-     */
-    
-    public function getBreakdownPeriod() {
-    
-        if (is_array($this->GET['reports-filter'])) {
-            $breakdown_period['from'] = $this->GET['reports-filter']['from'];
-            $breakdown_period['to'] = $this->GET['reports-filter']['to'];
-        } else if (is_array($_SESSION['bo']['reports-filter'])) {
-            $breakdown_period['from'] = $_SESSION['bo']['reports-filter']['from'];
-            $breakdown_period['to'] = $_SESSION['bo']['reports-filter']['to'];
-        } else {
-            msg('period not selected', 'error');
-            $breakdown_period['from'] = '2010-05-01';
-            $breakdown_period['to'] = '2010-06-01';
-        }
-        
-        return $breakdown_period;
     }
 }
 

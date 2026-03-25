@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2010-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -27,9 +27,9 @@ class Onyx_Controller_Bo_Component_Ecommerce_Reports_Filter extends Onyx_Control
         
             $_SESSION['bo']['reports-filter'] = array();
             
-            $latest_month = $this->getLatestMonth();
-            $_SESSION['bo']['reports-filter']['from'] = $latest_month['from'];
-            $_SESSION['bo']['reports-filter']['to'] = $latest_month['to'];
+            $date_range = $this->getDateRange();
+            $_SESSION['bo']['reports-filter']['from'] = $date_range['from'];
+            $_SESSION['bo']['reports-filter']['to'] = $date_range['to'];
         }
         
         
@@ -48,30 +48,42 @@ class Onyx_Controller_Bo_Component_Ecommerce_Reports_Filter extends Onyx_Control
         return true;
     }
     
+
     /**
-     * get latest month
+     * prepare date range
      */
-     
-    public function getLatestMonth() {
+    static function getDateRange()
+    {
+        $range = [];
         
-        //get actual date
-        $this_year = date('Y');
-        $this_month = date('m');
-        
-        //get last month
-        $previous_month = $this_month - 1;
-        if ($previous_month < 1) {
-                $previous_month = "12";
-                $year_previous_month = $this_year - 1;
+        if (is_array($_GET['reports-filter'])) {
+            
+            $range['from'] = $_GET['reports-filter']['from'];
+            $range['to'] = $_GET['reports-filter']['to'];
+            
+        } else if (is_array($_SESSION['bo']['reports-filter'])) {
+            $range['from'] = $_SESSION['bo']['reports-filter']['from'];
+            $range['to'] = $_SESSION['bo']['reports-filter']['to'];
         } else {
-            $year_previous_month = $this_year;
+            //get actual date
+            $this_year = date('Y');
+            $this_month = date('m');
+            
+            //get last month
+            $previous_month = $this_month - 1;
+            if ($previous_month < 1) {
+                    $previous_month = "12";
+                    $year_previous_month = $this_year - 1;
+            } else {
+                $year_previous_month = $this_year;
+            }
+            if ($previous_month < 10) $previous_month = "0$previous_month";
+            
+            //format
+            $range['from'] = "$year_previous_month-$previous_month-01";
+            $range['to'] = "$this_year-$this_month-01";
         }
-        if ($previous_month < 10) $previous_month = "0$previous_month";
-        
-        //format
-        $breakdown['from'] = "$year_previous_month-$previous_month-01";
-        $breakdown['to'] = "$this_year-$this_month-01";
-    
-        return $breakdown;
+
+        return $range;
     }
 }       
