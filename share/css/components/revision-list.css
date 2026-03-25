@@ -18,8 +18,8 @@
 		.show-more {
 			text-align: center;
 			font-weight: 600;
-			color: var(--color-primary);
-			background-color: var(--color-background-light);
+			color: var(--onyx-color-primary);
+			background-color: var(--onyx-color-background-light);
 
 			span {
 				cursor: pointer;

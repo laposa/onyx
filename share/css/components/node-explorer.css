@@ -1,6 +1,6 @@
 .node-explorer {
   height: calc(100% - 50px);
-  background-color: var(--color-background-light);
+  background-color: var(--onyx-color-background-light);
 }
 
 .levels {
@@ -33,15 +33,15 @@
 		min-height: 28px;
 
 		&:hover {
-			color:var(--color-primary);
+			color:var(--onyx-color-primary);
 			background-color: rgb(95, 158, 160, 0.05);
 		}
 
 		&.active {
-			color:var(--color-primary);
+			color:var(--onyx-color-primary);
 			font-weight: bold;
-			background-color: var(--color-primary-opaque);
-			border-bottom: 2px solid var(--color-primary);
+			background-color: var(--onyx-color-primary-opaque);
+			border-bottom: 2px solid var(--onyx-color-primary);
 			margin-bottom: -2px;
 			min-height: 30px;
 		}
@@ -59,7 +59,7 @@
 		&.dragging.hidden {
 
 			background: #ffffff;
-			border: 2px solid var(--color-primary);
+			border: 2px solid var(--onyx-color-primary);
 			padding: 0px 3px;
 
 			span {
@@ -78,7 +78,7 @@
 			margin-bottom: 0;
 
 			&.active {
-				border-bottom: 2px solid var(--color-primary);
+				border-bottom: 2px solid var(--onyx-color-primary);
 				margin-bottom: -2px;
 			}
 		}

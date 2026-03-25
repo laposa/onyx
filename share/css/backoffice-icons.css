@@ -83,7 +83,7 @@ button.action, a.action {
   background: none;
   border: none;
   padding: 0;
-  color: var(--color-primary);
+  color: var(--onyx-color-primary);
   font-weight: normal;
 
   &:before {
@@ -94,8 +94,8 @@ button.action, a.action {
   }
   
   &.onyx-duplicate:before {content: "\e14d";} /*content_copy*/
-  &.onyx-bin:before {content: "\e872"; color: var(--color-danger);} /*delete*/
-  &.onyx-delete:before {content: "\e5cd"; color: var(--color-danger);} /*close*/
+  &.onyx-bin:before {content: "\e872"; color: var(--onyx-color-danger);} /*delete*/
+  &.onyx-delete:before {content: "\e5cd"; color: var(--onyx-color-danger);} /*close*/
 }
 
 .node-edit .actions button.action:before {
@@ -112,7 +112,7 @@ div.onyx-edit-content {
   background: none;
   border: none;
   padding: 0;
-  color: var(--color-primary);
+  color: var(--onyx-color-primary);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -139,7 +139,7 @@ div.onyx-edit-content {
 
   /* actions */
   &.onyx-duplicate:before {content: "\e14d";} /*content_copy*/
-  &.onyx-bin:before {content: "\e872"; color: var(--color-danger);} /*delete*/
+  &.onyx-bin:before {content: "\e872"; color: var(--onyx-color-danger);} /*delete*/
   &.new-content:before {content: "\e147";} /*add_circle*/
 
   /* content */

@@ -13,7 +13,7 @@
 	legend {
 		top: 0;
 		margin-bottom: 0;
-		color: var(--color-primary);
+		color: var(--onyx-color-primary);
 		text-shadow: 
 			-2px -2px 0 #ffffff, 
 			-2px 2px 0 #ffffff, 
@@ -23,7 +23,7 @@
 
 	h4 {
 		margin-bottom: 5px;
-		color: var(--color-text);
+		color: var(--onyx-color-text);
 	}
 
 	.label {
@@ -66,7 +66,7 @@
 	}
 
 	.publish.No {
-		color: var(--color-danger);
+		color: var(--onyx-color-danger);
 	}
 
 	#scheduler-add-new, .onyx-delete {

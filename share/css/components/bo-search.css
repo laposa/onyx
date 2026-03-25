@@ -31,7 +31,7 @@
 			content: "\e8b6"; /*search */
 			position: absolute;
 			font-family: 'Material Icons';
-			color: var(--color-primary);
+			color: var(--onyx-color-primary);
 			font-size: 30px;
 			top: 3px;
 			left: 5px;
@@ -72,7 +72,7 @@
 				text-decoration: none;
 
 				.title {
-					color: var(--color-primary);
+					color: var(--onyx-color-primary);
 				}
 			}
 
@@ -108,7 +108,7 @@
 		right: 15px;
 		font-family: 'Material Icons';
 		font-size: 25px;
-		color: var(--color-danger);
+		color: var(--onyx-color-danger);
 		pointer-events: all;
 		z-index: 10;
 

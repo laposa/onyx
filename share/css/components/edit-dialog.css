@@ -31,7 +31,7 @@ dialog.edit-dialog {
 	}
 
 	p {
-		color: var(--color-text-grey);
+		color: var(--onyx-color-text-grey);
 	}
 
 	select {
@@ -39,7 +39,7 @@ dialog.edit-dialog {
 		border: 1px solid #ccc;
 		border-radius: 5px;
 		padding: 10px;
-		color: var(--color-text);
+		color: var(--onyx-color-text);
 		outline: none;
 		transition: 0.3s ease;
 		min-height: 45px;
@@ -47,8 +47,8 @@ dialog.edit-dialog {
 		width: 100%;
 
 		&:focus {
-			border-color: var(--color-primary);
-			box-shadow: 0 0 5px var(--color-primary-opaque);
+			border-color: var(--onyx-color-primary);
+			box-shadow: 0 0 5px var(--onyx-color-primary-opaque);
 		}
 	}
 
@@ -64,7 +64,7 @@ dialog.edit-dialog {
 		line-height: 20px;
 		top: 20px;
 		right: 20px;
-		color: var(--color-primary);
+		color: var(--onyx-color-primary);
 	}
 
 	/* scrollbar overlapping with close button fix */
@@ -85,10 +85,10 @@ dialog.edit-dialog {
 		}
 		
 		label {
-			color: var(--color-text-grey);
+			color: var(--onyx-color-text-grey);
 
 			&:has(+ .error) {
-				color: var(--color-danger);
+				color: var(--onyx-color-danger);
 			}
 		}
 
@@ -96,7 +96,7 @@ dialog.edit-dialog {
 			width: 100%;
 			min-width: 49%;
 			font-weight: normal;
-			color: var(--color-text);
+			color: var(--onyx-color-text);
 			border: 1px solid #ccc;
 			border-radius: 5px;
 			padding: 12px 10px 10px 12px;
@@ -109,8 +109,8 @@ dialog.edit-dialog {
 			}
 
 			&:focus {
-				border-color: var(--color-primary);
-				box-shadow: 0 0 5px var(--color-primary-opaque);
+				border-color: var(--onyx-color-primary);
+				box-shadow: 0 0 5px var(--onyx-color-primary-opaque);
 			}
 		}
 		
@@ -128,7 +128,7 @@ dialog.edit-dialog {
 			display: flex;
 			align-items: center;
 			gap: 10px;
-			color: var(--color-text);
+			color: var(--onyx-color-text);
 
 			label {
 				position: relative;
@@ -168,11 +168,11 @@ dialog.edit-dialog {
 			}
 
 			input:checked + .slider {
-				background-color: var(--color-primary);
+				background-color: var(--onyx-color-primary);
 			}
 
 			input:focus + .slider {
-				box-shadow: 0 0 1px var(--color-primary-opaque);
+				box-shadow: 0 0 1px var(--onyx-color-primary-opaque);
 			}
 
 			input:checked + .slider:before {
@@ -181,7 +181,7 @@ dialog.edit-dialog {
 
 			label {
 				margin-bottom: 0;
-				color: var(--color-text);
+				color: var(--onyx-color-text);
 			}
 		}
 
@@ -198,10 +198,10 @@ dialog.edit-dialog {
 	.additional-info {
 		padding-left: 10px;
 		padding-top: 5px;
-		color: var(--color-text-grey);
+		color: var(--onyx-color-text-grey);
 
 		a {
-			color: var(--color-primary);
+			color: var(--onyx-color-primary);
 		}
 	}
 
@@ -290,7 +290,7 @@ dialog.edit-dialog {
 				align-items: center;
 				justify-content: center;
 				font-size: 17px;
-				background-color: var(--color-primary);
+				background-color: var(--onyx-color-primary);
 				color: white;
 				border-radius: 5px;
 

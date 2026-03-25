@@ -2,7 +2,7 @@
  * Simple Tree
  */
  
-.simple-tree a { text-decoration: none; color: var(--color-text);}
+.simple-tree a { text-decoration: none; color: var(--onyx-color-text);}
 
 .simple-tree
 {
@@ -48,7 +48,7 @@
   font-family: 'Material Icons';
   font-weight: normal;
   margin-left: -22px;
-  color: var(--color-primary);
+  color: var(--onyx-color-primary);
   font-size: 22px;
   z-index: 10;
 }

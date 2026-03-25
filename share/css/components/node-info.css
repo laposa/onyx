@@ -21,7 +21,7 @@
 
 		h4 {
 			margin-bottom: 5px;
-			color: var(--color-text);
+			color: var(--onyx-color-text);
 		}
 
 		p {
@@ -92,31 +92,31 @@
 
 		.edit {
 			svg {
-				color: var(--color-primary);
+				color: var(--onyx-color-primary);
 			}
 
 			&:hover {
-				background-color: var(--color-primary);
+				background-color: var(--onyx-color-primary);
 			}
 		}
 
 		.duplicate {
 			svg {
-				color: var(--color-warning);
+				color: var(--onyx-color-warning);
 			}
 
 			&:hover {
-				background-color: var(--color-warning);
+				background-color: var(--onyx-color-warning);
 			}
 		}
 
 		.move {
 			svg {
-				color: var(--color-info);
+				color: var(--onyx-color-info);
 			}
 
 			&:hover {
-				background-color: var(--color-info);
+				background-color: var(--onyx-color-info);
 			}
 		}
 
@@ -124,11 +124,11 @@
 			height: auto;
 
 			svg {
-				color: var(--color-danger);
+				color: var(--onyx-color-danger);
 			}
 
 			&:hover {
-				background-color: var(--color-danger);
+				background-color: var(--onyx-color-danger);
 			}
 		}
 	}
