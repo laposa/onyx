@@ -27,9 +27,9 @@ function unixtime() {
  * ajax loader
  */
  
-function makeAjaxRequest(jquery_selector, url, complete_callback) {
-    htmx.ajax('GET', url, jquery_selector).then(() => {
-        popupMessage( jquery_selector + ' div.onyx-messages');
+function makeAjaxRequest(selector, url, complete_callback) {
+    htmx.ajax('GET', url, {source: selector, target: selector}).then(() => {
+        popupMessage( selector + ' div.onyx-messages');
         if (jQuery.isFunction(complete_callback)) complete_callback();
     });
 }
