@@ -13,7 +13,7 @@ body {font-size: 12px; color: black; font-family: "Lucida Grande", "Helvetica Ne
 h2 a, h3 a, h4 a {color: white;}
 h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 100; font-size: 40px; margin-top: 0; padding: 0; color: #666;}
 h1 span.info { font-weight: normal; float: right; font-size: 14px; background: #f0f0f0; border: 1px solid #ddd; text-shadow: 0 -1px 0 #fff; border-radius: 20px; padding: 3px 16px; margin: 9px 0 0 0; }
-h2 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 600; color: var(--color-primary); font-size: 1.5rem;}
+h2 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 600; color: var(--onyx-color-primary); font-size: 1.5rem;}
 p:first-child {margin-top: 0;}
 caption, h3, h4 { font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
@@ -42,7 +42,7 @@ button:focus { outline: none; }
 a.add,
 button.add,
 button,
-a.button.primary { background: var(--color-primary); color: #ffffff; border: 1px solid var(--color-primary);}
+a.button.primary { background: var(--onyx-color-primary); color: #ffffff; border: 1px solid var(--onyx-color-primary);}
 a.button.remove,
 button.remove { background: #d74343; color: #ffffff; border: 1px solid #d74343; }
 a.button.remove:hover,
@@ -52,7 +52,7 @@ a.button.ui-button { box-shadow: none; }
 button.small,
 a.button.small { height: 22px; line-height: 22px; padding: 0 8px;}
 button:hover,
-a.button:hover { text-decoration: none; color: var(--color-primary); background-color: white;}
+a.button:hover { text-decoration: none; color: var(--onyx-color-primary); background-color: white;}
 button.add:hover,button.save:hover, a.add:hover {color: white; background-color:rgb(68, 126, 129)}
 
 /*
@@ -74,14 +74,14 @@ a.onyx-nopublish span,
  
 table { margin-top: 0; width: 100%; color: black; border-radius: 10px; border: 0; box-shadow: 0 0 6px 2px rgba(0,0,0, 0.05); padding: 15px;}
 td, th { vertical-align: middle; text-align: left; padding: 10px 15px; }
-th { text-transform: uppercase; background-color: var(--color-primary); color: white; }
-tbody tr:nth-child(2n) td { background: var(--color-background-light);}
+th { text-transform: uppercase; background-color: var(--onyx-color-primary); color: white; }
+tbody tr:nth-child(2n) td { background: var(--onyx-color-background-light);}
 tbody tr:nth-child(2n+1) td { background: white; }
 div.layout-column-wrapper > table {background: #FDFDFD; width: 100%; margin-top: 0; }
 table a {color: black; text-decoration: none;}
 table a:hover {text-decoration: underline;}
 td td {border-top: 0; border-bottom: 0;}
-caption {color: white; margin: 0; padding-left: 15px; text-transform: uppercase; text-align: left; border: none; background: var(--color-primary); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;}
+caption {color: white; margin: 0; padding-left: 15px; text-transform: uppercase; text-align: left; border: none; background: var(--onyx-color-primary); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;}
 thead th:first-child { border-top-left-radius: 5px;}
 thead th:last-child { border-top-right-radius: 5px;}
 tfoot { border: none !important; }
@@ -135,7 +135,7 @@ div.onyx-messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; fo
 div.onyx-messages p.onyx-error-msg {background: transparent url(/share/images/icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
 
 .error-message {
-  color: var(--color-danger);
+  color: var(--onyx-color-danger);
   padding: 10px;
   width: 100%;
   background-color: #fbeaea;
@@ -224,7 +224,7 @@ div.wrapper {
   width: 100%;
   min-width: 50%;
   padding: 0 10px;
-  border-left: 2px solid var(--color-primary);
+  border-left: 2px solid var(--onyx-color-primary);
   position: relative;
 }
 

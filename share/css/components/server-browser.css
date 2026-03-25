@@ -357,7 +357,7 @@
       }
 
       &:hover {
-        background-color: var(--color-background-light);
+        background-color: var(--onyx-color-background-light);
       }
     }
 
