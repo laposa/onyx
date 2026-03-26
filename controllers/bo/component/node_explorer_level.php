@@ -47,10 +47,6 @@ class Onyx_Controller_Bo_Component_Node_Explorer_Level extends Onyx_Controller {
             $this->tpl->parse('content.item');
         }
 
-        if(count($children) == 0 || $level == count($active_path) - 1) {
-            $this->tpl->parse('content.action_buttons');
-        }
-
         return true;        
     }
 }
