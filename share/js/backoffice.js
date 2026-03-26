@@ -379,7 +379,7 @@ function trashNode(event, id) {
             opacity: 0.5, 
             background: 'black'
         }, 
-        title: 'Move node to bin', 
+        title: 'Move itrem to bin', 
         close: function() {
             $('#onyx-dialog').empty();
         },
