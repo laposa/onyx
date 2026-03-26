@@ -18,19 +18,15 @@
     <span class="item-label">{ITEM.title|htmlspecialchars}</span>
 </li>
 <!-- END: item -->
-<!-- BEGIN: action_buttons -->
-<li class="action-buttons">
-    <button
-        hx-get="/request/bo/component/x_node_add?parent={GET.id}"
-        class="button add" 
-        id="button-add-subpage"
-        hx-trigger="click"
-        hx-target="#edit-dialog .content"
-        hx-indicator="#edit-loading"
-        hx-swap="innerHTML"
-        hx-on::before-request="openDialog()">
-        Add Node
-    </button>
-</li>
-<!-- END: action_buttons -->
+<button
+    hx-get="/request/bo/component/x_node_add?parent={GET.id}"
+    class="button add" 
+    id="button-add-subpage"
+    hx-trigger="click"
+    hx-target="#edit-dialog .content"
+    hx-indicator="#edit-loading"
+    hx-swap="innerHTML"
+    hx-on::before-request="openDialog()">
+    Add Item
+</button>
 <!-- END: content -->
