@@ -330,12 +330,12 @@ div.product-list tbody tr.odd td { background: #fcfcfc;}
 .invisible { opacity: 0; transition: all 400ms ease; -webkit-transform: translateX(-10px); transform: translateX(-10px); }
 .visible.visible { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0);}
 
-div.two-column-page { padding: 0 20px; margin: 0; width: 100%; height: 100%; overflow-y: auto;}
+div.two-column-page { padding: 0 20px; margin: 0; width: 100%; height: 100%;}
 div.two-column-page div.two-column-page { padding: 0; margin: 0;}
 
 
 div.popup div.row-bottom div.row-wrapper { margin: 0; }
-div.page-header { height: 50px; border-bottom: 1px solid #e0e0e0; margin: 0 0 10px 0; }
+div.page-header { border-bottom: 1px solid #e0e0e0; margin: 0 0 10px 0; }
 div.page-header h1 { font-size: 30px; }
 div.horizontal-filter { border-bottom: 1px solid #e0e0e0; margin: 0 0 20px 0; height: 64px;}
 div.horizontal-filter form { margin: 0; }
@@ -482,7 +482,7 @@ div.row-middle:after,
 div.row-bottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
 div.page div.page-wrapper {padding: 0;}
 div.page div.row-bottom {clear: both;}
-div.page {overflow-y: auto; width: 100%; padding: 0 20px;}
+div.page {width: 100%; padding: 0 20px;}
 
 /********* component/pagination.html *********/
   div.pagination {margin: 5px 0; text-align: center;}
