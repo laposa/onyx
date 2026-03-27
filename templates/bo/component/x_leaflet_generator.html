@@ -12,7 +12,10 @@
 
 			<br>
 			
-			{ONYX_REQUEST_leaflet_preview #bo/component/file_list~type=add_to_node:relation=node:node_id=GET.node_id~}
+			<div
+				hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={NODE.id}"
+				hx-trigger="load, refreshLeaflet from:body">
+			</div>
 
 			<!-- TODO: list of hotspots? expandable or only in edit? -->
 
@@ -32,76 +35,80 @@
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
-			<form id="leaflet-generator-edit">
-        <h2>Leaflet Generator Edit</h2>
+		<form id="leaflet-generator-edit">
+			<h2>Leaflet Generator Edit</h2>
 
-				<!-- BEGIN: error -->
-					<div class="error-message">
-						An error occurred while processing your request.
-					</div>
-				<!-- END: error -->
-
-				<!-- BEGIN: no_file -->
-					<div class="error-message">
-						No PDF file found for conversion.
-					</div>
-				<!-- END: no_file -->
-
-				<span class="label">
-					Files:<br>
-					1: Source PDF File<br>
-					Other: Individual Pages
-				</span>
-
-				<br>
-
-				{ONYX_REQUEST_leaflet_edit #bo/component/file_list~type=add_to_node:relation=node:node_id=GET.node_id~}
-
-				<!-- 
-					TODO: refresh this+image list
-					TODO: conjoin with image list, get rid of relations
-					TODO: check for changes - confirm re-generating / or just add confirm dialog
-					TODO: hotspot list? nice to have?
-					TODO: tooltip with step-by-step instructions
-					TODO: special component? readable/expandable json or list of hotspots or both?
-				-->
-
-				<button
-					hx-get="/request/bo/component/x_leaflet_generator?node_id={NODE.id}&edit=true&generate=true"
-					hx-trigger="click"
-					hx-target="#leaflet-generator-edit"
-					hx-swap="innerHTML"
-					hx-indicator="#edit-loading">
-					Generate PDF Brochure
-				</button>
-
-				<br>
-
-        <div class="row text">
-					<label for="pdf-manifest">
-						PDF2Web Manifest:
-					</label>
-					<textarea name="node[custom_fields][pdf2Web]" id="pdf-manifest" readonly>{NODE.custom_fields.pdf2Web|htmlspecialchars}</textarea>
+			<!-- BEGIN: error -->
+				<div class="error-message">
+					An error occurred while processing your request.
 				</div>
+			<!-- END: error -->
 
-				<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-				<input type="hidden" name="node[id]" value="{GET.node_id}" />
-
-				<div class="edit-actions">
-						<button 
-								hx-indicator="#edit-loading"
-								hx-post="/request/bo/component/x_leaflet_generator"
-								class="btn" 
-								type="submit" 
-								name="save" 
-								value="save" 
-								id="saveAndClose"
-						>
-								Save & Close
-						</button>
-
-						<button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+			<!-- BEGIN: no_file -->
+				<div class="error-message">
+					No PDF file found for conversion.
 				</div>
-			</form>
+			<!-- END: no_file -->
+
+			<span class="label">
+				Files:<br>
+				1: Source PDF File<br>
+				Other: Individual Pages
+			</span>
+
+			<br>
+
+			<div
+				hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={NODE.id}"
+				hx-trigger="load">
+			</div>
+
+			<button
+				hx-get="/request/bo/component/x_leaflet_generator?node_id={NODE.id}&edit=true&generate=true"
+				hx-trigger="click"
+				hx-target="#leaflet-generator-edit"
+				hx-swap="innerHTML"
+				hx-indicator="#edit-loading">
+				Generate PDF Brochure
+			</button>
+
+			<br>
+
+			<div class="row text">
+				<label for="pdf-manifest">
+					PDF2Web Manifest:
+				</label>
+				<textarea name="node[custom_fields][pdf2Web]" id="pdf-manifest" readonly>{NODE.custom_fields.pdf2Web|htmlspecialchars}</textarea>
+			</div>
+
+			<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+			<input type="hidden" name="node[id]" value="{GET.node_id}" />
+
+			<div class="edit-actions">
+					<button 
+							hx-indicator="#edit-loading"
+							hx-post="/request/bo/component/x_leaflet_generator"
+							class="btn" 
+							type="submit" 
+							name="save" 
+							value="save" 
+							id="saveAndClose"
+					>
+							Save & Close
+					</button>
+
+					<button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+			</div>
+
+			<script type="text/javascript">
+				function refreshLeafletImages() {
+					console.log('tadá');
+					htmx.ajax('GET', '/request/bo/component/file_list?type=add_to_node&relation=node&node_id={NODE.id}', {
+						target: 'dialog #file-list-{NODE.id}',
+						swap: 'innerHTML',
+					});
+				}
+			</script>
+		</form>
     <!-- END: edit -->
 <!-- END: content -->

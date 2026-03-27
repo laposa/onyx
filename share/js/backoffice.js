@@ -50,7 +50,7 @@ document.addEventListener('htmx:afterRequest', (event) => {
 
     if (event.target.dataset.action == 'addProduct' || event.target.dataset.action == 'addStore' || event.target.dataset.action == 'addRecipe') {
         closeDialog();
-        htmx.trigger('#node-explorer', 'loadDetail', {nodeId: event.target.dataset.nodeId});
+        htmx.trigger('#node-properties-edit', 'loadDetail');
     }
 
     if (event.target.dataset.action == 'addFolder') {

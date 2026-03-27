@@ -3,7 +3,9 @@
     @import url(/share/css/components/node-explorer.css?{ONYX_CACHE_VERSION});
 </style>
 <script>
-    initializeDragAndDrop();
+    $(function() {
+        initializeDragAndDrop();
+    });
 
     // rewrite url on page select
     $(document).on('click', '.navigation-list li', function(e) {
