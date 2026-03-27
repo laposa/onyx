@@ -27,7 +27,7 @@
     <div 
         id="node-properties-edit"
         hx-swap="innerHTML"
-        hx-trigger="load"
+        hx-trigger="load, loadDetail from:body"
         hx-indicator="#detail-loading"
         hx-get="/request/bo/component/node_edit~id={CONTENT_ID}~">
     </div>

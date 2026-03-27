@@ -60,6 +60,7 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
                     // Add images to node
                     $this->appendImagesToNode($folderPath, $manifest);
                     $this->node_data['custom_fields']->pdf2Web = $manifest;
+                    header('HX-Trigger: refreshLeaflet');
                 } else {
                     $this->tpl->parse('content.error');
                 }
