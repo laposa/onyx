@@ -99,22 +99,22 @@
 
                 parentId = acceptChild.dataset.sourceId;
                 parentTitle = acceptChild.querySelector('.item-label').innerText;
-                message = "Are you sure you want to move the node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") under the parent node \"" + parentTitle + "\" (" + parentId + ")?"
+                message = "Are you sure you want to move item \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") under the parent node \"" + parentTitle + "\" (" + parentId + ")?"
                 draggedItem.remove();
             } else if (sourceList === targetList) {
                 // dragging in the same column
                 parentId = draggedItem.dataset.parentId || 0;
                 position = [...draggedItem.parentElement.children].indexOf(draggedItem);
-                message = "Are you sure you want to move the node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") to a new position " + (position + 1) + "?"
+                message = "";
             } else {
                 //dragging between different columns
                 parentId = targetList.dataset.parentId || 0;
                 position = [...draggedItem.parentElement.children].indexOf(draggedItem);
                 parentTitle = parentId == 0 ? 'Home' : document.querySelector('#navigation-node-' + parentId + ' .item-label').innerText;
-                message = "Are you sure you want to move the node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") under the parent node \"" + parentTitle + "\" (" + parentId + ") to position " + (position + 1) + "?"
+                message = "Are you sure you want to move item \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") under the parent node \"" + parentTitle + "\" (" + parentId + ") to position " + (position + 1) + "?"
             }
             
-            if (confirm(message)) {
+            if (message.length == 0 || confirm(message)) {
                 document.querySelector('#explorer-loading').classList.add('htmx-request');
                 updateNodePosition(sourceNodeId, parentId, position, function() {
                     //adding has-children class to new parent if necessary
