@@ -1,114 +1,21 @@
-<!-- BEGIN: head -->
-<script type="text/javascript">
-$(document).ready(function(){
-    $('ul.component-template-menu div.server-browser-menu .simple-tree').simpleTree({
-        drag: false,
-        autoclose: true,
-        afterClick:function(node){
-            var open_dir = $('a:first', node).attr('href').replace('#', '');
-            $('#component-template').attr('value', open_dir + '.html');
-            return false;
-        },
-    });
-    
-    $('ul.controller-menu div.server-browser-menu .simple-tree').simpleTree({
-        drag: false,
-        autoclose: true,
-        afterClick:function(node){
-            var open_dir = $('a:first', node).attr('href').replace('#', '');
-            $('#component-controller').attr('value', open_dir + '.php');
-            return false;
-        },
-    });
-    
-    $("#node-edit-component").tabs();
-});
-
-function serverBrowserOpenDir(open_dir) {
-    //empty, required - part of server_browser_menu
-}
-</script>
-<!-- END: head -->
 <!-- BEGIN: content -->
 {FILE "bo/node/shared_header_content.html"}
     
-    <!-- BEGIN: variables -->
-        <h3>Content Variables</h3>
-        <!-- BEGIN: item -->
-        <ul>
-            <li><a class="{ITEM.class}" href="javascript:void({ITEM.id})" onclick="openEdit('/popup/properties/{ITEM.id}/orig' + window.location.pathname)" title="Modified: {ITEM.modified|htmlspecialchars}">{ITEM.title|htmlspecialchars}</a>
-        </ul>
-        <!-- END: item -->
-    <!-- END: variables -->
-    
-    <div id="node-edit-component" style="clear: both">
-        <ul class="ui-tabs-nav">
-            <li class="active"><a href="#onyx-template"><span>Template</span></a></li>
-            <li><a href="#onyx-controller"><span>Controller</span></a></li>
-            <li><a href="#onyx-parameters"><span>Parameters</span></a></li>
-        </ul>
-    
-    
-        <div id="onyx-template">
-            <fieldset>
-                <div class="row">
-                    <label>Template</label>
-                    <input type="text" class="text long" id="component-template" name="node[component][template]" value="{NODE.component.template}" />
-                </div>
-                <div class="row">
-                    <div id="template">
-                        <ul class="component-template-menu">
-                            <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
-                                <a href="#"><span>Local</span></a>
-                                {ONYX_REQUEST_template_project #bo/component/server_browser_menu~directory=templates/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
-                            </li>
-                            
-                            <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
-                                <a href="#"><span>Global</span></a>
-                                {ONYX_REQUEST_template_onyx #bo/component/server_browser_menu~directory=templates/component/:scope=onyx:trim_extension=1:expand_all=1:id=null~}
-                            </li>
-                            
-                        </ul>   
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        
-        <div id="onyx-controller">
-            <fieldset>
-                <div class="row">
-                    <label>Controller</label>
-                    <input type="text" class="text long" id="component-controller" name="node[component][controller]" value="{NODE.component.controller}" />
-                </div>
-                <div class="row">
-                    <div id="controller">
-                        <ul class="controller-menu">
-                            <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
-                                <a href="#"><span>Local</span></a>
-                                {ONYX_REQUEST_controller_project #bo/component/server_browser_menu~directory=controllers/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
-                            </li>
-                            <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
-                                <a href="#"><span>Global</span></a>
-                                {ONYX_REQUEST_controller_onyx #bo/component/server_browser_menu~directory=controllers/component/:scope=onyx:trim_extension=1:expand_all=1:id=null~}
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-
-        <div id="onyx-parameters" class="onyx-tabulatorX ui-tabs-panel">
-            <fieldset>
-                <div class="row">
-                    <label>GET parameters:</label>
-                    <input type="text" class="text long" name="node[component][parameter]" value="{NODE.component.parameter}" />
-                </div>
-            </fieldset>
-        </div>
+<fieldset>
+    <div class="row">
+        <label>Template</label>
+        <input type="text" class="text long" id="component-template" name="node[component][template]" value="{NODE.component.template}" />
     </div>
+    <div class="row">
+        <label>Controller</label>
+        <input type="text" class="text long" id="component-controller" name="node[component][controller]" value="{NODE.component.controller}" />
+    </div>
+    <div class="row">
+        <label>GET parameters:</label>
+        <input type="text" class="text long" name="node[component][parameter]" value="{NODE.component.parameter}" />
+    </div>
+</fieldset>
 
-    <br/>
 
 {FILE "bo/node/shared_footer.html"}
 <!-- END: content -->
