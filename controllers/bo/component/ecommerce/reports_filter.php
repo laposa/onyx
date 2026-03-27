@@ -20,14 +20,19 @@ class Onyx_Controller_Bo_Component_Ecommerce_Reports_Filter extends Onyx_Control
         if (is_array($this->GET['reports-filter'])) $_SESSION['bo']['reports-filter'] = $this->GET['reports-filter'];
         
         /**
+         * find date range
+         */
+
+        $date_range = $this->getDateRange();
+
+        /**
          * if SESSION is empty, create default values
          */
-         
+
         if (!is_array($_SESSION['bo']['reports-filter'])) {
         
             $_SESSION['bo']['reports-filter'] = array();
-            
-            $date_range = $this->getDateRange();
+                
             $_SESSION['bo']['reports-filter']['from'] = $date_range['from'];
             $_SESSION['bo']['reports-filter']['to'] = $date_range['to'];
         }
@@ -62,8 +67,10 @@ class Onyx_Controller_Bo_Component_Ecommerce_Reports_Filter extends Onyx_Control
             $range['to'] = $_GET['reports-filter']['to'];
             
         } else if (is_array($_SESSION['bo']['reports-filter'])) {
+            
             $range['from'] = $_SESSION['bo']['reports-filter']['from'];
             $range['to'] = $_SESSION['bo']['reports-filter']['to'];
+
         } else {
             //get actual date
             $this_year = date('Y');

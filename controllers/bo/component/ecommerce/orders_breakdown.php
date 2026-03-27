@@ -81,7 +81,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onyx_Contr
                     $row['delivery'] = $delivery_name;
                     $row['vat_rate'] = $vat_rate;
                     $row['gross_post_discount'] = $row['gross_pre_discount'] + $row['discount'];
-                    $row['net_post_discount'] = $row['gross_post_discount'] / ((100 + $vat_rate) / 100);
+                    $row['net_post_discount'] = $row['gross_post_discount'] / ((100 + (float)$vat_rate) / 100);
                     $row['vat'] = $row['gross_post_discount'] - $row['net_post_discount'];
 
                     $totals['gross_pre_discount'] += $row['gross_pre_discount'];
