@@ -76,7 +76,7 @@ class Onyx_Controller_Bo_Component_X_Store_Taxonomy extends Onyx_Controller_Bo_C
             // insert items which were submitted and not in the database yet
             foreach ($submitted as $taxonomy_tree_id) {
                 if (!isset($current[$taxonomy_tree_id])) {
-                    if ($taxonomy->insert(array('node_id' => $_POST['product']['id'], 'taxonomy_tree_id' => $taxonomy_tree_id))) {
+                    if ($taxonomy->insert(array('node_id' => $_POST['store']['id'], 'taxonomy_tree_id' => $taxonomy_tree_id))) {
                         msg("Relation to the category $taxonomy_tree_id has been added.", 'ok', 1);
                     }
                 }
