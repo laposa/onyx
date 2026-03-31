@@ -66,39 +66,6 @@
 	hx-indicator="#visibility-loading">
 </div>
 
-<!-- Node Images -->
-<fieldset id="component-node-images" class="component-preview">
-	<div id="node-images-loading" class="onyx-loading htmx-indicator">
-        <img src="/share/images/loading.svg" alt="Loading..."/>
-	</div>
-
-	<legend>Images</legend>
-
-	<span class="label">Files:</span>
-	<br>
-
-	<!-- TODO: missing dialog title. Create special component for file/product list? -->
-	<div 
-		id="file-list"
-		hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
-		hx-trigger="load, refresh"
-		hx-indicator="#node-images-loading">
-	</div>
-	
-	<div class="component-actions">
-		<button
-			hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
-			hx-target="#edit-dialog .content"
-			hx-indicator="#edit-loading"
-			hx-trigger="click"
-			hx-swap="innerHTML"
-			hx-on::before-request="openDialog()"
-			class="btn">
-			Edit
-		</button>
-	</div>
-</fieldset>
-
 <!-- Categories/Tags -->
 <div 
 	id="relation-taxonomy"
