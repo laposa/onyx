@@ -6,8 +6,11 @@
             <img src="/share/images/loading.svg" alt="Loading..."/>
         </div>
         
-        <legend>Street View</legend>
-
+        <legend>Geo-Location</legend>
+        <span class="label">Latitude:</span>
+        <span class="value">{STORE.latitude|htmlspecialchars}</span>
+        <span class="label">Longitude:</span>
+        <span class="value">{STORE.longitude|htmlspecialchars}</span>
         <span class="label">Street View Image:</span>
         <span class="value"><img src="{STREET_VIEW_URL}" alt="Street View Image" /></span>
 
@@ -28,23 +31,10 @@
 
     <!-- BEGIN: edit -->
     <form id="store-street-view-edit">
-        <h2>Edit Street View</h2>
+        <h2>Edit Geo-Location</h2>
 
         <div class="street-view-options">
             <div class="inputs">
-                <!-- Image Shown -->
-                <div class="row select">
-                    <span class="label"><label>Show Image:</label></span>
-                    <span class="field">
-                        <select id="store-image-shown" name="store[street_view_options][image]" value="{STORE.street_view_options.image}">
-                            <option>Select Image to be displayed</option>
-                            <option value="0" {STREET_VIEW_IMAGE_0}>Show Generic Store Image</option>
-                            <option value="1" {STREET_VIEW_IMAGE_1}>Show Street View Image</option>
-                            <option value="2" {STREET_VIEW_IMAGE_2}>Show Attached Image</option>
-                        </select>
-                    </span>
-                </div>
-
                 <!-- Latitude-->
                 <div class="row text">
                     <span class="label"><label>Latitude</label></span>
@@ -60,6 +50,19 @@
                         <input type="text" id="sv-lng" class="longitude" name="store[longitude]" value="{STORE.longitude|htmlspecialchars}" />
                     </span>
                 </div>
+                <!-- Image Shown -->
+                <div class="row select">
+                    <span class="label"><label>Show Image:</label></span>
+                    <span class="field">
+                        <select id="store-image-shown" name="store[street_view_options][image]" value="{STORE.street_view_options.image}">
+                            <option>Select Image to be displayed</option>
+                            <option value="0" {STREET_VIEW_IMAGE_0}>Show Generic Store Image</option>
+                            <option value="1" {STREET_VIEW_IMAGE_1}>Show Street View Image</option>
+                            <option value="2" {STREET_VIEW_IMAGE_2}>Show Attached Image</option>
+                        </select>
+                    </span>
+                </div>
+
             </div>
 
             <div class="inputs">
