@@ -23,6 +23,13 @@
 	hx-indicator="#store-address-loading">
 </div>
 
+<!-- Store Street View -->
+<div id="store-street-view"
+	hx-get="/request/bo/component/x_store_street_view?store_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#store-street-view-loading">
+</div>
+
 <!-- Store Management Info -->
 <div id="store-management-info"
 	hx-get="/request/bo/component/x_store_management_info?store_id={NODE.content}"
@@ -45,13 +52,6 @@
 	hx-indicator="#store-images-loading">
 </div>
 
-<!-- Store Street View -->
-<div id="store-street-view"
-	hx-get="/request/bo/component/x_store_street_view?store_id={NODE.content}"
-	hx-trigger="load, refresh"
-	hx-indicator="#store-street-view-loading">
-</div>
-
 <!-- Metadata -->
 <div id="metadata"
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
@@ -64,14 +64,6 @@
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#visibility-loading">
-</div>
-
-<!-- Categories/Tags -->
-<div 
-	id="relation-taxonomy"
-	hx-get="/request/bo/component/x_relation_taxonomy?relation=node&node_id={GET.id}"
-	hx-trigger="load, refresh"
-	hx-indicator="#relation-taxonomy-loading">
 </div>
 
 <!-- QR Code -->
