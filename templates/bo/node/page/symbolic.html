@@ -15,6 +15,7 @@
 	hx-indicator="#metadata-loading">
 </div>
 
+<!-- Redirect -->
 <div id="redirect"
 	hx-get="/request/bo/component/x_redirect?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -34,38 +35,6 @@
 	hx-trigger="load, refresh"
 	hx-indicator="#visibility-loading">
 </div>
-
-<!-- Node Images -->
-<fieldset id="component-node-images" class="component-preview">
-	<div id="node-images-loading" class="onyx-loading htmx-indicator">
-        <img src="/share/images/loading.svg" alt="Loading..."/>
-	</div>
-
-	<legend>Images</legend>
-
-	<span class="label">Files:</span>
-	<br>
-
-	<div 
-		id="file-list"
-		hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
-		hx-trigger="load, refresh"
-		hx-indicator="#node-images-loading">
-	</div>
-	
-	<div class="component-actions">
-		<button
-			hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
-			hx-target="#edit-dialog .content"
-			hx-indicator="#edit-loading"
-			hx-trigger="click"
-			hx-swap="innerHTML"
-			hx-on::before-request="openDialog()"
-			class="btn">
-			Edit
-		</button>
-	</div>
-</fieldset>
 
 <!-- Position -->
 <div id="node-position"

@@ -180,6 +180,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
                     case 'add_to_taxonomy':
                     case 'CSS':
                     case 'file':
+                    default:
                         $this->tpl->parse('content.list.item.add_to_node');
                     break;
                     case 'database_import':

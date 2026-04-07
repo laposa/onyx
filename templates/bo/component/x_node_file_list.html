@@ -1,0 +1,87 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+<style>
+    @import url(/share/css/components/node-files.css?{ONYX_CACHE_VERSION});
+</style>
+
+<!-- BEGIN: list -->
+<div class="node-files-wrapper" data-node-id="{GET.node_id}" data-relation="{GET.relation}">
+    <!-- BEGIN: item -->
+    <div class="row-file" data-file-id="{FILE.id}">
+        <img 
+            class="node-img" 
+            src="/thumbnail/100x100/{FILE.src}" 
+            alt="{FILE.title}" 
+            hx-get="/request/bo/component/file_edit?file_id={FILE.id}&relation={GET.relation}&node_id={GET.node_id}&role={GET.role}"
+            hx-on::before-request="openFileDialog();"
+            hx-target="#file-dialog .content"
+            hx-trigger="click"
+            hx-indicator="#file-loading"
+        />
+        <span 
+            class="file-name"
+            hx-get="/request/bo/component/file_edit?file_id={FILE.id}&relation={GET.relation}&node_id={GET.node_id}&role={GET.role}"
+            hx-on::before-request="openFileDialog();"
+            hx-target="#file-dialog .content"
+            hx-trigger="click"
+            hx-indicator="#file-loading"
+        >
+            {FILE.title}
+        </span>
+        <div class="file-actions">
+            <button 
+                class="button remove"
+                hx-post="/request/bo/component/file_edit"
+                hx-swap="none"
+                hx-indicator="#edit-loading"
+                hx-on::after-request="afterUnlink(this)"
+                hx-vals='{
+                    "file[id]": "{FILE.id}",
+                    "file[title]": "{FILE.title}",
+                    "unlink": "unlink",
+                    "relation": "{GET.relation}",
+                    "csrf_token": "{CSRF_TOKEN}",
+                    "node_id": "{GET.node_id}"
+                }'>
+                Unlink
+            </button>
+        </div>
+    </div>
+    <!-- END: item -->
+</div>
+<!-- END: list -->
+
+<div class="edit-actions">
+    <button 
+        class="button primary add-file" 
+        title="Add file" 
+        hx-get="/request/bo/pages/server_browser?relation={GET.relation}&node_id={GET.node_id}"
+        hx-target="#file-dialog .content"
+        hx-trigger="click"
+        hx-indicator="#file-loading"
+        hx-on::before-request="openFileDialog();"
+    >
+        Add file
+    </button>
+
+    <button class="btn secondary" type="button" onclick="closeDialog()">Close</button>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#file-list-edit .node-files-wrapper").sortable({
+            scroll: true,
+            placeholder: 'placeholder',
+
+            stop: function(event, ui) {
+                repositionFile(event, ui);
+            },
+        });
+    });
+
+    function afterUnlink(event) {
+        event.parentElement.parentElement.remove();
+        htmx.trigger("#file-list-preview", "refresh");
+    }
+</script>
+<!-- END: content -->

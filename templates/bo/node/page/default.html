@@ -24,36 +24,11 @@
 </div>
 
 <!-- Node Images -->
-<fieldset id="component-node-images" class="component-preview">
-	<div id="node-images-loading" class="onyx-loading htmx-indicator">
-        <img src="/share/images/loading.svg" alt="Loading..."/>
-	</div>
-
-	<legend>Images</legend>
-
-	<span class="label">Files:</span>
-	<br>
-
-	<div 
-		id="file-list"
-		hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
-		hx-trigger="load, refresh"
-		hx-indicator="#node-images-loading">
-	</div>
-	
-	<div class="component-actions">
-		<button
-			hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
-			hx-target="#edit-dialog .content"
-			hx-indicator="#edit-loading"
-			hx-trigger="click"
-			hx-swap="innerHTML"
-			hx-on::before-request="openDialog()"
-			class="btn">
-			Edit
-		</button>
-	</div>
-</fieldset>
+<div id="node-images"
+	hx-get="/request/bo/component/x_node_files?node_id={GET.id}&relation=node&type=add_to_node"
+	hx-trigger="load"
+	hx-indicator="#node-images-loading">
+</div>
 
 <!-- Categories/Tags -->
 <div 

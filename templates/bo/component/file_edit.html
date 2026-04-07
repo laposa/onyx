@@ -1,25 +1,13 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-
-<script type="text/javascript"> 
-    // post-submit callback 
-    function afterFileEditRequest() { 
-        closeFileDialog();
-        $('#edit-loading').addClass('htmx-request');
-        htmx.ajax('GET', "/request/bo/component/file_list?type={GET.type}&relation={GET.relation}&node_id={GET.node_id}", "#edit-dialog #file-list-{GET.node_id}").then(() => {
-            $('#edit-loading').removeClass('htmx-request');
-        });
-    }
-</script> 
-
 <form 
     class="file-edit image-dialog" 
     hx-post="{URI|htmlspecialchars}" 
     hx-swap="innerHTML"
     id="file-edit-{FILE.id}"
-    data-action="editFile"
     hx-on::after-request="afterFileEditRequest()"
     hx-indicator="#file-loading"
+    data-action="editFile"
 >
     <h2>File Edit</h2>
 
@@ -66,7 +54,6 @@
         </div>
     </div>
 
-    
     <input type="hidden" name="file[id]" value="{FILE.id}" />
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
     <input type="hidden" name="node_id" value="{GET.node_id}" />
@@ -84,7 +71,7 @@
             Replace
         </button>
     
-        <button  type="submit" name="unlink" value="unlink" class="button remove">Unlink</button>
+        <button type="submit" name="unlink" value="unlink" class="button remove">Unlink</button>
     </div>
 </form>
 <!-- END: content -->

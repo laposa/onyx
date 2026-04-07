@@ -46,8 +46,8 @@
 </div>
 
 <!-- Store Images -->
-<div id="store-images"
-	hx-get="/request/bo/component/x_store_images?store_id={NODE.content}"
+<div id="node-images"
+	hx-get="/request/bo/component/x_node_files?node_id={NODE.content}&relation=store&type=add_to_store"
 	hx-trigger="load, refresh"
 	hx-indicator="#store-images-loading">
 </div>

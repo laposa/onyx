@@ -15,32 +15,18 @@ class Onyx_Controller_Bo_Component_File_Edit extends Onyx_Controller_Bo_Componen
     public function mainAction() {
     
         $file_id = $this->GET['file_id'];
-        $type = $this->GET['type'];
-        $relation = $this->GET['relation'];
+        $relation = $_POST['relation'] ?? $this->GET['relation'] ?? 'node';
         $file = $this->initializeFile($relation);
         $file_data = $file_id ? $file->getFileDetail($file_id) : $_POST['file'];
 
-        $this->tpl->assign('IMAGE_CONF', $file->conf);
-        
-        if ($file_data) {
+        if($file_data) {
             $this->tpl->assign('FILE', $file_data);
-
-            switch ($type) {
-            
-                case'RTE':
-                    $this->tpl->parse("content.RTE_select");
-                break;
-                case 'CSS':
-                    $this->tpl->parse("content.CSS_select");
-                break;
-                case 'file':
-                    //nothing
-                break;
-                default:
-                    $this->tpl->parse("content.default");
-                break;
-            }
+        } else {
+            msg('Could not load file details', 'error');
+            return false;
         }
+
+        $this->tpl->assign('IMAGE_CONF', $file->conf);
 
         if ($_POST['save'] ?? false) {
             if ($file->updateFile($_POST['file'])) {
@@ -48,6 +34,7 @@ class Onyx_Controller_Bo_Component_File_Edit extends Onyx_Controller_Bo_Componen
             } else {
                 msg("Cannot update file {$file_data['title']}", 'error');
             }
+            return true;
         }
 
         if ($_POST['unlink'] ?? false) {
@@ -56,6 +43,7 @@ class Onyx_Controller_Bo_Component_File_Edit extends Onyx_Controller_Bo_Componen
             } else {
                 msg("Cannot unlink file {$file_data['title']}", 'error');
             }
+            return true;
         }
 
         $this->tpl->assign('OPEN', str_replace([$file_data['info']['filename'], 'var/files/'], '', $file_data['src']));

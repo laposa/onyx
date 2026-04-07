@@ -20,10 +20,10 @@
 	hx-indicator="#recipe-ingredients-loading">
 </div>
 
-<div id="recipe-images"
-	hx-get="/request/bo/component/x_recipe_images?recipe_id={NODE.content}"
+<div id="node-images"
+	hx-get="/request/bo/component/x_node_files?node_id={NODE.content}&relation=recipe&type=add_to_recipe"
 	hx-trigger="load, refresh"
-	hx-indicator="#recipe-images-loading">
+	hx-indicator="#node-images-loading">
 </div>
 
 <div id="recipe-video"
