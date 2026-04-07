@@ -43,8 +43,11 @@ document.addEventListener('htmx:afterRequest', (event) => {
 
     if (event.target.dataset.action == 'editFile') {
         closeFileDialog();
-        if(document.getElementById('file-list')) {
-            htmx.trigger('#file-list', 'refresh');
+        if(document.getElementById('file-list-edit')) {
+            htmx.trigger('#file-list-edit', 'refresh');
+        }
+        if(document.getElementById('node-images')) {
+            htmx.trigger('#node-images', 'refresh');
         }
     }
 
@@ -496,6 +499,41 @@ function refreshBin() {
         var refresh_url = '/request/bo/component/bin_node_list';
         makeAjaxRequest('#bin-list', refresh_url);
     }
+}
+
+function repositionFile(event, ui) {
+    var file_id = ui.item.context.dataset.fileId;
+    var node_id = $(ui.item).parent().data('nodeId');
+    var relation = $(ui.item).parent().data('relation');
+    var position = $(ui.item).parent().children().index(ui.item);
+
+    if (file_id && position >= 0) {
+        $('#edit-dialog').addClass('htmx-request');
+        $.post(
+            "/request/bo/component/x_node_file_list", 
+            {
+                csrf_token: getCSRFToken(),
+                file_id: file_id,
+                node_id: node_id,
+                position: position,
+                reposition: true,
+                relation: relation,
+            },
+        ).done(function(data) {
+            if(data) {
+                html_data = $.parseHTML(data);
+                var message = $(html_data).filter('div.onyx-messages').html();
+                growlMessage(message);
+                htmx.trigger('#file-list-preview', 'refresh');
+            } else {
+                console.log('No data returned from request');
+            }
+            $('#edit-dialog').removeClass('htmx-request');
+        });
+    } else {
+        console.log('Missing file_id or position for repositioning file', file_id, position);
+    }
+    
 }
 
 function repositionNode(event, ui, node_group = '') {

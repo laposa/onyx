@@ -6,20 +6,20 @@
             <img src="/share/images/loading.svg" alt="Loading..."/>
         </div>
 
-        <legend>Recipe Images</legend>
+        <legend>Images & Files</legend>
 
-        <span class="label">Files:</span>
         <br>
 
         <div 
-            hx-get="/request/bo/component/file_list?type=add_to_recipe&relation=recipe&node_id={GET.recipe_id}"
+            id="file-list-preview"
+            hx-get="/request/bo/component/file_list?&relation={GET.relation}&node_id={GET.node_id}"
             hx-trigger="load, refresh"
             hx-indicator="#recipe-images-loading">
         </div>
         
         <div class="component-actions">
             <button
-                hx-get="/request/bo/component/file_list?type=add_to_recipe&relation=recipe&node_id={GET.recipe_id}"
+                hx-get="/request/bo/component/x_node_files?node_id={GET.node_id}&relation={GET.relation}&edit=true&type={GET.type}"
                 hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"
@@ -31,4 +31,23 @@
         </div>
     </fieldset>
     <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <div id="node-files-edit" class="node-files">
+        <h2>Edit Files & Images</h2>
+
+        <!-- BEGIN: empty -->
+        <div class="error-message">
+            No files are currently assigned to this content.
+        </div>
+        <!-- END: empty -->
+
+        <div 
+            id="file-list-edit"
+            hx-swap="innerHTML"
+            hx-get="/request/bo/component/x_node_file_list?&relation={GET.relation}&node_id={GET.node_id}"
+            hx-trigger="load, refresh">
+        </div>
+    </div>
+    <!-- END: edit -->
 <!-- END: content -->

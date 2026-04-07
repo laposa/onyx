@@ -5,15 +5,19 @@
     $(document).ready(function(){
         $(document).on('click', '.media-breadcrumbs a, .media-subfolders a', function(e) {
             e.preventDefault();
+            // Only change url when clicking through media library page, not edit dialog
             let newLink = window.location.origin + $(this).attr('href');
 
-            if(window.history.pushState && '{GET.type}' === '') {
+            if(window.history.pushState && '{GET.type}' === '' && !$(this).closest('dialog').length) {
                 window.history.pushState({}, "", newLink);
             }
 
+            $('#server-browser').addClass('htmx-request');
             openDir = $(this).attr('href').replace('/backoffice/media/', '');
             var url = "/request/bo/component/server_browser_file_list~open=" + openDir + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~";
-            makeAjaxRequest('#server-browser-file-list-wrapper', url);
+            makeAjaxRequest('#server-browser-file-list-wrapper', url, () => {
+                $('#server-browser').removeClass('htmx-request');
+            });
             $("#add-new-file").attr('action', '{_SERVER.REDIRECT_URL}?open='+openDir);
         });
     });

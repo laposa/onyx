@@ -23,10 +23,10 @@
 </div>
 
 <!-- Product Images -->
-<div id="product-images"
-	hx-get="/request/bo/component/x_product_images?product_id={NODE.content}"
+<div id="node-images"
+	hx-get="/request/bo/component/x_node_files?node_id={NODE.content}&relation=product&type=add_to_product"
 	hx-trigger="load, refresh"
-	hx-indicator="#product-images-loading">
+	hx-indicator="#node-images-loading">
 </div>
 
 <!-- Product Categories/Tags -->

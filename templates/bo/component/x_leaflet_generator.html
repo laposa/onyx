@@ -1,5 +1,9 @@
 <!-- BEGIN: content -->
 {MESSAGES}
+<style>
+    .node-files button.secondary{ display: none; }
+</style>
+
     <!-- BEGIN: preview -->
     <fieldset id="component-leaflet-generator" class="component-preview">
 			<div id="leaflet-generator-loading" class="onyx-loading htmx-indicator">
@@ -8,11 +12,10 @@
 
 			<legend>Leaflet Generator</legend>
 
-			<span class="label">Files:</span>
-
 			<br>
 			
 			<div
+				id="file-list-preview"
 				hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={NODE.id}"
 				hx-trigger="load, refreshLeaflet from:body">
 			</div>
@@ -58,9 +61,12 @@
 
 			<br>
 
-			<div
-				hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={NODE.id}"
-				hx-trigger="load">
+			<div 
+				id="file-list-edit"
+				class="node-files"
+				hx-swap="innerHTML"
+				hx-get="/request/bo/component/x_node_file_list?&relation=node&node_id={NODE.id}"
+				hx-trigger="load, refresh">
 			</div>
 
 			<button
@@ -86,29 +92,19 @@
 
 			<div class="edit-actions">
 					<button 
-							hx-indicator="#edit-loading"
-							hx-post="/request/bo/component/x_leaflet_generator"
-							class="btn" 
-							type="submit" 
-							name="save" 
-							value="save" 
-							id="saveAndClose"
+						hx-indicator="#edit-loading"
+						hx-post="/request/bo/component/x_leaflet_generator"
+						class="btn" 
+						type="submit" 
+						name="save" 
+						value="save" 
+						hx-on::after-request="closeDialog()"
 					>
 							Save & Close
 					</button>
 
 					<button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
 			</div>
-
-			<script type="text/javascript">
-				function refreshLeafletImages() {
-					console.log('tadá');
-					htmx.ajax('GET', '/request/bo/component/file_list?type=add_to_node&relation=node&node_id={NODE.id}', {
-						target: 'dialog #file-list-{NODE.id}',
-						swap: 'innerHTML',
-					});
-				}
-			</script>
 		</form>
     <!-- END: edit -->
 <!-- END: content -->

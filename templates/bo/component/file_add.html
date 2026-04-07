@@ -1,14 +1,4 @@
 <!-- BEGIN: content -->
-<script type="text/javascript"> 
-
-function showResponse()  { 
-    closeFileDialog();
-    $('#edit-loading').addClass('htmx-request');
-    htmx.ajax('GET', "/request/bo/component/file_list?type={GET.type}&relation={GET.relation}&node_id={GET.node_id}", "#edit-dialog #file-list-{GET.node_id}").then(() => {
-        $('#edit-loading').removeClass('htmx-request');
-    });
-}
-</script> 
 
 {MESSAGES}
 
@@ -17,7 +7,7 @@ function showResponse()  {
     id="file-add"
     class="image-dialog"
     hx-post="{URI|htmlspecialchars}" 
-    hx-on::after-request="showResponse()" 
+    data-action="editFile"
 >
     <h2>Link New File In</h2>
 
