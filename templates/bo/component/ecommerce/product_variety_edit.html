@@ -70,6 +70,10 @@
                                                         <div class="row">
                                                             <span class="label"><label>Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
                                                             <span class="field"><input type="text" class="text short" name="product[variety][weight_gross]" value="{PRODUCT.variety.weight_gross}"/> (Used for postage. Zero weight is free postage.)</span>
+                                                        </div>  
+                                                        <div class="row">
+                                                            <span class="label"><label>Weight Net [{VARIETY_CONF.weight_units}]</label></span>
+                                                            <span class="field"><input type="text" class="text short" name="product[variety][weight]" value="{PRODUCT.variety.weight}"/></span>
                                                         </div>
                                                         <div class="row">
                                                             <span class="label"><label>Priority:</label></span>
@@ -108,13 +112,6 @@
                                             <div class="row">
                                                 {ONYX_REQUEST_rt #bo/component/relation_taxonomy~relation=variety:id=GET.id~}
                                             </div>
-
-                                            <fieldset class="advanced">
-                                                <div class="row">
-                                                    <span class="label"><label>Weight Net [{VARIETY_CONF.weight_units}]</label></span>
-                                                    <span class="field"><input type="text" class="text short" name="product[variety][weight]" value="{PRODUCT.variety.weight}"/></span>
-                                                </div>
-                                            </fieldset>
 
                                             <fieldset class="advanced">
                                                 <legend>Dimensions</legend>
@@ -171,18 +168,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row-middle">
-                                    <div class="row-wrapper">
-                                        <div class="column-one">
-                                            <div class="column-wrapper">
-                                            </div>
-                                        </div>
-                                        <div class="column-two">
-                                            <div class="column-wrapper">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="row-bottom">
                                     <div class="row-wrapper">
                                         <div class="column-wrapper">
@@ -190,7 +175,10 @@
                                             <p>
                                                 <a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
                                             </p>
+                                            <button class="save" type="submit" name="save" value="save"><span>Save</span></button>
 
+                                            <input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
+                                            <input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -198,11 +186,6 @@
                         </div>
                     </div>
             </div>
-
-            <button class="save" type="submit" name="save" value="save"><span>Save</span></button>
-
-            <input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
-            <input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>
         </div>
 
         <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />

@@ -996,7 +996,14 @@ class ecommerce_order extends Onyx_Model {
          * build SQL query
          */
          
-        $sql = "SELECT DISTINCT product.id AS product_id, product.name AS product_name, product_variety.name AS variety_name, product_variety.sku AS variety_sku, product_variety.stock AS variety_stock, ecommerce_basket_content.product_variety_id AS variety_id, sum(ecommerce_basket_content.quantity) AS count, sum(ecommerce_price.value * ecommerce_basket_content.quantity) AS revenue
+        $sql = "SELECT DISTINCT product.id AS product_id, 
+                                product.name AS product_name, 
+                                product_variety.name AS variety_name, 
+                                product_variety.sku AS variety_sku, 
+                                product_variety.stock AS variety_stock, 
+                                ecommerce_basket_content.product_variety_id AS variety_id, 
+                                sum(ecommerce_basket_content.quantity) AS count, 
+                                sum(ecommerce_price.value * ecommerce_basket_content.quantity) AS revenue
         FROM ecommerce_basket_content
         LEFT OUTER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_content.price_id) 
         LEFT OUTER JOIN ecommerce_product_variety product_variety ON (product_variety.id = ecommerce_basket_content.product_variety_id)
@@ -1006,7 +1013,7 @@ class ecommerce_order extends Onyx_Model {
         LEFT OUTER JOIN ecommerce_invoice ON (ecommerce_invoice.order_id = ecommerce_order.id)
         WHERE ecommerce_invoice.status = 1 AND ecommerce_invoice.created BETWEEN '$from' AND '$to'
         GROUP BY variety_id, variety_name, variety_sku, variety_stock, product.id, product_name
-        ORDER BY variety_sku";
+        ORDER BY count DESC, variety_sku";
     
         /**
          * process query
