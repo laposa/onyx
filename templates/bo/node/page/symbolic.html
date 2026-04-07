@@ -15,6 +15,7 @@
 	hx-indicator="#metadata-loading">
 </div>
 
+<!-- Redirect -->
 <div id="redirect"
 	hx-get="/request/bo/component/x_redirect?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -33,20 +34,6 @@
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#visibility-loading">
-</div>
-
-<!-- Redirect -->
-<div id="redirect"
-	hx-get="/request/bo/component/x_redirect?node_id={GET.id}"
-	hx-trigger="load, refresh"
-	hx-indicator="#redirect-loading">
-</div>
-
-<!-- QR Code -->
-<div id="qr-code"
-	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
-	hx-trigger="load, refresh"
-	hx-indicator="#qr-code-loading">
 </div>
 
 <!-- Position -->
