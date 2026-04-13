@@ -13,8 +13,6 @@ class Onyx_Controller_Bo_Component_X_Node_Position extends Onyx_Controller_Bo_Co
      * main action
      */
 
-    private $node_data;
-     
     public function mainAction() {
 
         // get details
