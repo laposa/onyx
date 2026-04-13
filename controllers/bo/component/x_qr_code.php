@@ -66,11 +66,10 @@ class Onyx_Controller_Bo_Component_X_Qr_Code extends Onyx_Controller_Bo_Componen
 
         // save
         if (isset($_POST['save'])) {
-            if($node->nodeUpdate($_POST['node'])) {
-                msg("{$node_data['node_group']} {$node_data['title']} (id={$node_data['id']}) has been updated");
-            } else {
-                msg("Cannot update {$node_data['node_group']} {$node_data['title']} (id={$node_data['id']})", 'error');
-            }
+
+            $node->nodeUpdate($_POST['node']);
+            return true;
+            
         }
         
         $this->tpl->assign('QRCODE_URL', $url);

@@ -69,11 +69,10 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
 
         // save
         if (isset($_POST['save'])) {
-            if($this->node->nodeUpdate($_POST['node'])) {
-                msg("{$this->node_data['node_group']} {$this->node_data['title']} (id={$this->node_data['id']}) has been updated");
-            } else {
-                msg("Cannot update {$this->node_data['node_group']} {$this->node_data['title']} (id={$this->node_data['id']})", 'error');
-            }
+
+            $this->node->nodeUpdate($_POST['node']);
+            return true;
+            
         }
 
         if ($this->node_data) $this->tpl->assign('NODE', $this->node_data);

@@ -22,11 +22,10 @@ class Onyx_Controller_Bo_Component_X_Article_Info extends Onyx_Controller_Bo_Com
 
         //save
         if (isset($_POST['save'])) {
-            if($node->nodeUpdate($_POST['node'])) {
-                msg("{$node_data['node_group']} {$node_data['title']} (id={$node_data['id']}) has been updated");
-            } else {
-                msg("Cannot update {$node_data['node_group']} {$node_data['title']} (id={$node_data['id']})", 'error');
-            }
+
+            $node->nodeUpdate($_POST['node']);
+            return true;
+            
         }
 
         if ($node_data) $this->tpl->assign('NODE', $node_data);

@@ -178,7 +178,7 @@ CREATE TABLE ecommerce_recipe (
     function insertRecipe($data)
     {
         $data['priority'] = 0;
-        $data['publish'] = 0;
+        $data['publish'] = 1;
         $data['created'] = date('c');
         $data['serving_people'] = 4;
 
@@ -209,8 +209,10 @@ CREATE TABLE ecommerce_recipe (
         $data['other_data'] = serialize($data['other_data'] ?? '');
 
         if ($id = $this->update($data)) {
+            msg("{$data['node_group']} {$data['title']} (id={$data['id']}) has been updated");
             return $id;
         } else {
+            msg("Cannot update {$data['node_group']} {$data['title']} (id={$data['id']})", 'error');
             return false;
         }
     }

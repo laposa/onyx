@@ -109,7 +109,7 @@ CREATE TABLE ecommerce_product (
     public function insertProduct($data) {
 
         $data['priority'] = 0;
-        $data['publish'] = 0;
+        $data['publish'] = 1;
         $data['modified'] = date('c');
         $data['availability'] = 0;
 
@@ -231,29 +231,12 @@ CREATE TABLE ecommerce_product (
 
         if($id = $this->update($data)) {
 
-            msg("Product ID=$id updated");
-
-            /**
-             * update node info (if exists)
-             */
-
-            $product_homepage = $this->getProductHomepage($id);
-
-            if (is_array($product_homepage) && count($product_homepage) > 0) {
-
-                $product_homepage['publish'] = $data['publish'];
-
-                require_once('models/common/common_node.php');
-                $Node = new common_node();
-
-                $Node->nodeUpdate($product_homepage);
-
-            }
-
+            msg("Product '{$data['name']}' (ID=$id) updated");
             return $id;
 
         } else {
 
+            msg("Cannot update product '{$data['name']}' (ID={$data['id']})", 'error');
             return false;
         }
 

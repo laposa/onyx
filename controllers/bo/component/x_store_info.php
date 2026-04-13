@@ -23,12 +23,10 @@ class Onyx_Controller_Bo_Component_X_Store_Info extends Onyx_Controller_Bo_Compo
         
         // save
         if (isset($_POST['save'])) {
-            if($store->storeUpdate($_POST['store'])) {
-                msg("Store {$store_data['title']} (id={$store_data['id']}) has been updated");
-                return true;
-            } else {
-                msg("Cannot update store {$store_data['title']} (id={$store_data['id']})", 'error');
-            }
+
+            $store->storeUpdate($_POST['store']);
+            return true;
+            
         }
 
         $this->tpl->assign('NODE', $node_data);
