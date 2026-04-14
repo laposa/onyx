@@ -758,7 +758,7 @@ class Onxshop_Controller {
     
         if ($_SERVER['HTTP_X_FORWARDED_PROTO']) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
         else if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
-        else $protocol = 'http';
+        else $protocol = 'https';
         
         $this->tpl->assign('PROTOCOL', $protocol);
         $this->tpl->assign('BASE_URI', "$protocol://{$_SERVER['SERVER_NAME']}");
