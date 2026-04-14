@@ -30,11 +30,7 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
 
             $_POST['node']['display_title'] = $_POST['node']['display_title'] ? 1 : 0;
             $_POST['node']['display_secondary_navigation'] = $_POST['node']['display_secondary_navigation'] ? 1 : 0;
-            if($node->nodeUpdate($_POST['node'])) {
-                msg("{$node_data['node_group']} {$node_data['title']} (id={$node_data['id']}) has been updated");
-            } else {
-                msg("Cannot update {$node_data['node_group']} {$node_data['title']} (id={$node_data['id']})", 'error');
-            }
+            $node->nodeUpdate($_POST['node']);
 
             //trigger page refresh if node type changed
             if($_POST['node']['node_group'] != $node_data['node_group'] || $_POST['node']['node_controller'] != $node_data['node_controller']) {
@@ -45,6 +41,8 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
             if($_POST['node']['title'] != $node_data['title']) {
                 header('HX-Trigger: {"updateNodeName":{"nodeId" :"'.$node_data['id'].'", "nodeName" : "'.$_POST['node']['title'].'"}}');
             }
+
+            return true;
         }
 
         $node_type = 

@@ -13,8 +13,6 @@ class Onyx_Controller_Bo_Component_X_Node_Position extends Onyx_Controller_Bo_Co
      * main action
      */
 
-    private $node_data;
-     
     public function mainAction() {
 
         // get details
@@ -24,11 +22,10 @@ class Onyx_Controller_Bo_Component_X_Node_Position extends Onyx_Controller_Bo_Co
 
         // save
         if (isset($_POST['save'])) {
-            if($node->nodeUpdate($_POST['node'])) {
-                msg("{$node_data['node_group']} {$node_data['title']} (id={$node_data['id']}) has been updated");
-            } else {
-                msg("Cannot update {$node_data['node_group']} {$node_data['title']} (id={$node_data['id']})", 'error');
-            }
+
+            $node->nodeUpdate($_POST['node']);
+            return true;
+            
         }
 
         // parent node

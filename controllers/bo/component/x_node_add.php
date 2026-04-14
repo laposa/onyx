@@ -22,7 +22,6 @@ class Onyx_Controller_Bo_Component_X_Node_Add extends Onyx_Controller_Bo_Compone
         require_once('models/common/common_node.php');
         
         $node_data = $_POST['node'] ?? null;
-        $position = $_POST['position'] ?? null;
         
         $Node = new common_node();
         
@@ -39,7 +38,7 @@ class Onyx_Controller_Bo_Component_X_Node_Add extends Onyx_Controller_Bo_Compone
             /**
              * insert a new node
              */
-            if($id = $Node->nodeInsert($node_data, $position)) {
+            if($id = $Node->nodeInsert($node_data)) {
                 msg(ucfirst($node_data['node_group']) . " ". $node_data['title'] . " has been added.");
                 header('HX-Trigger: {"loadNewNode":{"nodeId" :"'.$id.'"}}');
             }

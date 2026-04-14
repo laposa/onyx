@@ -685,11 +685,15 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 // update existing or insert a new one
                 if (!$this->updateSingleURI($node_data_full)) $this->insertNewMappingURI($node_data_full);
             }
+
+            msg("{$node_data['node_group']} {$node_data['title']} (id={$node_data['id']}) has been updated");
             return true;
+
         } else {
-            $node_group = ucfirst($node_data['node_group']);
-            msg("$node_group (id={$node_data['id']}) can't be updated", 'error');
+
+            msg("Cannot update {$node_data['node_group']} {$node_data['title']} (id={$node_data['id']})", 'error');
             return false;
+            
         }
     }
 
@@ -750,7 +754,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * @return integer $id
      */
     
-    function nodeInsert($node_data, $position = null) {
+    function nodeInsert($node_data) {
         
         //if title is empty, create a generic title and don't display it
         $node_data['display_title'] = $node_data['display_title'] ?? '';
@@ -800,17 +804,11 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if (is_array($node_data['relations'] ?? null)) $node_data['relations'] = serialize($node_data['relations']);
         if (is_array($node_data['component'] ?? null)) $node_data['component'] = serialize($node_data['component']);
         
-        //TODO: before insert, do a check, that node_data[title] is unique
-        
         if ($id = $this->insert($node_data)) {
             
             $node_data['id'] = $id;
             
             if ($node_data['node_group'] == 'page') $this->insertNewMappingURI($node_data);
-
-            if($position) {
-                $this->changePosition($id, $position);
-            }
             
             return $id;
         } else {
@@ -1911,16 +1909,13 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     function moveItem($source_id, $destination_id, $position, $container = 0) {
     
         if (!is_numeric($source_id) || !is_numeric($destination_id) || !is_numeric($position)) return false;
+
+        $node_data = $this->getDetail($source_id);
+        unset($node_data['author_detail']);
+        $node_data['parent'] = $destination_id;
+        $node_data['parent_container'] = $container;
         
-        //change parent
-        if (!$this->updateSingleAttribute('parent', $destination_id, $source_id)) return false;
-        
-        //change container
-        if (!$this->updateSingleAttribute('parent_container', $container, $source_id)) return false;
-        
-        //changePosition
-        
-        if ($this->changePosition($source_id, $position)) return true;
+        if ($this->changePosition($node_data, $position)) return true;
         else return false;
         
         return true;
@@ -1971,12 +1966,12 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * change position
      */
      
-    function changePosition($item_id, $position) {
+    function changePosition($item_data, $position) {
     
-        if (!is_numeric($item_id) || !is_numeric($position)) return false;
+        if (!is_numeric($item_data['id']) || !is_numeric($position)) return false;
 
         //get list of all siblings
-        if ($sibling_list = $this->getSiblingList($item_id)) {
+        if ($sibling_list = $this->getSiblingList($item_data['id'])) {
             
             $sibling_count = count($sibling_list);
             
@@ -1985,15 +1980,14 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             foreach ($sibling_list as $sibling) {
             
                 //msg("$i Sibling id {$sibling['id']} with priority {$sibling['priority']}");
-                if ($sibling['id'] == $item_id) {
+                if ($sibling['id'] == $item_data['id']) {
                     $new_priority = ($sibling_count - $position) * 10 + 5;
+                    $this->nodeUpdate($item_data);
                 } else {
                     $new_priority = ($sibling_count - $i) * 10;
                     $i++;
+                    $this->updateSingleAttribute('priority', $new_priority, $sibling['id']);
                 }
-                
-                $this->updateSingleAttribute('priority', $new_priority, $sibling['id']);
-                
             }
             
             return true;

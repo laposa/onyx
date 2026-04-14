@@ -39,11 +39,7 @@ class Onyx_Controller_Bo_Component_X_Store_Street_View extends Onyx_Controller_B
 
             $_POST['store']['street_view_options'] = serialize($_POST['store']['street_view_options']);
 
-            if($store->storeUpdate($_POST['store'])) {
-                msg("Store {$store_data['title']} (id={$store_data['id']}) has been updated");
-            } else {
-                msg("Cannot update store {$store_data['title']} (id={$store_data['id']})", 'error');
-            }
+            $store->storeUpdate($_POST['store']);
         }
 
         $this->tpl->assign('STORE', $store_data);

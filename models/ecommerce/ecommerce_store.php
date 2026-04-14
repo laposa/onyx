@@ -295,9 +295,17 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
         
         $data['modified'] = date('c');
         if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
-        $store_id = $this->update($data);
 
-        return $store_id;
+        if($id = $this->update($data)) {
+
+            msg("Store '{$data['title']}' (ID=$id) updated");
+            return $id;
+
+        } else {
+
+            msg("Cannot update store '{$data['title']}' (ID={$data['id']})", 'error');
+            return false;
+        }
     }
     /**
      * get filtered store list
