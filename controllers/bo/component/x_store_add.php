@@ -26,11 +26,7 @@ class Onyx_Controller_Bo_Component_X_Store_Add extends Onyx_Controller_Bo_Compon
         if ($_POST['save'] ?? false) {
             if($id = $store->insertStore($store_data)) {
                 $node_data['content'] = $id;
-                if($node->nodeUpdate($node_data)) {
-                    msg("Store {$store_data['title']} has been added.");
-                } else {
-                    msg("Store {$store_data['title']} has been created but couldn't be assigned to page {$node_data['title']}.", 'error');
-                }
+                $node->nodeUpdate($node_data);
             } else {
                 msg("Adding of store failed.", 'error');
             }

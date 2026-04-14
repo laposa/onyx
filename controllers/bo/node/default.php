@@ -62,11 +62,7 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller_Bo_Node {
         if (isset($node_data['require_ssl']) && ($node_data['require_ssl'] == 'on' || $node_data['require_ssl'] == 1)) $node_data['require_ssl'] = 1;
         else $node_data['require_ssl'] = 0;
         
-        if($this->Node->nodeUpdate($node_data)) {
-            msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
-        } else {
-            msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
-        }
+        $this->Node->nodeUpdate($node_data);
         
 
         //get whole detail

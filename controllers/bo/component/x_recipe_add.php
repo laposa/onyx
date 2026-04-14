@@ -19,11 +19,7 @@ class Onyx_Controller_Bo_Component_X_Recipe_Add extends Onyx_Controller_Bo_Compo
                 msg("Recipe has been added.");
 
                 $node_data['content'] = $id;
-                if ($node->nodeUpdate($node_data)) {
-                    msg("Successfully linked recipe to this page.");
-                } else {
-                    msg("Could not connect created recipe to this page.", 'error');
-                }
+                $node->nodeUpdate($node_data);
             } else {
                 msg("Recipe has not been added.", 'error');
             }

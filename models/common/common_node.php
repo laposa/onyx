@@ -685,11 +685,15 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 // update existing or insert a new one
                 if (!$this->updateSingleURI($node_data_full)) $this->insertNewMappingURI($node_data_full);
             }
+
+            msg("{$node_data['node_group']} {$node_data['title']} (id={$node_data['id']}) has been updated");
             return true;
+
         } else {
-            $node_group = ucfirst($node_data['node_group']);
-            msg("$node_group (id={$node_data['id']}) can't be updated", 'error');
+
+            msg("Cannot update {$node_data['node_group']} {$node_data['title']} (id={$node_data['id']})", 'error');
             return false;
+            
         }
     }
 

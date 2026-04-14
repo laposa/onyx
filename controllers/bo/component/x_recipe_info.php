@@ -16,11 +16,10 @@ class Onyx_Controller_Bo_Component_X_Recipe_Info extends Onyx_Controller_Bo_Comp
         
         // save
         if (isset($_POST['save'])) {
-            if ($recipe->updateRecipe($_POST['recipe'])) {
-                msg("{$recipe_data['node_group']} {$recipe_data['title']} (id={$recipe_data['id']}) has been updated");
-            } else {
-                msg("Cannot update {$recipe_data['node_group']} {$recipe_data['title']} (id={$recipe_data['id']})", 'error');
-            }
+
+            $recipe->updateRecipe($_POST['recipe']);
+            return true;
+            
         }
         
         $this->tpl->assign('NODE', $node_data);

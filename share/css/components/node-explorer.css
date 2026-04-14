@@ -149,6 +149,10 @@
 		&.page.store:before {
 			background-image: url(/share/images/icons/icon_store.png);
 		}
+
+		&.page.recipe:before {
+			background-image: url(/share/images/icons/icon_recipe.png);
+		}
 	}
 
 	&.empty {
