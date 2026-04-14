@@ -47,7 +47,7 @@ class Onyx_Controller_Bo_Component_Node_Add extends Onyx_Controller {
             /**
              * insert a new node
              */
-            if($id = $Node->nodeInsert($node_data, $position)) {
+            if($id = $Node->nodeInsert($node_data)) {
                 
                 //quick pages builder
                 //is broken :) $Page_builder = new Onyx_Request("bo/page_builder@blank&parent=$id&node_group={$node_data['node_group']}&node_controller={$node_data['node_controller']}");
