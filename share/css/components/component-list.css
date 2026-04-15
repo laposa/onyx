@@ -3,6 +3,14 @@
 *
 */
 
+#component-occurences {
+  height: 100%;
+  width: 100%;
+  min-width: 50%;
+  padding: 0 10px;
+  border-left: 2px solid var(--onyx-color-primary);
+}
+
 .component-list {
 	padding: 0;
 	min-width: 250px;
@@ -30,8 +38,3 @@
 
   }
 }
-
-.component-occurences {
-  padding-left: 20px;
-}
-

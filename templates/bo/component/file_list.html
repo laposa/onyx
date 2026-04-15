@@ -38,7 +38,7 @@ function chooseImage(src, title) {
                     hx-on::before-request="openFileDialog();"
                     hx-target="#file-dialog .content"
                     hx-trigger="click"
-                    hx-indicator="#file-loading"
+                    hx-indicator="#file-dialog"
                 />
             <!-- END: default -->
             
@@ -88,7 +88,7 @@ function chooseImage(src, title) {
         hx-get="/request/bo/pages/server_browser?type={GET.type}&role={GET.role}&relation={GET.relation}&node_id={GET.node_id}~"
         hx-target="#file-dialog .content"
         hx-trigger="click"
-        hx-indicator="#file-loading"
+        hx-indicator="#file-dialog"
         hx-on::before-request="openFileDialog();"
     >
         <span>Add Files...</span>

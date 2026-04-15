@@ -38,13 +38,16 @@
 
     });
 </script>
+
 {MESSAGES}
+
 <form id="product-varieties-edit"
-    hx-indicator="#edit-loading"
+    hx-indicator="#edit-dialog"
     hx-post="/request/bo/component/ecommerce/product_variety_add?id={GET.product_id}"
     hx-validate="true"
     data-action="addProductVariety"
 >
+
     <h2>Add Variety of Product</h2>
     
     <div class="row text">
@@ -131,6 +134,7 @@
     <input type="hidden" name="product[variety][price][currency_code]" value="{GLOBAL_DEFAULT_CURRENCY}" />
     <input type="hidden" name="product[variety][price][type]" value="common" />
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    
 </form>
 
 {ONYX_REQUEST_tinymce #bo/tinymce~theme=simple:relation=product_variety:edit_elements=product-variety-description~}

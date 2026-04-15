@@ -144,12 +144,6 @@ div.onyx-messages p.onyx-error-msg {background: transparent url(/share/images/ic
 }
 
 /*
-* Ajax
-*/
-  
-.ajax-load {width: 128px; height: 128px; background: url(/share/images/loading.svg) no-repeat; background-size: contain; }
-
-/*
 * jGrowl
 */
 
@@ -174,7 +168,70 @@ div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba
     #tracy-debug {display: none!important;}
 }
 
+/*
+* Loading
+*/ 
 
+div.htmx-request, dialog.htmx-request, ul.htmx-request {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: white;
+    background-size: contain;
+    z-index: 998;
+    animation: fadeIn 0.3s ease forwards;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 5px);
+    top: calc(50% - 5px);
+    background: var(--onyx-color-primary);
+    z-index: 999;
+    width: 10px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    animation: loading 1s infinite linear alternate;
+  }
+}
+
+@keyframes loading {
+  0%  {
+    box-shadow: 
+      20px 0 var(--onyx-color-background-light), 
+      -20px 0 var(--onyx-color-primary);
+    background: var(--onyx-color-background-light); 
+  }
+
+  33% {
+    box-shadow: 
+      20px 0 var(--onyx-color-background-light), 
+      -20px 0 var(--onyx-color-primary);
+    background: var(--onyx-color-primary);
+  }
+
+  66% {
+    box-shadow: 
+      20px 0 var(--onyx-color-primary), 
+      -20px 0 var(--onyx-color-background-light);
+    background: var(--onyx-color-primary);
+  }
+  100% {
+    box-shadow: 
+      20px 0 var(--onyx-color-primary), 
+      -20px 0 var(--onyx-color-background-light);
+    background: var(--onyx-color-background-light);
+  }
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 0.7;}
+}
 
 
 /*
@@ -616,10 +673,6 @@ div.comment-list tr.status-new a.title { font-weight: bold; }
     width: 50px;
     margin: 0 auto;
   }
-
-  &.htmx-request {
-    pointer-events: none;
-  }
 }
 
 /* 
@@ -650,6 +703,7 @@ div.comment-list tr.status-new a.title { font-weight: bold; }
 	flex-direction: column;
 	overflow-y: auto;
 	height: 100%;
+  min-height: 200px;
 }
 
 /**

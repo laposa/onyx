@@ -1,8 +1,6 @@
 <!-- BEGIN: title -->Content Explorer<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="bo-navigation-wrapper">
-    <div id="navigation-loading" class="onyx-loading htmx-indicator">
-    </div>
 
     <div 
         id="bo-search"
@@ -17,19 +15,15 @@
         hx-get="/request/bo/component/node_explorer" 
         hx-trigger="load, explorerRefresh">
     </div>
+    
 </div>
 
-<div class="bo-node-detail-wrapper">
-    <div id="detail-loading" class="onyx-loading htmx-indicator">
-        <img src="/share/images/loading.svg" alt="Loading..."/>
-    </div>
-
-    <div 
-        id="node-properties-edit"
-        hx-swap="innerHTML"
-        hx-trigger="load, loadDetail from:body"
-        hx-indicator="#detail-loading"
-        hx-get="/request/bo/component/node_edit~id={CONTENT_ID}~">
-    </div>
+<div 
+    class="bo-node-detail-wrapper"
+    id="node-properties-edit"
+    hx-swap="innerHTML"
+    hx-trigger="load, loadDetail from:body"
+    hx-indicator="#node-properties-edit"
+    hx-get="/request/bo/component/node_edit~id={CONTENT_ID}~">
 </div>
 <!-- END: content -->

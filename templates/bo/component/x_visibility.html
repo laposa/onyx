@@ -2,9 +2,6 @@
 {MESSAGES}
     <!-- BEGIN: preview -->
     <fieldset id="component-visibility" class="component-preview">
-        <div id="visibility-loading" class="onyx-loading htmx-indicator">
-            <img src="/share/images/loading.svg" alt="Loading..."/>
-        </div>
 
         <legend>Visibility</legend>
 
@@ -30,7 +27,7 @@
             <button
                 hx-get="/request/bo/component/x_visibility?edit=true&node_id={NODE.id}"
                 hx-target="#edit-dialog .content"
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-trigger="click"
                 hx-swap="innerHTML" 
                 hx-on::before-request="openDialog()"
@@ -38,11 +35,13 @@
                 Edit
             </button>
         </div>
+
     </fieldset>
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
     <form id="visibility-edit">
+
         <h2>Edit Visibility</h2>
 
         <!-- Published -->
@@ -80,7 +79,7 @@
 
         <div class="edit-actions">
             <button 
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-post="/request/bo/component/x_visibility"
                 class="btn" 
                 type="submit" 
@@ -93,6 +92,7 @@
 
             <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
         </div>
+        
     </form>
     <!-- END: edit -->
 <!-- END: content -->

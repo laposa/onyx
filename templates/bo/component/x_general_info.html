@@ -2,9 +2,6 @@
 {MESSAGES}
     <!-- BEGIN: preview -->
     <fieldset id="component-general-info" class="component-preview">
-        <div id="general-info-loading" class="onyx-loading htmx-indicator">
-            <img src="/share/images/loading.svg" alt="Loading..."/>
-        </div>
 
         <legend>General Information</legend>
 
@@ -24,7 +21,7 @@
             <button
                 hx-get="/request/bo/component/x_general_info?edit=true&node_id={NODE.id}"
                 hx-target="#edit-dialog .content"
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-trigger="click"
                 hx-swap="innerHTML"
                 hx-on::before-request="openDialog()"
@@ -32,11 +29,13 @@
                 Edit
             </button>
         </div>
+
     </fieldset>
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
     <form id="general-info-edit">
+
         <h2>Edit General Information</h2>
 
         <!-- Node Type -->
@@ -45,7 +44,7 @@
             hx-get="/request/bo/component/x_node_type_menu?node_id={NODE.id}"
             hx-trigger="load"
             hx-swap="innerHTML"
-            >
+        >
         </div>
 
         <!-- Title -->
@@ -125,7 +124,7 @@
 
         <div class="edit-actions">
             <button 
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-post="/request/bo/component/x_general_info"
                 class="btn" 
                 type="submit" 

@@ -28,9 +28,6 @@ function addNewTaxonomy() {
 </script>
     <!-- BEGIN: preview -->
     <fieldset id="component-product-taxonomy" class="component-preview">
-        <div id="product-taxonomy-loading" class="onyx-loading htmx-indicator">
-            <img src="/share/images/loading.svg" alt="Loading..."/>
-        </div>
 
         <legend>Product Categories</legend>
 
@@ -52,7 +49,7 @@ function addNewTaxonomy() {
             <button
                 hx-get="/request/bo/component/x_product_taxonomy?edit=true&product_id={GET.product_id}"
                 hx-target="#edit-dialog .content"
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-trigger="click"
                 hx-swap="innerHTML"
                 hx-on::before-request="openDialog()"
@@ -60,11 +57,13 @@ function addNewTaxonomy() {
                 Edit
             </button>
         </div>
+
     </fieldset>
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
     <form id="product-taxonomy-edit">
+
         <h2>Edit Product Categories</h2>
 
         <!-- BEGIN: empty -->
@@ -104,7 +103,7 @@ function addNewTaxonomy() {
 
         <div class="edit-actions">
             <button 
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-trigger="click"
                 hx-post="/request/bo/component/x_product_taxonomy"
                 class="btn" 
@@ -118,6 +117,7 @@ function addNewTaxonomy() {
 
             <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
         </div>
+        
     </form>
     <!-- END: edit -->
 <!-- END: content -->

@@ -115,7 +115,7 @@
             }
             
             if (message.length == 0 || confirm(message)) {
-                document.querySelector('#explorer-loading').classList.add('htmx-request');
+                document.querySelector('#node-explorer').classList.add('htmx-request');
                 updateNodePosition(sourceNodeId, parentId, position, function() {
                     //adding has-children class to new parent if necessary
                     if(acceptChild && !acceptChild.classList.contains('has-children')) {
@@ -123,7 +123,7 @@
                     }
 
                     if (acceptChild) acceptChild.classList.remove('accept-child');
-                    document.querySelector('#explorer-loading').classList.remove('htmx-request');
+                    document.querySelector('#node-explorer').classList.remove('htmx-request');
                     
                     //if moving last child of the list, remove parent's has-children class
                     if(sourceList.querySelectorAll('li.navigation-list-item').length == 0) {
@@ -242,9 +242,7 @@
     }
 
 </script>
-<div id="explorer-loading" class="onyx-loading htmx-indicator">
-    <img src="/share/images/loading.svg" alt="Loading..."/>
-</div>
+
 <div class="levels">
     <!-- BEGIN: level -->
     <ul 

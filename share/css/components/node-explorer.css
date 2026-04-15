@@ -162,26 +162,6 @@
 
 	&.htmx-request {
 		min-width: 250px;
-		width: 250px;
-		pointer-events: none;
-
-		&>* {
-			opacity: 0.1 !important;
-		}
-
-		&:before {
-			content: "";
-			display: block;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			width: 48px;
-			height: 48px;
-			background: url(/share/images/loading.svg) no-repeat center center;
-			background-size: cover;
-			z-index: 10;
-		}
 	}
 
 	&:hover {

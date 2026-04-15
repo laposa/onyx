@@ -6,7 +6,7 @@
     hx-swap="innerHTML"
     id="file-edit-{FILE.id}"
     hx-on::after-request="afterFileEditRequest()"
-    hx-indicator="#file-loading"
+    hx-indicator="#file-dialog"
     data-action="editFile"
 >
     <h2>File Edit</h2>
@@ -66,7 +66,7 @@
             hx-get="/request/bo/pages/server_browser?type=replace_file&relation={GET.relation}&node_id={GET.node_id}&file_id={FILE.id}&open={OPEN}"
             hx-trigger="click"
             hx-target="#file-dialog .content"
-            hx-indicator="#file-loading"
+            hx-indicator="#file-dialog"
         >
             Replace
         </button>
