@@ -6,35 +6,35 @@
 <div id="general-info"
 	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#general-info-loading">
+	hx-indicator="#general-info">
 </div>
 
 <!-- Store Info -->
 <div id="store-info"
 	hx-get="/request/bo/component/x_store_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#store-info-loading">
+	hx-indicator="#store-info">
 </div>
 
 <!-- Store Address -->
 <div id="store-address"
 	hx-get="/request/bo/component/x_store_address?store_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#store-address-loading">
+	hx-indicator="#store-address">
 </div>
 
 <!-- Store Street View -->
 <div id="store-street-view"
 	hx-get="/request/bo/component/x_store_street_view?store_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#store-street-view-loading">
+	hx-indicator="#store-street-view">
 </div>
 
 <!-- Store Management Info -->
 <div id="store-management-info"
 	hx-get="/request/bo/component/x_store_management_info?store_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#store-management-info-loading">
+	hx-indicator="#store-management-info">
 </div>
 
 <!-- Store Categories/Tags -->
@@ -42,49 +42,49 @@
 	id="store-taxonomy"
 	hx-get="/request/bo/component/x_store_taxonomy?relation=store&store_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#store-taxonomy-loading">
+	hx-indicator="#store-taxonomy">
 </div>
 
 <!-- Store Images -->
 <div id="node-images"
 	hx-get="/request/bo/component/x_node_files?node_id={NODE.content}&relation=store&type=add_to_store"
 	hx-trigger="load, refresh"
-	hx-indicator="#store-images-loading">
+	hx-indicator="#node-images">
 </div>
 
 <!-- Metadata -->
 <div id="metadata"
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#metadata-loading">
+	hx-indicator="#metadata">
 </div>
 
 <!-- Visibility -->
 <div id="visibility"
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#visibility-loading">
+	hx-indicator="#visibility">
 </div>
 
 <!-- QR Code -->
 <div id="qr-code"
 	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#qr-code-loading">
+	hx-indicator="#qr-code">
 </div>
 
 <!-- Advanced Settings -->
 <div id="advanced-settings"
 	hx-get="/request/bo/component/x_advanced_settings?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#advanced-settings-loading">
+	hx-indicator="#advanced-settings">
 </div>
 
 <!-- Previous Versions -->
 <div id="revision-list"
 	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
 	hx-trigger="load, refresh"
-	hx-indicator="#revision-list-loading">
+	hx-indicator="#revision-list">
 </div>
 
 <!-- END: content -->

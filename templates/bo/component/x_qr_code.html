@@ -5,9 +5,6 @@
 </style>
     <!-- BEGIN: preview -->
     <fieldset id="component-qr-code" class="component-preview qr-code">
-        <div id="qr-code-loading" class="onyx-loading htmx-indicator">
-            <img src="/share/images/loading.svg" alt="Loading..."/>
-        </div>
             
         <legend>QR Code</legend>
 
@@ -24,7 +21,7 @@
             <button
                 hx-get="/request/bo/component/x_qr_code?edit=true&node_id={NODE.id}"
                 hx-target="#edit-dialog .content"
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-trigger="click"
                 hx-swap="innerHTML"
                 hx-on::before-request="openDialog()"
@@ -32,11 +29,13 @@
                 Edit
             </button>
         </div>
+
     </fieldset>
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
     <form id="qr-code-edit" class="qr-code">
+
         <h2>QR Code Edit</h2>
 
         <div class="row text">
@@ -50,7 +49,7 @@
 
         <div class="edit-actions">
             <button 
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-post="/request/bo/component/x_qr_code"
                 class="btn" 
                 type="submit" 
@@ -63,6 +62,7 @@
 
             <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
         </div>
+        
     </form>
     <!-- END: edit -->
 <!-- END: content -->

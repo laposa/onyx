@@ -5,28 +5,28 @@
 <div id="general-info"
 	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#general-info-loading">
+	hx-indicator="#general-info">
 </div>
 
 <!-- Product Info -->
 <div id="product-info"
 	hx-get="/request/bo/component/x_product_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#product-info-loading">
+	hx-indicator="#product-info">
 </div>
 
 <!-- Product Varieties -->
 <div id="product-varieties"
 	hx-get="/request/bo/component/ecommerce/product_variety_list?product_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#product-varieties-loading">
+	hx-indicator="#product-varieties">
 </div>
 
 <!-- Product Images -->
 <div id="node-images"
 	hx-get="/request/bo/component/x_node_files?node_id={NODE.content}&relation=product&type=add_to_product"
 	hx-trigger="load, refresh"
-	hx-indicator="#node-images-loading">
+	hx-indicator="#node-images">
 </div>
 
 <!-- Product Categories/Tags -->
@@ -34,44 +34,44 @@
 	id="product-taxonomy"
 	hx-get="/request/bo/component/x_product_taxonomy?relation=product&product_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#product-taxonomy-loading">
+	hx-indicator="#product-taxonomy">
 </div>
 
 <div id="metadata"
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#metadata-loading">
+	hx-indicator="#metadata">
 </div>
 
 <div id="visibility"
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#visibility-loading">
+	hx-indicator="#visibility">
 </div>
 
 <div id="qr-code"
 	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#qr-code-loading">
+	hx-indicator="#qr-code">
 </div>
 
 <!-- Position -->
 <div id="node-position"
 	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#node-position-loading">
+	hx-indicator="#node-position">
 </div>
 
 <!-- Other data -->
 <div id="product-other-data"
 	hx-get="/request/bo/component/x_product_other_data?node_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#product-info-loading">
+	hx-indicator="#product-info">
 </div>
 
 <div id="revision-list"
 	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
 	hx-trigger="load, refresh"
-	hx-indicator="#revision-list-loading">
+	hx-indicator="#revision-list">
 </div>
 <!-- END: content -->

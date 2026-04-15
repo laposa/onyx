@@ -2,9 +2,6 @@
 {MESSAGES}
     <!-- BEGIN: preview -->
     <fieldset id="component-store-info" class="component-preview">
-        <div id="store-info-loading" class="onyx-loading htmx-indicator">
-            <img src="/share/images/loading.svg" alt="Loading..."/>
-        </div>
 
         <legend>Store Information</legend>
 
@@ -24,7 +21,7 @@
             <button
                 hx-get="/request/bo/component/x_store_info?edit=true&node_id={NODE.id}"
                 hx-target="#edit-dialog .content"
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-trigger="click"
                 hx-swap="innerHTML"
                 hx-on::before-request="openDialog()"
@@ -32,11 +29,13 @@
                 Edit
             </button>
         </div>
+
     </fieldset>
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
     <form id="store-info-edit">
+
         <h2>Edit Store Information</h2>
 
         <!-- Store Type -->
@@ -71,7 +70,6 @@
                 name="store[description]" 
                 id="store-description" 
             >{STORE.description|htmlspecialchars}</textarea>
-            <!-- TODO: is the relation=store needed? do I need to parse store id for id parameter? -->
             {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.node_id:relation=store:role=RTE_description:mode=exact:edit_elements=store-description:theme=advanced~}
         </div>
 
@@ -80,7 +78,7 @@
 
         <div class="edit-actions">
             <button 
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-post="/request/bo/component/x_store_info"
                 class="btn" 
                 type="submit" 
@@ -93,16 +91,15 @@
 
             <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
         </div>
+
     </form>
     <!-- END: edit -->
 
     <!-- BEGIN: missing_store -->
     <fieldset id="component-store-info" class="component-preview">
-        <div id="store-info-loading" class="onyx-loading htmx-indicator">
-            <img src="/share/images/loading.svg" alt="Loading..."/>
-        </div>
 
         <legend>Store Information</legend>
+
         <div class="error-message">
             No store has been created/associated for this page. Please create one in order to display store-related fields.
         </div>
@@ -111,7 +108,7 @@
             <button
                 hx-get="/request/bo/component/x_store_add?node_id={GET.node_id}"
                 hx-target="#edit-dialog .content"
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-trigger="click"
                 hx-swap="innerHTML"
                 hx-on::before-request="openDialog()"
@@ -119,6 +116,7 @@
                 Create a store
             </button>
         </div>
+        
     </fieldset>
     <!-- END: missing_store -->
      

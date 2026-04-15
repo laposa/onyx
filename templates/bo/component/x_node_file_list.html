@@ -16,7 +16,7 @@
             hx-on::before-request="openFileDialog();"
             hx-target="#file-dialog .content"
             hx-trigger="click"
-            hx-indicator="#file-loading"
+            hx-indicator="#file-dialog"
         />
         <span 
             class="file-name"
@@ -24,7 +24,7 @@
             hx-on::before-request="openFileDialog();"
             hx-target="#file-dialog .content"
             hx-trigger="click"
-            hx-indicator="#file-loading"
+            hx-indicator="#file-dialog"
         >
             {FILE.title}
         </span>
@@ -33,7 +33,7 @@
                 class="button remove"
                 hx-post="/request/bo/component/file_edit"
                 hx-swap="none"
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-on::after-request="afterUnlink(this)"
                 hx-vals='{
                     "file[id]": "{FILE.id}",
@@ -58,7 +58,7 @@
         hx-get="/request/bo/pages/server_browser?relation={GET.relation}&node_id={GET.node_id}"
         hx-target="#file-dialog .content"
         hx-trigger="click"
-        hx-indicator="#file-loading"
+        hx-indicator="#file-dialog"
         hx-on::before-request="openFileDialog();"
     >
         Add file

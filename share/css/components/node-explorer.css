@@ -160,6 +160,10 @@
 		width: 0;
 	}
 
+	&.htmx-request {
+		min-width: 250px;
+	}
+
 	&:hover {
 		button {
 			visibility: visible;

@@ -5,60 +5,60 @@
 <div id="general-info"
 	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#general-info-loading">
+	hx-indicator="#general-info">
 </div>
 
 <div id="recipe-info"
 	hx-get="/request/bo/component/x_recipe_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#recipe-info-loading">
+	hx-indicator="#recipe-info">
 </div>
 
 <div id="recipe-ingredients"
 	hx-get="/request/bo/component/x_recipe_ingredients?recipe_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#recipe-ingredients-loading">
+	hx-indicator="#recipe-ingredients">
 </div>
 
 <div id="node-images"
 	hx-get="/request/bo/component/x_node_files?node_id={NODE.content}&relation=recipe&type=add_to_recipe"
 	hx-trigger="load, refresh"
-	hx-indicator="#node-images-loading">
+	hx-indicator="#node-images">
 </div>
 
 <div id="recipe-video"
 	hx-get="/request/bo/component/x_recipe_video?recipe_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#recipe-video-loading">
+	hx-indicator="#recipe-video">
 </div>
 
 <div id="metadata"
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#metadata-loading">
+	hx-indicator="#metadata">
 </div>
 
 <div id="visibility"
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#visibility-loading">
+	hx-indicator="#visibility">
 </div>
 
 <div id="qr-code"
 	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#qr-code-loading">
+	hx-indicator="#qr-code">
 </div>
 
 <div id="node-position"
 	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#node-position-loading">
+	hx-indicator="#node-position">
 </div>
 
 <div id="revision-list"
 	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
 	hx-trigger="load, refresh"
-	hx-indicator="#revision-list-loading">
+	hx-indicator="#revision-list">
 </div>
 <!-- END: content -->

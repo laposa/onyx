@@ -2,15 +2,15 @@
 {MESSAGES}
     <!-- BEGIN: preview -->
     <fieldset id="component-store-street-view" class="component-preview">
-        <div id="store-street-view-loading" class="onyx-loading htmx-indicator">
-            <img src="/share/images/loading.svg" alt="Loading..."/>
-        </div>
         
         <legend>Geo-Location</legend>
+
         <span class="label">Latitude:</span>
         <span class="value">{STORE.latitude|htmlspecialchars}</span>
+
         <span class="label">Longitude:</span>
         <span class="value">{STORE.longitude|htmlspecialchars}</span>
+
         <span class="label">Street View Image:</span>
         <span class="value"><img src="{STREET_VIEW_URL}" alt="Street View Image" /></span>
 
@@ -18,7 +18,7 @@
             <button
                 hx-get="/request/bo/component/x_store_street_view?edit=true&store_id={GET.store_id}"
                 hx-target="#edit-dialog .content"
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-trigger="click"
                 hx-swap="innerHTML"
                 hx-on::before-request="openDialog()"
@@ -26,11 +26,13 @@
                 Edit
             </button>
         </div>
+
     </fieldset>
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
     <form id="store-street-view-edit">
+
         <h2>Edit Geo-Location</h2>
 
         <div class="street-view-options">
@@ -139,7 +141,7 @@
 
         <div class="edit-actions">
             <button
-                hx-indicator="#edit-loading"
+                hx-indicator="#edit-dialog"
                 hx-post="/request/bo/component/x_store_street_view"
                 class="btn"
                 type="submit"
@@ -152,6 +154,7 @@
 
             <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
         </div>
+        
     </form>
 
     <script type="text/javascript">

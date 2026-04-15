@@ -6,28 +6,28 @@
 <div id="general-info"
 	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#general-info-loading">
+	hx-indicator="#general-info">
 </div>
 
 <!-- Metadata -->
 <div id="metadata"
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#metadata-loading">
+	hx-indicator="#metadata">
 </div>
 
 <!-- Visibility -->
 <div id="visibility"
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#visibility-loading">
+	hx-indicator="#visibility">
 </div>
 
 <!-- Node Images -->
 <div id="node-images"
 	hx-get="/request/bo/component/x_node_files?node_id={GET.id}&relation=node&type=add_to_node"
 	hx-trigger="load"
-	hx-indicator="#node-images-loading">
+	hx-indicator="#node-images">
 </div>
 
 <!-- Categories/Tags -->
@@ -35,34 +35,34 @@
 	id="relation-taxonomy"
 	hx-get="/request/bo/component/x_relation_taxonomy?relation=node&node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#relation-taxonomy-loading">
+	hx-indicator="#relation-taxonomy">
 </div>
 
 <!-- QR Code -->
 <div id="qr-code"
 	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#qr-code-loading">
+	hx-indicator="#qr-code">
 </div>
 
 <!-- Position -->
 <div id="node-position"
 	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#node-position-loading">
+	hx-indicator="#node-position">
 </div>
 
 <!-- Advanced Settings -->
 <div id="advanced-settings"
 	hx-get="/request/bo/component/x_advanced_settings?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#advanced-settings-loading">
+	hx-indicator="#advanced-settings">
 </div>
 
 <!-- Previous Versions -->
 <div id="revision-list"
 	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
 	hx-trigger="load, refresh"
-	hx-indicator="#revision-list-loading">
+	hx-indicator="#revision-list">
 </div>
 <!-- END: content -->
