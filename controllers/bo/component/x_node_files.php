@@ -19,7 +19,6 @@ class Onyx_Controller_Bo_Component_X_Node_Files extends Onyx_Controller_Bo_Compo
         $node_id = $_POST['node_id'] ?? $this->GET['node_id'] ?? null;
         
         if (!is_numeric($node_id)) {
-            msg("Missing node_id", 'error');
             return false;
         }
 

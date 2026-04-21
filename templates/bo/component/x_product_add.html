@@ -47,12 +47,12 @@
 
     <div class="row text">
         <label>Price Value excluding VAT in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input id="price-without-vat" type="number" name="product[variety][price][value]" value="{PRICE.variety.price.value}" required/>
+        <input id="price-without-vat" type="text" name="product[variety][price][value]" value="{PRICE.variety.price.value}" required/>
     </div>
 
     <div class="row text">
         <label>Price Value including VAT in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input id="price-with-vat" type="number"/>
+        <input id="price-with-vat" type="text"/>
     </div>
    
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
@@ -72,8 +72,6 @@
 
 <script type="text/javascript">  
     $(function(){  
-        $("#product-add-form").validate();
-
         /**
          * Calculate VAT if available
          */
@@ -105,7 +103,6 @@
             if (isNaN(price) || isNaN(rate)) no_vat_input.val("0");
             else no_vat_input.val(Math.round(price / (100 + rate) * 100 * 100000) / 100000);
         }
-
     });
 </script>
 <!-- END: content -->
