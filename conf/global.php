@@ -21,7 +21,14 @@ require_once('lib/onyx.functions.php');
  * to force an updated version
  */
 
-onyxGlobalConfSetValue('ONYX_CACHE_VERSION', '2.0.pre1');
+onyxGlobalConfSetValue('ONYX_VERSION', 'v1.11.0');
+
+/**
+ * can be used as GET parameter when loading resources in browser
+ * to force an updated version
+ */
+
+onyxGlobalConfSetValue('ONYX_CACHE_VERSION', ONYX_VERSION);
 
 /**
  * Force using only one domain (in Onyx_Controller_Uri_Mapping)
