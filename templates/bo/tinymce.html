@@ -7,57 +7,56 @@ function tinyMCEinit() {
         hugerte.get('{TINYMCE.edit_elements}').destroy();
     }
 
-    hugerte.init({
-        selector:'#{TINYMCE.edit_elements}',
-        mode : "{TINYMCE.mode}",
-        ui_mode: "split",
-        editor_selector: "mceAdvanced",
-        theme_advanced_toolbar_location : "top",
-        theme_advanced_toolbar_align : "left",
-        theme_advanced_resizing: true,
-        remove_linebreaks : false,
-        content_css: "/share/css/hugerte.css",
-        apply_source_formatting : true,
-        convert_fonts_to_spans : true,
-        gecko_spellcheck : true, 
-        invalid_elements : "div,form,input,label,button,script,font",
-        verify_css_classes : false,
-        verify_html : true,
-        inline_styles : true,
-        fix_list_elements : true,
-        fix_table_elements : true,
-        cleanup_callback : "onyxCustomCleanup",
-        relative_urls : false,
-        remove_script_host : true,
-        document_base_url : "{BASE_URI}/",
-        plugins: [
-            'advlist', 'autolink', 'autosave', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'pagebreak',
-            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen',
-            'insertdatetime', 'media', 'nonbreaking', 'save', 'table', 'directionality',
-            'emoticons', 'template', 'codesample',
-        ],
-        toolbar: 'undo redo | insert | styles | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        image_advtab: true,
-        advlink_styles: "button=button;viewMore=viewMore",/*for Insert/edit links*/
-        file_picker_callback: function(callback, value, meta) {
-            onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta);
-        },
-        paste_auto_cleanup_on_paste : true,
-        paste_strip_class_attributes : "all",
-        paste_use_dialog : false,
-        entity_encoding : "raw",
-        setup: editor => {
-            editor.on('blur', () => editor.save())
-        },
-        init_instance_callback: function (editor) {
-        // move last aux helper to dialog, if field is in a dialog
-            const dialogContainer = editor.editorContainer.closest('dialog')
-            if (dialogContainer) {
-                const auxElements = document.querySelectorAll('body > .tox-hugerte-aux')
-                if (auxElements.length) dialogContainer.append(auxElements[auxElements.length - 1])
-            }
-        }  
-    });
+    setTimeout(() => {
+        hugerte.init({
+            selector:'#{TINYMCE.edit_elements}',
+            ui_mode: "split",
+            theme_advanced_toolbar_location : "top",
+            theme_advanced_toolbar_align : "left",
+            theme_advanced_resizing: true,
+            remove_linebreaks : false,
+            content_css: "/share/css/hugerte.css",
+            apply_source_formatting : true,
+            convert_fonts_to_spans : true,
+            invalid_elements : "div,form,input,label,button,script,font",
+            verify_css_classes : false,
+            verify_html : true,
+            inline_styles : true,
+            fix_list_elements : true,
+            fix_table_elements : true,
+            cleanup_callback : "onyxCustomCleanup",
+            relative_urls : false,
+            remove_script_host : true,
+            document_base_url : "{BASE_URI}/",
+            plugins: [
+                'advlist', 'autolink', 'autosave', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'nonbreaking', 'save', 'table', 'directionality',
+                'emoticons', 'template', 'codesample',
+            ],
+            toolbar: 'undo redo | insert | styles | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            image_advtab: true,
+            advlink_styles: "button=button;viewMore=viewMore",/*for Insert/edit links*/
+            file_picker_callback: function(callback, value, meta) {
+                onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta);
+            },
+            paste_auto_cleanup_on_paste : true,
+            paste_strip_class_attributes : "all",
+            paste_use_dialog : false,
+            entity_encoding : "raw",
+            setup: editor => {
+                editor.on('blur', () => editor.save())
+            },
+            init_instance_callback: function (editor) {
+            // move last aux helper to dialog, if field is in a dialog
+                const dialogContainer = editor.editorContainer.closest('dialog')
+                if (dialogContainer) {
+                    const auxElements = document.querySelectorAll('body > .tox-hugerte-aux')
+                    if (auxElements.length) dialogContainer.append(auxElements[auxElements.length - 1])
+                }
+            }  
+        });
+    }, 100);
 }
 
 
