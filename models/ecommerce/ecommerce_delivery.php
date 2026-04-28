@@ -159,7 +159,7 @@ class ecommerce_delivery extends Onyx_Model {
      * @param  Array  $basket              Basket content
      * @param  int    $carrier_id          Carrier id
      * @param  int    $delivery_address_id Delivery address id
-     * @return Array                       Delivery rate and VAT
+     * @return array                       Delivery rate and VAT
      */
     function calculateDelivery($basket, $carrier_id, $delivery_address_id, $promotion_detail)
     {
@@ -177,7 +177,7 @@ class ecommerce_delivery extends Onyx_Model {
      * @param  Array  $basket              Basket content
      * @param  int    $carrier_id          Carrier id
      * @param  int    $country_id          Delivery Country id
-     * @return Array                       Delivery rate and VAT
+     * @return array                       Delivery rate and VAT
      */
     function calculateDeliveryForCountry($basket, $carrier_id, $country_id, $promotion_detail)
     {

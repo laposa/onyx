@@ -18,8 +18,8 @@ function toggleStoreFilterButton() {
         <a href="#" onclick="toggleStoreFilterButton()">Open Filters <span>&#x2304;</span></a>
     </div>
     <div class="store-filter-tags">
-        <h3>Filter By:</h3><!--
-        --><ul>
+        <h3>Filter By:</h3>
+        <ul>
             <!-- BEGIN: item -->
             <li><a href="?store_id={GET.store_id}&taxonomy_tree_id={ITEM.id}" class="{SELECTED}" data-taxonomy-tree-id="{ITEM.id}"><span>{ITEM.label.title|htmlspecialchars}</span></a></li>
             <!-- END: item -->

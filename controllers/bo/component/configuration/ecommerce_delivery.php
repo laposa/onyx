@@ -57,7 +57,7 @@ class Onyx_Controller_Bo_Component_Configuration_Ecommerce_Delivery extends Onyx
 
     /**
      * Read response payload JSON and convert to associative array
-     * @return Array
+     * @return array
      */
     protected function readPostInput()
     {

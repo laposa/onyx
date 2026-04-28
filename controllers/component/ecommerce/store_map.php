@@ -108,7 +108,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Map extends Onyx_Controller {
     /**
      * Returns array of all store pages. Store id is used as array index.
      * 
-     * @return Array
+     * @return array
      */
     protected function getStorePages()
     {
@@ -131,7 +131,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Map extends Onyx_Controller {
     /**
      * Returns array of all published stores in the database
      * 
-     * @return Array
+     * @return array
      */
     protected function getAllStores($taxonomy_id = false)
     {   
