@@ -129,7 +129,7 @@ class client_action extends Onyx_Model {
      * Get list of actions performed by given customers from local database
      * 
      * @param  array $customer_ids Customers id to query
-     * @return Array of client_action
+     * @return array of client_action
      */
     public function getActionsForCustomers($customer_ids, $num_displayed_items = 3, $filter = false)
     {

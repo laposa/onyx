@@ -132,7 +132,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller 
     /**
      * Returns array of all store pages. Store id is used as array index.
      * 
-     * @return Array
+     * @return array
      */
     protected function getStorePages()
     {
@@ -155,7 +155,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller 
     /**
      * Returns array of all published stores in the database
      * 
-     * @return Array
+     * @return array
      */
     protected function getAllStores($type_id)
     {
@@ -184,7 +184,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller 
     /**
      * Returns array of all published stores in the database
      * 
-     * @return Array
+     * @return array
      */
     protected function getStoreImage($store_id)
     {
@@ -207,7 +207,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller 
      * I.e. list of categories associated to the store can
      * be accesed using $categories[$store_id]
      * 
-     * @return Array
+     * @return array
      */
     protected function getAllStoreTaxonomyIds()
     {
@@ -231,7 +231,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller 
      * Returns store associated to given node
      * 
      * @param  int    $node_id Store page node_id
-     * @return Array
+     * @return array
      */
     protected function getStoreAssociatedToNode($node_id)
     {
@@ -244,7 +244,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller 
      * Return array of taxonomy_ids associated to given node
      * 
      * @param  int    $node_id Node id
-     * @return Array
+     * @return array
      */
     protected function getPageTaxonomyIds($node_id)
     {

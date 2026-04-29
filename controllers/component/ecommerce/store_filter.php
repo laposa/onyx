@@ -21,7 +21,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Filter extends Onyx_Controller {
         $Taxonomy_Tree = new common_taxonomy_tree();
         $Taxonomy = new common_taxonomy();
 
-        $taxonomy_all_ids = array();
+        $taxonomy_all_ids = $_GET['taxonomy_tree_id'] ? explode(',', $_GET['taxonomy_tree_id']) : array();
         
         // input
         $store_id = $this->GET['store_id']; // if provided, filter will pre-select categories assigned to selected store

@@ -231,7 +231,7 @@ class Onyx_Bo_Authentication
     /**
      * Get logged user details
      * 
-     * @return Array User details
+     * @return array User details
      */
     public function getUserDetails()
     {

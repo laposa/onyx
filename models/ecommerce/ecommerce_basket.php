@@ -553,7 +553,7 @@ class ecommerce_basket extends Onyx_Model {
     /**
      * Get customer's most recent basket that was not converted to an order yet
      * @param  int   $customer_id Customer Id
-     * @return Array              Basket detail
+     * @return array              Basket detail
      */
     function getLastLiveBasket($customer_id)
     {
