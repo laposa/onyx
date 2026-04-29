@@ -82,7 +82,7 @@
             <!-- BEGIN: item -->
             <div class="file-wrapper">
                 <div id="file-{ITEM.file_path_encoded_relative}" class="file">
-                    <!-- BEGIN: thumbnail --><img src="/thumbnail/200/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /><!-- END: thumbnail -->
+                    <!-- BEGIN: thumbnail --><img src="/thumbnail/200/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" loading="lazy"/><!-- END: thumbnail -->
                     <div class="overlay">
                         <div class="file-info">
                             <a class="view" title="View {ITEM.name} ({ITEM.size})" href="/view/{BASE}{FOLDER}{ITEM.name}" target="_blank"><span>View</span></a>
