@@ -37,6 +37,7 @@ class Onyx_Controller_Component_Breadcrumb extends Onyx_Controller {
          */
          
         $path = $this->Node->getFullPathDetailForBreadcrumb($node_id);
+        if(!isset($this->GET['show_home']) && is_array($path)) $path = array_slice($path, 1);
         
         $size = count($path);
         
@@ -47,9 +48,14 @@ class Onyx_Controller_Component_Breadcrumb extends Onyx_Controller {
         $node_home = $this->Node->detail($this->Node->conf['id_map-homepage']);
         $this->tpl->assign('HOME_NODE', $node_home);
         
-        if ($path[1]['id'] != $this->Node->conf['id_map-homepage']) {
+        if ($path[1]['id'] != $this->Node->conf['id_map-homepage'] && isset($this->GET['show_home'])) {
             $this->tpl->parse('content.item.first');
             $this->tpl->parse('content.item');
+        }
+
+        // Parse script with collapsible items
+        if (isset($this->GET['collapsible_items'])) {
+            $this->tpl->parse('content.collapsible_script');
         }
         
         $number_of_page_items = 0;

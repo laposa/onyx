@@ -15,7 +15,7 @@ function tinyMCEinit() {
             theme_advanced_toolbar_align : "left",
             theme_advanced_resizing: true,
             remove_linebreaks : false,
-            content_css: "/share/css/hugerte.css",
+            content_css: "/css/style.css?{ONYX_CACHE_VERSION}",
             apply_source_formatting : true,
             convert_fonts_to_spans : true,
             invalid_elements : "div,form,input,label,button,script,font",
@@ -44,6 +44,17 @@ function tinyMCEinit() {
             paste_strip_class_attributes : "all",
             paste_use_dialog : false,
             entity_encoding : "raw",
+            style_formats_merge: true,
+            style_formats : [
+                {
+                    title: 'Buttons',
+                    items: [
+                        { title: 'Primary', selector: 'a', classes: ['button', 'primary'] },
+                        { title: 'Secondary', selector: 'a', classes: ['button', 'secondary'] },
+                        { title: 'Tertiary', selector: 'a', classes: ['button', 'tertiary'] },
+                    ]
+                }
+            ],
             setup: editor => {
                 editor.on('blur', () => editor.save())
             },
