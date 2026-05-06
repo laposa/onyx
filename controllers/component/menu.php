@@ -190,7 +190,11 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
 
         foreach ($tree as $i => $item) {
 
+            $classes = explode(' ', $item['css_class']);
             $item['css_class'] = '';
+            foreach($classes as $class) {
+                $item['css_class'] .= " menu-{$class}";
+            }
 
             /**
              * parse children

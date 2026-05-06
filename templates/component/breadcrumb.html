@@ -1,9 +1,79 @@
 <!-- BEGIN: content -->
+
+<!-- BEGIN: collapsible_script -->
+    <script type="text/javascript">
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            var breakpointLarge = 992;
+            var breadcrumbContainer = document.querySelector("nav.breadcrumb");
+            var excessBreadcrumbs = document.querySelectorAll("nav.breadcrumb :nth-child(n+2):not(:nth-last-child(-n+2)):not(.symbolic)");
+    
+            mobileBreadcrumbs = function() {
+                if(excessBreadcrumbs.length < 1 || breadcrumbContainer.classList.contains("mobile")) {
+                    return;
+                }
+    
+                var expandButton = document.createElement('span');
+                expandButton.className = 'expand-breadcrumbs';
+                expandButton.textContent = ' ... ';
+                
+                var delimiter = document.createElement('span');
+                delimiter.className = 'delimiter';
+                
+                breadcrumbContainer.classList.add("mobile");
+                excessBreadcrumbs.forEach(function(element) {
+                    element.style.display = 'none';
+                });
+                
+                var currentElement = document.querySelector("div.breadcrumbs-insurance nav span.current");
+                currentElement.parentNode.insertBefore(expandButton, currentElement);
+                currentElement.parentNode.insertBefore(delimiter, currentElement);
+    
+                expandButton.addEventListener('click', function() {
+                    excessBreadcrumbs.forEach(function(element) {
+                        element.style.display = '';
+                    });
+                    expandButton.style.display = 'none';
+                    delimiter.style.display = 'none';
+                });
+            }
+    
+            resetMobileBreadcrumbs = function() {
+                breadcrumbContainer.classList.remove("mobile");
+
+                excessBreadcrumbs.forEach(function(element) {
+                    element.style.display = '';
+                });
+                
+                var expandBreadcrumbs = document.querySelector('span.expand-breadcrumbs');
+                if (expandBreadcrumbs) {
+                    expandBreadcrumbs.remove();
+                }
+            }
+    
+            initMobileBreadcrumbs = function () {
+                var width = window.innerWidth;
+                if (width <= breakpointLarge) {
+                    mobileBreadcrumbs();
+                } else {
+                    resetMobileBreadcrumbs();
+                }
+            };
+
+            initMobileBreadcrumbs();
+    
+            window.addEventListener('resize', function () {
+                initMobileBreadcrumbs();
+            });
+        });
+    </script>
+<!-- END: collapsible_script -->
+
 <nav class="breadcrumb number-of-items-{NUMBER_OF_ITEMS}">
     <!-- BEGIN: item -->
-        <!-- BEGIN: path_delimiter --><span class="delimiter"></span> <!-- END: path_delimiter -->
+        <!-- BEGIN: path_delimiter --><span class="delimiter {PATH.node_controller}"></span> <!-- END: path_delimiter -->
         <!-- BEGIN: first --><a href="/" title="{HOME_NODE.page_title|htmlspecialchars}"><span>{HOME_NODE.title|htmlspecialchars}</span></a> <!-- END: first -->
-        <!-- BEGIN: middle --><a href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a><!-- END: middle -->
+        <!-- BEGIN: middle --><a href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}" class="{PATH.node_controller}"><span>{PATH.title|htmlspecialchars}</span></a><!-- END: middle -->
         <!-- BEGIN: last --><span class="current">{PATH.title|htmlspecialchars}</span><!-- END: last -->
     <!-- END: item -->
 </nav>

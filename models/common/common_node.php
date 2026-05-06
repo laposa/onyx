@@ -1148,7 +1148,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         else $root = "AND (parent = 0 OR parent IS NULL)";
         
         $sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, 
-                display_in_menu, display_permission, publish, priority, strapline, description, component 
+                display_in_menu, display_permission, publish, priority, strapline, description, component, css_class 
             FROM common_node 
             WHERE publish >= $publish $condition $root
             ORDER BY priority DESC, id ASC";        
@@ -1917,8 +1917,6 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         
         if ($this->changePosition($node_data, $position)) return true;
         else return false;
-        
-        return true;
     }
     
     /**
@@ -1982,6 +1980,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 //msg("$i Sibling id {$sibling['id']} with priority {$sibling['priority']}");
                 if ($sibling['id'] == $item_data['id']) {
                     $new_priority = ($sibling_count - $position) * 10 + 5;
+                    $item_data['priority'] = $new_priority;
                     $this->nodeUpdate($item_data);
                 } else {
                     $new_priority = ($sibling_count - $i) * 10;
