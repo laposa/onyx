@@ -211,6 +211,7 @@ function popupMessage(selector) {
 function growlMessage(message) {
     var life = 30 * message.length; // 30ms per character
     if (life < 4000) life = 4000; // 4 sec at min.
+    if (life > 10000) life = 10000; // 10 sec at max.
     jQuery.jGrowl("<div class='onyx-messages in-jgrowl' role='alert'>" + message + "</div>", {life: life})
 }
 
