@@ -11,7 +11,9 @@ class Onyx_Controller_Bo_Component_Selected_Page_List extends Onyx_Controller {
 
 			require_once('models/common/common_node.php');
 			$Node = new common_node();
-			$node_data = $Node->nodeDetail($this->GET['node_id']);
+			
+			if ($_POST['node']) $node_data = $_POST['node'];
+			else $node_data = $Node->nodeDetail($this->GET['node_id']);
 
 			if($node_data ?? false) {
 				$ids = explode(',', $node_data['component']['node_ids']);
