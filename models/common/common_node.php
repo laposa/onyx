@@ -651,9 +651,16 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     function nodeUpdate($node_data) {
     
         $node_data['modified'] = date('c');
+        
+        //prevent rewriting of already present custom_fields
+        if(isset($node_data['custom_fields'])) {
+            $original_node_data = $this->detail($node_data['id']);
+            if($original_node_data['custom_fields'] ?? null) $original_node_data['custom_fields'] = json_decode($original_node_data['custom_fields'], true);
+            $node_data['custom_fields'] = array_merge((array) $original_node_data['custom_fields'], (array) $node_data['custom_fields']);
+            $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
+        }
 
         if (is_array($node_data['other_data'] ?? null)) $node_data['other_data'] = serialize($node_data['other_data']);
-        if (is_object($node_data['custom_fields'] ?? null) || is_array($node_data['custom_fields'] ?? null)) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
         if (is_array($node_data['component'] ?? null)) $node_data['component'] = serialize($node_data['component']);
         if (is_array($node_data['relations'] ?? null)) $node_data['relations'] = serialize($node_data['relations']);
         
