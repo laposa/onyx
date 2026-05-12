@@ -2,6 +2,11 @@
 	margin-bottom: 20px;
 	width: 100%;
 
+	&.htmx-request {
+		min-height: 20px;
+		width: 100%;
+	}
+
 	.node-files-wrapper {
 		display: flex;
 		flex-direction: column;
