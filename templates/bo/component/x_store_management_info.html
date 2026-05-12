@@ -27,7 +27,7 @@
             <button
                 hx-get="/request/bo/component/x_store_management_info?edit=true&store_id={STORE.id}"
                 hx-target="#edit-dialog .content"
-                hx-indicator="#edit-dialog"
+                hx-indicator="#edit-dialog .content"
                 hx-trigger="click"
                 hx-swap="innerHTML"
                 hx-on::before-request="openDialog()"
@@ -119,7 +119,7 @@
 
         <div class="edit-actions">
             <button
-                hx-indicator="#edit-dialog"
+                hx-indicator="#edit-dialog .content"
                 hx-post="/request/bo/component/x_store_management_info"
                 class="btn"
                 type="submit"

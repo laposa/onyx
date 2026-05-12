@@ -33,7 +33,7 @@
                 class="button remove"
                 hx-post="/request/bo/component/file_edit"
                 hx-swap="none"
-                hx-indicator="#edit-dialog"
+                hx-indicator="#edit-dialog .content"
                 hx-on::after-request="afterUnlink(this)"
                 hx-vals='{
                     "file[id]": "{FILE.id}",
