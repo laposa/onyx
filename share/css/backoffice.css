@@ -172,9 +172,12 @@ div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba
 * Loading
 */ 
 
+div.node-edit div.htmx-request {
+  margin-top: 30px;
+}
+
 div.htmx-request, dialog.htmx-request, ul.htmx-request {
   position: relative;
-  margin-top: 30px;
 
   &:before {
     content: '';
