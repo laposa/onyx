@@ -685,20 +685,20 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
          * commit update
          */
         
+        $node_data_full = $this->detail($node_data['id']);
         if ($this->update($node_data)) {
             // load full data in case the UI didn't have node_group option
-            $node_data_full = $this->detail($node_data['id']);
             if ($node_data_full['node_group'] == 'page') {
                 // update existing or insert a new one
                 if (!$this->updateSingleURI($node_data_full)) $this->insertNewMappingURI($node_data_full);
             }
 
-            msg("{$node_data['node_group']} {$node_data['title']} (id={$node_data['id']}) has been updated");
+            msg("{$node_data_full['node_group']} {$node_data_full['title']} (id={$node_data_full['id']}) has been updated");
             return true;
 
         } else {
 
-            msg("Cannot update {$node_data['node_group']} {$node_data['title']} (id={$node_data['id']})", 'error');
+            msg("Cannot update {$node_data_full['node_group']} {$node_data_full['title']} (id={$node_data_full['id']})", 'error');
             return false;
             
         }
