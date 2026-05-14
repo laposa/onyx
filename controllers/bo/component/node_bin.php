@@ -67,6 +67,8 @@ class Onyx_Controller_Bo_Component_Node_Bin extends Onyx_Controller {
                         
                             msg("{$node_data['node_group']} \"{$node_data['title']}\" (id={$node_data['id']}) has been moved to bin");
                         
+                            header('HX-Trigger: {"removeNode":{"nodeId" :"'.$delete_id.'"} }');
+
                             //if it was a "page", than go to parent page
                             if ($this->GET['ajax'] == 0) {
                                 if ($node_data['node_group'] == 'page') onyxGoTo("/page/{$node_data['parent']}");
