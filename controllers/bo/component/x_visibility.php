@@ -56,9 +56,14 @@ class Onyx_Controller_Bo_Component_X_Visibility extends Onyx_Controller_Bo_Compo
 
                     if ($id > 0) msg("Scheduled task saved as id=$id");
                 }
-            } 
+            }
 
             $save_data['publish'] = $this->handlePublish($save_data, $node_data);
+
+            if ($save_data['publish'] != $node_data['publish']) {
+                header('HX-Trigger: {"updateNodeVisibility":{"nodeId" :"'.$node_data['id'].'"} }');
+            }
+
             $node->nodeUpdate($save_data);
         }
 

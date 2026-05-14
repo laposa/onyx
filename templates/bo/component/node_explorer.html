@@ -21,8 +21,29 @@
 
     //rewrite node name in explorer after edit
     document.body.addEventListener('updateNodeName', function(event) {
-        if (event.detail && event.detail.nodeId) {
+        if (event.detail && event.detail.nodeId && event.detail.nodeName) {
             document.getElementById('navigation-node-' + event.detail.nodeId).querySelector('.item-label').innerText = event.detail.nodeName;
+        }
+    });
+
+    //rewrite node icon in explorer after edit
+    document.body.addEventListener('updateNodeIcon', function(event) {
+        if (event.detail && event.detail.nodeId && event.detail.nodeClasses) {
+            document.getElementById('navigation-node-' + event.detail.nodeId).querySelector('.icon').className = event.detail.nodeClasses;
+        }
+    });
+
+    //rewrite node visibility in explorer after edit
+    document.body.addEventListener('updateNodeVisibility', function(event) {
+        if (event.detail && event.detail.nodeId) {
+            document.getElementById('navigation-node-' + event.detail.nodeId).classList.toggle('unpublished');
+        }
+    });
+
+    //remove node from explorer after delete
+    document.body.addEventListener('removeNode', function(event) {
+        if (event.detail && event.detail.nodeId) {
+            document.getElementById('navigation-node-' + event.detail.nodeId).remove();
         }
     });
 
