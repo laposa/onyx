@@ -31,21 +31,26 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
             $_POST['node']['display_title'] = $_POST['node']['display_title'] ? 1 : 0;
             $_POST['node']['display_secondary_navigation'] = $_POST['node']['display_secondary_navigation'] ? 1 : 0;
             $node->nodeUpdate($_POST['node']);
+            $triggers = "";
 
             //trigger page refresh if node type changed
             if($_POST['node']['node_group'] != $node_data['node_group'] || $_POST['node']['node_controller'] != $node_data['node_controller']) {
                 $node_group = $_POST['node']['node_group'] ?? $node_data['node_group'];
                 $node_controller = $_POST['node']['node_controller'] ?? $node_data['node_controller'];
-            
-                header('HX-Trigger: loadDetail');
-                header('HX-Trigger: {"updateNodeIcon":{"nodeId" :"'.$node_data['id'].'", "nodeClasses" : "icon ' . $node_group . ' ' . $node_controller . '"}}');
+
+                $triggers .= '"loadDetail": {}, "updateNodeIcon": { "nodeId" :"'.$node_data['id'].'", "nodeClasses" : "icon ' . $node_group . ' ' . $node_controller . '" },';
             }
 
             //trigger name refresh if node name changed
             if($_POST['node']['title'] != $node_data['title']) {
-                header('HX-Trigger: {"updateNodeName":{"nodeId" :"'.$node_data['id'].'", "nodeName" : "'.$_POST['node']['title'].'"}}');
+                $triggers .= '"updateNodeName": { "nodeId" :"'.$node_data['id'].'", "nodeName" : "'.$_POST['node']['title'].'" },';
             }
 
+            if ($triggers != "") {
+                $triggers = rtrim($triggers, ',');
+                header('HX-Trigger: {'.$triggers.'}');
+            }
+            
             return true;
         }
 

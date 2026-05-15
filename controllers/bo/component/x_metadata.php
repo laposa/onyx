@@ -29,7 +29,9 @@ class Onyx_Controller_Bo_Component_X_Metadata extends Onyx_Controller_Bo_Compone
         //save
         if (isset($_POST['save'])) {
 
-            $node->nodeUpdate($_POST['node']);
+            $save_data = $_POST['node'];
+            $save_data['title'] = $node_data['title'];
+            $node->nodeUpdate($save_data);
             return true;
             
         }
