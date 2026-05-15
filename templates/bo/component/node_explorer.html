@@ -83,6 +83,7 @@
             sourceNodeId = draggedItem.dataset.sourceId;
             sourceNodeTitle = draggedItem.querySelector('.item-label').innerText;
             sourcePosition = [...sourceList.children].indexOf(draggedItem);
+            startPosition = sourcePosition;
             e.dataTransfer.effectAllowed = 'move'; // Explicitly set the allowed effect
             draggedItem.classList.add('dragging');
             setTimeout(function() { draggedItem.classList.add('hidden'); }, 400);
@@ -94,7 +95,7 @@
 
             let parentId = 0;
             let position = 0;
-            let targetList = draggedItem.parentElement;
+            targetList = draggedItem.parentElement;
             let message;
             let isActive = draggedItem.classList.contains('active');
             let activeId = document.querySelector('.levels ul.navigation-list:nth-last-child(2)').dataset.parentId;
@@ -124,8 +125,9 @@
                 draggedItem.remove();
             } else if (sourceList === targetList) {
                 // dragging in the same column
-                parentId = draggedItem.dataset.parentId || 0;
                 position = [...draggedItem.parentElement.children].indexOf(draggedItem);
+                if(sourcePosition == position) return;
+                parentId = draggedItem.dataset.parentId || 0;
                 message = "";
             } else {
                 //dragging between different columns
@@ -175,6 +177,9 @@
                 const rect = dropTarget.getBoundingClientRect();
                 const mouseY = e.clientY - rect.top;
 
+                draggedItem.setAttribute('hx-target', '#' + dropTarget.parentElement.nextElementSibling.id);
+                draggedItem.setAttribute('hx-indicator', '#' + dropTarget.parentElement.nextElementSibling.id);
+
                 if (mouseY > rect.height / 2) {
                     dropTarget.parentNode.insertBefore(draggedItem, dropTarget.nextSibling);
                 } else {
@@ -222,6 +227,7 @@
     }
 
     function levelRefresh(event) {
+        console.log('levelRefresh event received');
         const actualLevel = event.target.closest('ul').nextElementSibling;
         const actualLevelId = actualLevel.id.replace('navigation-level-', '');
         const emptyLevel = document.createElement('ul');
@@ -269,7 +275,7 @@
     <ul 
         id="navigation-level-{LEVEL}"
         class="navigation-list nav-list-{ROOT}"
-        hx-get="/request/bo/component/node_explorer_level~id={ROOT}:active={ACTIVE_PAGE}~"
+        hx-get="/request/bo/component/node_explorer_level?id={ROOT}&active={ACTIVE_PAGE}"
         hx-trigger="load, navRefresh"
         hx-swap="innerHTML"
         hx-on::after-request="scrollToActive(this);"
