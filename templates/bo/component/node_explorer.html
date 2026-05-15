@@ -227,7 +227,6 @@
     }
 
     function levelRefresh(event) {
-        console.log('levelRefresh event received');
         const actualLevel = event.target.closest('ul').nextElementSibling;
         const actualLevelId = actualLevel.id.replace('navigation-level-', '');
         const emptyLevel = document.createElement('ul');
