@@ -300,10 +300,12 @@ $.widget("custom.combobox", {
 */
 
 function duplicateNode(id, parent_id, node_group, sub_items = 0) {
+    $('#node-properties-edit').addClass('htmx-request');
     if (sub_items == 0 || confirm("Are you sure you want to duplicate this node and all its children?")) {
         $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
             popupMessage($(data).find("div.onyx-messages"));
             // refreshNodeList(parent_id, node_group);
+            $('#node-properties-edit').removeClass('htmx-request');
             htmx.trigger('.nav-list-' + parent_id, 'navRefresh');
         });
     } else {
@@ -373,6 +375,7 @@ function moveNode(event, node_group, source_node_id) {
 
 function trashNode(event, id) {
     event.preventDefault();
+    $('#node-properties-edit').addClass('htmx-request');
     $('#onyx-dialog').empty();
     $('#onyx-dialog').dialog({
         width: 500, 
@@ -385,6 +388,7 @@ function trashNode(event, id) {
         title: 'Move item to bin', 
         close: function() {
             $('#onyx-dialog').empty();
+            $('#node-properties-edit').removeClass('htmx-request');
         },
     });
 

@@ -685,20 +685,18 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
          * commit update
          */
         
-        $node_data_full = $this->detail($node_data['id']);
         if ($this->update($node_data)) {
-            // load full data in case the UI didn't have node_group option
-            if ($node_data_full['node_group'] == 'page') {
+            if ($node_data['node_group'] == 'page') {
                 // update existing or insert a new one
-                if (!$this->updateSingleURI($node_data_full)) $this->insertNewMappingURI($node_data_full);
+                if (!$this->updateSingleURI($node_data)) $this->insertNewMappingURI($node_data);
             }
 
-            msg("{$node_data_full['node_group']} {$node_data_full['title']} (id={$node_data_full['id']}) has been updated");
+            msg("Item '{$node_data['title']}' (id={$node_data['id']}) has been updated");
             return true;
 
         } else {
 
-            msg("Cannot update {$node_data_full['node_group']} {$node_data_full['title']} (id={$node_data_full['id']})", 'error');
+            msg("Cannot update Item '{$node_data['title']}' (id={$node_data['id']})", 'error');
             return false;
             
         }
@@ -1919,6 +1917,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 
         $node_data = $this->getDetail($source_id);
         unset($node_data['author_detail']);
+        unset($node_data['custom_fields']);
         $node_data['parent'] = $destination_id;
         $node_data['parent_container'] = $container;
         
@@ -1976,7 +1975,16 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if (!is_numeric($item_data['id']) || !is_numeric($position)) return false;
 
         //get list of all siblings
-        if ($sibling_list = $this->getSiblingList($item_data['id'])) {
+        if ($sibling_list = $this->getChildren($item_data['parent'], 'priority DESC, id ASC')) {
+
+            //add item to sibling list if not exists (eg when moving to another parent)
+            if (!in_array($item_data['id'], array_column($sibling_list ?? [], 'id'))) {
+                $sibling_list = array_merge(
+                    array_slice( $sibling_list ?? [], 0, $position),
+                    array($item_data),
+                    array_slice( $sibling_list ?? [], $position)
+                );
+            }
             
             $sibling_count = count($sibling_list);
             

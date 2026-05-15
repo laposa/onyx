@@ -23,7 +23,9 @@ class Onyx_Controller_Bo_Component_X_Node_Position extends Onyx_Controller_Bo_Co
         // save
         if (isset($_POST['save'])) {
 
-            $node->nodeUpdate($_POST['node']);
+            $save_data = $_POST['node'];
+            $save_data['title'] = $node_data['title'];
+            $node->nodeUpdate($save_data);
             return true;
             
         }

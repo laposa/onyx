@@ -70,7 +70,9 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
         // save
         if (isset($_POST['save'])) {
 
-            $this->node->nodeUpdate($_POST['node']);
+            $save_data = $_POST['node'];
+            $save_data['title'] = $this->node_data['title'];
+            $this->node->nodeUpdate($save_data);
             return true;
             
         }
