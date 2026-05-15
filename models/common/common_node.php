@@ -696,8 +696,6 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 
         } else {
 
-            bar_dump($node_data, 'cannot');
-
             msg("Cannot update Item '{$node_data['title']}' (id={$node_data['id']})", 'error');
             return false;
             
