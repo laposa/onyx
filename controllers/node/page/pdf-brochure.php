@@ -26,16 +26,16 @@ class Onyx_Controller_Node_Page_Pdf_Brochure extends Onyx_Controller_Node_Page_D
         
         //get node detail
         $node_data = $Node->nodeDetail($node_id);
-        $manifest = $node_data['custom_fields']->pdf2Web;
         $file_list = $File->listFiles($node_data['id']);
         array_shift($file_list);
 
         //rebuild manifest based on assigned images if there are any
         if (count($file_list) > 0) {
-            $manifest_array = json_decode($manifest, true);
-            
-            foreach($manifest_array['pages'] as $key => $page) {
-                $manifest_array['pages'][$key]['filename'] = $file_list[$key]['src'];
+            $manifest_array = array();  
+
+            foreach($file_list as $key => $page) {
+                $manifest_array['pages'][$key]['filename'] = $file_list[$key]['src'] . '?' . trim($file_list[$key]['modified']);
+                $manifest_array['pages'][$key]['hotspots'] = unserialize($file_list[$key]['other_data'])['hotspots'];
             }
         }
 

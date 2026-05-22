@@ -4,6 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
+require_once('models/common/common_file.php');
 require_once("conf/pdf2web.php");
 require_once('controllers/bo/component/x.php');
 
@@ -14,9 +15,11 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
 {
     protected $IMAGES_PATH = ONYX_PROJECT_DIR . 'var/files/pdf2web/';
 
-    private $File;
-    public $node;
-    public $node_data;
+    private $node;
+    private $node_data;
+    private $files;
+    private $pdf_file;
+    private $folder_path;
     /**
      * main action
      */
@@ -27,40 +30,77 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
         $this->node = new common_node();
         $node_id = $this->GET['node_id'] ?? $_POST['node']['id'];
         $this->node_data = $this->node->nodeDetail($node_id);
+        $this->folder_path = $this->IMAGES_PATH . '/' . $this->node_data['id'];
 
+        $this->initializeNodeFiles();
+
+        // show generate only if pdf2web is not generated yet or if there is only one file (pdf) in the node
+        if (!$this->node_data['custom_fields']->pdf2Web || ($this->pdf_file && count($this->files) == 1)) {
+            $this->tpl->assign('HIDDEN_REGENERATE', 'hidden');
+        } else {
+            $this->tpl->assign('HIDDEN_GENERATE', 'hidden');
+        }
+
+        // generate new leaflet 
         if(isset($this->GET['generate']) && $this->GET['generate'] == 'true') {
-            // TODO: returns only PDF?
-            $files = $this->node->getFilesForNodeId($node_id);
-
-            $pdfFile = null;
-            foreach ($files as $file) {
-                if ($file['info']['mime-type'] == 'application/pdf') {
-                    $pdfFile = $file;
-                    break;
-                }
-            }
-
-            if(!$pdfFile) {
+            if(!$this->pdf_file) {
                 $this->tpl->parse('content.edit.no_file');
             } else {
-                $folderPath = $this->IMAGES_PATH . '/' . $this->node_data['id'];
-
-                // remove old files & unlink
-                $this->removeFolder($folderPath);
-                $image = new common_image();
-                foreach($files as $index => $file) {
-                    if ($index == 0) continue;
-                    $image->unlinkFile($file['id']);
-                    $image->delete($file['id']);
-                }
-                
-                $manifest = $this->sendPdfForConversion(ONYX_PROJECT_DIR . $pdfFile['src'], $folderPath);
+                $manifest = $this->sendPdfForConversion(ONYX_PROJECT_DIR . $this->pdf_file['src'], $this->folder_path);
                 
                 if($manifest) {
                     // Add images to node
-                    $this->appendImagesToNode($folderPath, $manifest);
-                    $this->node_data['custom_fields']->pdf2Web = $manifest;
+                    $this->appendImagesToNode($this->folder_path, $manifest);
+                    $this->node_data['custom_fields']->pdf2Web = true;
+                    $this->node->nodeUpdate([
+                        'id' => $this->node_data['id'],
+                        'custom_fields' => $this->node_data['custom_fields']
+                    ]);
                     header('HX-Trigger: refreshLeaflet');
+                } else {
+                    $this->tpl->parse('content.error');
+                }
+            }
+        }
+
+        //re-generate images
+        if(isset($this->GET['regenerate']) && $this->GET['regenerate'] == 'true') {
+
+            if(!$this->pdf_file) {
+                $this->tpl->parse('content.edit.no_file');
+            } else {
+                $manifest = $this->sendPdfForConversion(ONYX_PROJECT_DIR . $this->pdf_file['src'], $this->folder_path);
+                
+                if($manifest) {
+                        
+                    $image = new common_image();
+                    $manifest_array = json_decode($manifest, true);
+                    $current_page_count = count($this->files) - 1; // excluding pdf file
+                    $new_page_count = count($manifest_array['pages']);
+
+                    // if new manifest has more pages than existing files, append new files to the node, otherwise, unlink and delete excess images
+                    if($new_page_count > $current_page_count) {
+                        $this->appendImagesToNode($this->folder_path, $manifest, $current_page_count);
+                    } else if ($new_page_count < $current_page_count) {
+                        $excess_files = array_slice($this->files, $new_page_count + 1);
+
+                        //TODO: test delete
+                        foreach($excess_files as $file) {
+                            // $image->unlinkFile($file['id']);
+                            // $file_path = $image->decode_file_path($file['src']);
+                            $image->unlinkFile($file['id']);
+                            $image->deleteFile($file['src']);
+                        }
+                    }
+                    
+                    // refresh thumbnails
+                    foreach ($manifest_array['pages'] as $page => $content) {
+                        $file_path = 'var/files/pdf2web/' . $this->node_data['id'] . '/' . $content['filename'];
+                        $image->removeThumbnailsForFile($file_path);
+                    }
+
+                    header('HX-Trigger: refreshLeaflet');
+
                 } else {
                     $this->tpl->parse('content.error');
                 }
@@ -70,18 +110,40 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
         // save
         if (isset($_POST['save'])) {
 
-            $save_data = $_POST['node'];
-            $save_data['title'] = $this->node_data['title'];
-            $this->node->nodeUpdate($save_data);
+            $image = new common_image();
+            $manifest = json_decode($_POST['manifest'], true);
+
+            array_shift($this->files); // remove pdf file from files array
+
+            foreach($manifest['pages'] as $page => $content) {
+                $this->files[$page]['other_data'] = serialize(['hotspots' => $content['hotspots']]);
+                unset($this->files[$page]['file_path_encoded']);
+                unset($this->files[$page]['info']);
+                $image->updateFile($this->files[$page]);
+            }
+
+            msg('Leaflet has been updated', 'ok');
             return true;
             
         }
-
+        
         if ($this->node_data) $this->tpl->assign('NODE', $this->node_data);
 
         parent::parseTemplate();
 
         return true;
+    }
+
+    protected function initializeNodeFiles() {
+
+        $this->files = $this->node->getFilesForNodeId($this->node_data['id']);
+
+        foreach ($this->files as $file) {
+            if ($file['info']['mime-type'] == 'application/pdf') {
+                $this->pdf_file = $file;
+                break;
+            }
+        }
     }
 
 
@@ -126,50 +188,30 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
         }
     }
 
-    protected function removeFolder($dir) {
-        if (!file_exists($dir)) {
-            return true;
-        }
-
-        if (!is_dir($dir)) {
-            return unlink($dir);
-        }
-
-        foreach (scandir($dir) as $item) {
-            if ($item == '.' || $item == '..') {
-                continue;
-            }
-
-            if (!$this->removeFolder($dir . DIRECTORY_SEPARATOR . $item)) {
-                return false;
-            }
-        }
-
-        return rmdir($dir);
-    }
-
-    public function appendImagesToNode($folderPath, $manifest) {
-        
-        require_once('models/common/common_file.php');
-
-        $Image = new common_image();
+    public function appendImagesToNode($folderPath, $manifest, $skip = 0) {
+        $image = new common_image();
         $node_id = $this->node_data['id'];
 
-        $file_list = $Image->getFlatArrayFromFs($folderPath, 'f');
+        $file_list = $image->getFlatArrayFromFs($folderPath, 'f');
 
         //need to use manifest in order to insert files in correct order
         $manifest_array = json_decode($manifest, true);
 
-        foreach ($manifest_array['pages'] as $key => $page) {
-            $file_index = array_search($page['filename'], array_column($file_list, 'name'));
+        if($skip > 0) {
+            $manifest_array['pages'] = array_slice($manifest_array['pages'], $skip);
+        }
 
+        foreach ($manifest_array['pages'] as $key => $page) {
+
+            $file_index = array_search($page['filename'], array_column($file_list, 'name'));
+            
             $file_data = [];
             $file_data['src'] = 'var/files/pdf2web/' . $node_id . '/' . $file_list[$file_index]['name'];
             $file_data['node_id'] = $node_id;
-            $file_data['title'] = 'Page ' . ($key + 1);
+            $file_data['title'] = 'Page ' . ($key + 1 + $skip);
             $file_data['role'] = 'main';
 
-            $Image->insertFile($file_data);
+            $image->insertFile($file_data);
         }
     }
 }
