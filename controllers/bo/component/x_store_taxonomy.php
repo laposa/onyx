@@ -48,7 +48,6 @@ class Onyx_Controller_Bo_Component_X_Store_Taxonomy extends Onyx_Controller_Bo_C
             is_numeric($_POST['store']['id'])
         ) {
 
-            var_dump('here alright', $_POST['store']['id']);
             $current = array();
             $submitted = array();
 

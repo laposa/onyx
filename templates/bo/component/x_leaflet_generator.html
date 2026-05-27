@@ -2,9 +2,44 @@
 {MESSAGES}
 <style>
     .node-files button.secondary{ display: none; }
+		.button.hidden, button.hidden { display: none; }
 </style>
 
     <!-- BEGIN: preview -->
+    <script type="text/javascript">
+			function regenerateLeaflet(e) {
+				e.preventDefault();
+				document.querySelector('#edit-dialog .content').classList.add('htmx-request');
+
+				if (!confirm("Are you sure you want to re-generate the leaflet images from the PDF? This will replace existing images and change amount of pages according to new PDF.")) {
+					document.querySelector('#edit-dialog .content').classList.remove('htmx-request');
+					return;
+				} else {
+					htmx.ajax('GET', '/request/bo/component/x_leaflet_generator?node_id={GET.node_id}&edit=true&regenerate=true', 
+						{
+							target: '#edit-dialog .content',
+							swap: 'innerHTML',
+						}
+					).then(() => {
+						document.querySelector('#edit-dialog .content').classList.remove('htmx-request');
+					});
+				}
+			}
+
+			function updateButtons() {
+				const generateButton = document.querySelector('#generate');
+				const regenerateButton = document.querySelector('#regenerate');
+
+				if (generateButton) {
+					generateButton.classList.add('hidden');
+				}
+
+				if (regenerateButton) {
+					regenerateButton.classList.remove('hidden');
+				}
+			}
+		</script>
+
     <fieldset id="component-leaflet-generator" class="component-preview">
 
 			<legend>Leaflet Generator</legend>
@@ -64,26 +99,30 @@
 				class="node-files"
 				hx-swap="innerHTML"
 				hx-get="/request/bo/component/x_node_file_list?&relation=node&node_id={NODE.id}"
-				hx-trigger="load, refresh">
+				hx-trigger="load">
 			</div>
 
 			<button
-				hx-get="/request/bo/component/x_leaflet_generator?node_id={NODE.id}&edit=true&generate=true"
+				id="generate"
+				class="{HIDDEN_GENERATE}"
+				hx-get="/request/bo/component/x_leaflet_generator?node_id={GET.node_id}&edit=true&generate=true"
 				hx-trigger="click"
 				hx-target="#leaflet-generator-edit"
 				hx-swap="innerHTML"
-				hx-indicator="#edit-dialog .content">
+				hx-indicator="#edit-dialog .content"
+				hx-on::after-request="updateButtons()">
 				Generate PDF Brochure
 			</button>
 
-			<br>
+			<a
+				href="#"
+				id="regenerate"
+				class="button primary {HIDDEN_REGENERATE}"
+				hx-on:click="regenerateLeaflet(event)">
+				Re-generate Images From PDF
+			</a>
 
-			<div class="row text">
-				<label for="pdf-manifest">
-					PDF2Web Manifest:
-				</label>
-				<textarea name="node[custom_fields][pdf2Web]" id="pdf-manifest" readonly>{NODE.custom_fields.pdf2Web|htmlspecialchars}</textarea>
-			</div>
+			<br>
 
 			<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 			<input type="hidden" name="node[id]" value="{GET.node_id}" />
