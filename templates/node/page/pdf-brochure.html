@@ -66,7 +66,7 @@
         const post_data = new URLSearchParams({});
 
         post_data.append('node[id]', '{NODE.id}');
-        post_data.append('node[custom_fields][pdf2Web]', JSON.stringify(manifest));
+        post_data.append('manifest', JSON.stringify(manifest));
         post_data.append('csrf_token', '{CSRF_TOKEN}');
         post_data.append('save', 'save');
 
