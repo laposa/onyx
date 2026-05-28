@@ -11,7 +11,7 @@
 				e.preventDefault();
 				document.querySelector('#edit-dialog .content').classList.add('htmx-request');
 
-				if (!confirm("Are you sure you want to re-generate the leaflet images from the PDF? This will replace existing images and change amount of pages according to new PDF.")) {
+				if (!confirm("All page images will be recreated from the attached PDF file, while any existing hotspots will be preserved. If you have replaced any page images since the brochure was first generated, those changes will be overwritten. Are you sure you want to proceed?")) {
 					document.querySelector('#edit-dialog .content').classList.remove('htmx-request');
 					return;
 				} else {
@@ -99,48 +99,34 @@
 				class="node-files"
 				hx-swap="innerHTML"
 				hx-get="/request/bo/component/x_node_file_list?&relation=node&node_id={NODE.id}"
-				hx-trigger="load">
+				hx-trigger="load, refresh">
 			</div>
-
-			<button
-				id="generate"
-				class="{HIDDEN_GENERATE}"
-				hx-get="/request/bo/component/x_leaflet_generator?node_id={GET.node_id}&edit=true&generate=true"
-				hx-trigger="click"
-				hx-target="#leaflet-generator-edit"
-				hx-swap="innerHTML"
-				hx-indicator="#edit-dialog .content"
-				hx-on::after-request="updateButtons()">
-				Generate PDF Brochure
-			</button>
-
-			<a
-				href="#"
-				id="regenerate"
-				class="button primary {HIDDEN_REGENERATE}"
-				hx-on:click="regenerateLeaflet(event)">
-				Re-generate Images From PDF
-			</a>
-
-			<br>
 
 			<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 			<input type="hidden" name="node[id]" value="{GET.node_id}" />
-
+			
 			<div class="edit-actions">
-					<button 
-						hx-indicator="#edit-dialog .content"
-						hx-post="/request/bo/component/x_leaflet_generator"
-						class="btn" 
-						type="submit" 
-						name="save" 
-						value="save" 
-						hx-on::after-request="closeDialog()"
-					>
-							Save & Close
-					</button>
+				<button
+					id="generate"
+					class="{HIDDEN_GENERATE}"
+					hx-get="/request/bo/component/x_leaflet_generator?node_id={GET.node_id}&edit=true&generate=true"
+					hx-trigger="click"
+					hx-target="#leaflet-generator-edit"
+					hx-swap="innerHTML"
+					hx-indicator="#edit-dialog .content"
+					hx-on::after-request="updateButtons()">
+					Generate PDF Brochure
+				</button>
+	
+				<a
+					href="#"
+					id="regenerate"
+					class="button primary {HIDDEN_REGENERATE}"
+					hx-on:click="regenerateLeaflet(event)">
+					Re-generate Images From PDF
+				</a>
 
-					<button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+				<button class="btn secondary" type="button" onclick="closeDialog()">Close</button>
 			</div>
 		</form>
     <!-- END: edit -->

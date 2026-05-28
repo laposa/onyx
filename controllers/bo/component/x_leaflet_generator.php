@@ -31,7 +31,7 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
         $node_id = $this->GET['node_id'] ?? $_POST['node']['id'];
         $this->node_data = $this->node->nodeDetail($node_id);
         $this->folder_path = $this->IMAGES_PATH . '/' . $this->node_data['id'];
-
+        $this->files = $this->node->getFilesForNodeId($this->node_data['id']);
         $this->initializeNodeFiles();
 
         // show generate only if pdf2web is not generated yet or if there is only one file (pdf) in the node
@@ -79,19 +79,16 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
                     $new_page_count = count($manifest_array['pages']);
 
                     // if new manifest has more pages than existing files, append new files to the node, otherwise, unlink and delete excess images
-                    if($new_page_count > $current_page_count) {
-                        $this->appendImagesToNode($this->folder_path, $manifest, $current_page_count);
-                    } else if ($new_page_count < $current_page_count) {
+                    if ($new_page_count < $current_page_count) {
                         $excess_files = array_slice($this->files, $new_page_count + 1);
 
-                        //TODO: test delete
                         foreach($excess_files as $file) {
-                            // $image->unlinkFile($file['id']);
-                            // $file_path = $image->decode_file_path($file['src']);
                             $image->unlinkFile($file['id']);
                             $image->deleteFile($file['src']);
                         }
                     }
+
+                    $this->appendImagesToNode($this->folder_path, $manifest);
                     
                     // refresh thumbnails
                     foreach ($manifest_array['pages'] as $page => $content) {
@@ -135,9 +132,6 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
     }
 
     protected function initializeNodeFiles() {
-
-        $this->files = $this->node->getFilesForNodeId($this->node_data['id']);
-
         foreach ($this->files as $file) {
             if ($file['info']['mime-type'] == 'application/pdf') {
                 $this->pdf_file = $file;
@@ -188,27 +182,40 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
         }
     }
 
-    public function appendImagesToNode($folderPath, $manifest, $skip = 0) {
+    public function appendImagesToNode($folderPath, $manifest) {
         $image = new common_image();
         $node_id = $this->node_data['id'];
-
+        $this->files = $this->node->getFilesForNodeId($node_id); // refresh files after potential deletion of excess files
         $file_list = $image->getFlatArrayFromFs($folderPath, 'f');
 
         //need to use manifest in order to insert files in correct order
         $manifest_array = json_decode($manifest, true);
 
-        if($skip > 0) {
-            $manifest_array['pages'] = array_slice($manifest_array['pages'], $skip);
-        }
-
         foreach ($manifest_array['pages'] as $key => $page) {
+
+            // check on already existing files and potentially overwrite source
+            if(count($this->files) > 2 && isset($this->files[$key + 1])) { 
+                if($this->files[$key + 1]['src'] != 'var/files/pdf2web/' . $node_id . '/' . $page['filename']) {
+                    $file_data = [];
+                    $file_data['id'] = $this->files[$key + 1]['id'];
+                    $file_data['src'] = 'var/files/pdf2web/' . $node_id . '/' . $page['filename'];
+                    $file_data['node_id'] = $node_id;
+                    $file_data['title'] = 'Page ' . ($key + 1);
+                    $file_data['role'] = 'main';
+
+                    $image->updateFile($file_data);
+                    continue;
+                } else {
+                    continue;
+                }
+            }
 
             $file_index = array_search($page['filename'], array_column($file_list, 'name'));
             
             $file_data = [];
             $file_data['src'] = 'var/files/pdf2web/' . $node_id . '/' . $file_list[$file_index]['name'];
             $file_data['node_id'] = $node_id;
-            $file_data['title'] = 'Page ' . ($key + 1 + $skip);
+            $file_data['title'] = 'Page ' . ($key + 1);
             $file_data['role'] = 'main';
 
             $image->insertFile($file_data);
