@@ -16,7 +16,7 @@
             hx-on::before-request="openFileDialog();"
             hx-target="#file-dialog .content"
             hx-trigger="click"
-            hx-indicator="#file-dialog"
+            hx-indicator="#file-dialog .content"
         />
         <span 
             class="file-name"
@@ -24,7 +24,7 @@
             hx-on::before-request="openFileDialog();"
             hx-target="#file-dialog .content"
             hx-trigger="click"
-            hx-indicator="#file-dialog"
+            hx-indicator="#file-dialog .content"
         >
             {FILE.title}
         </span>
@@ -58,7 +58,7 @@
         hx-get="/request/bo/pages/server_browser?relation={GET.relation}&node_id={GET.node_id}&type=add_to_node"
         hx-target="#file-dialog .content"
         hx-trigger="click"
-        hx-indicator="#file-dialog"
+        hx-indicator="#file-dialog .content"
         hx-on::before-request="openFileDialog();"
     >
         Add file

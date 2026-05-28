@@ -9,6 +9,7 @@ dialog.edit-dialog {
 	border: none;
 	border-radius: 10px;
 	position: relative;
+	height: auto;
 
 	&[open] {
 		display: flex;
@@ -214,11 +215,6 @@ dialog.edit-dialog {
 		gap: 20px;
 
 		button {
-			padding: 10px 15px;
-			border-radius: 5px;
-			line-height: normal;
-			height: auto;
-
 			&:last-child {
 				margin-left: auto;
 			}

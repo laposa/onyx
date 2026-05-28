@@ -5,8 +5,7 @@
     hx-post="{URI|htmlspecialchars}" 
     hx-swap="innerHTML"
     id="file-edit-{FILE.id}"
-    hx-on::after-request="afterFileEditRequest()"
-    hx-indicator="#file-dialog"
+    hx-indicator="#file-dialog .content"
     data-action="editFile"
 >
     <h2>File Edit</h2>
@@ -39,9 +38,14 @@
                 <span class="field"><textarea name="file[description]">{FILE.description|htmlspecialchars}</textarea></span>
             </div>
             
-            <div class="row advanced">
+            <div class="row">
                 <span class="label"><label>Priority:</label></span>
                 <span class="field"><input class="text" type="text" name="file[priority]" value="{FILE.priority}" /></span>
+            </div>
+
+            <div class="row">
+                <span class="label"><label>Other data:</label></span>
+                <span class="field"><textarea class="text" disabled name="file[other_data]">{FILE.other_data}</textarea></span>
             </div>
         </div>
     
@@ -66,7 +70,7 @@
             hx-get="/request/bo/pages/server_browser?type=replace_file&relation={GET.relation}&node_id={GET.node_id}&file_id={FILE.id}&open={OPEN}"
             hx-trigger="click"
             hx-target="#file-dialog .content"
-            hx-indicator="#file-dialog"
+            hx-indicator="#file-dialog .content"
         >
             Replace
         </button>
