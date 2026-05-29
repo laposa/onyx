@@ -9,7 +9,6 @@ dialog.edit-dialog {
 	border: none;
 	border-radius: 10px;
 	position: relative;
-	height: auto;
 
 	&[open] {
 		display: flex;
