@@ -204,6 +204,7 @@ div.htmx-request, ul.htmx-request {
 }
 
 dialog div.content.htmx-request {
+  &:before,
   &:after {
     position: fixed;
   }
