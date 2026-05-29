@@ -43,11 +43,23 @@
 
 		.file-actions {
 			margin-left: auto;
+
+			button.remove {
+				visibility: hidden;
+				opacity: 0;
+				transition: 0.3s ease;
+			}
 		}
 
 		&:nth-child(2n+1) {
 			background-color: var(--onyx-color-background-light);
 		}
+
+		&:hover {
+			.file-actions button.remove {
+				visibility: visible;
+				opacity: 1;
+			}
 	}
 
 	.placeholder {
