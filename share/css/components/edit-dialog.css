@@ -54,6 +54,7 @@ dialog.edit-dialog {
 
 	.content, #variety-more-details {
 		width: 100%;
+		height: 100%;
 	}
 
 	.close::after {
