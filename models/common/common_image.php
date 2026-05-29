@@ -112,7 +112,7 @@ CREATE TABLE common_image (
      * resize
      */
      
-    static function resize($file, $required_width, $required_height = false, $method = 'extent', $gravity = 'center', $fill = false){
+    static function resize($file, $required_width, $required_height = false, $method = 'extent', $gravity = 'center', $fill = false, $scale = 1){
     
         //first check file exists and is readable
         if (!is_readable(ONYX_PROJECT_DIR . $file)) return false;
@@ -134,6 +134,7 @@ CREATE TABLE common_image (
         $image_resize_options = "_{$method}_{$gravity}_{$fill}"; // TODO check valid options
         if ($image_resize_options == "___") $image_resize_options = "";
         if ($image_resize_options) $thumb_file = $thumb_file . $image_resize_options;
+        if ($scale != 1) $thumb_file .= "_scale_$scale";
         
         $thumb_file_rp = ONYX_PROJECT_DIR . $thumb_file;
         
@@ -190,18 +191,22 @@ CREATE TABLE common_image (
          * see  http://www.imagemagick.org/Usage/thumbnails/#cut
          *      http://www.imagemagick.org/Usage/resize/#shrink
          */
+        $background = common_image::supportsTransparency($file_rp) ? 'none' : 'white';
         if (is_numeric($required_height)) {
-            $background = common_image::supportsTransparency($file_rp) ? 'none' : 'white';
             $other_im_params = "-background {$background} -alpha background -gravity {$gravity} -{$method} {$width}x{$required_height}";
             $height = $required_height;
             
         } else {
             
-            $other_im_params = '';
-        
+            $other_im_params = '';        
         }
-        
-        
+
+        if ($scale != 1) {
+            $other_im_params .= " -background {$background} -gravity {$gravity} -extent {$width}x{$height}";
+            $width = round($width * $scale);
+            $height = round($height * $scale);
+        }
+
         /**
          * return cached file or create with ImageMagick
          */

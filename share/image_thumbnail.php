@@ -92,8 +92,9 @@ if ($width > $image_configuration['width_max']) {
          * check what to display
          */
          
+        $scale = 0.3;
         if (preg_match("/image/", $mime_type)) {
-            //if image, process it
+            $scale = 1;
         } else if ($mime_type == 'application/pdf') {
             $image_file = "public_html/share/images/mimetype/pdf.png";  
         } else if ($mime_type == 'application/msword') {
@@ -108,7 +109,7 @@ if ($width > $image_configuration['width_max']) {
          * try
          */
 
-        if ($thumbnail = common_image::resize($image_file, $width, $height, $method, $gravity, $fill)) $image_file = $thumbnail;
+        if ($thumbnail = common_image::resize($image_file, $width, $height, $method, $gravity, $fill, $scale)) $image_file = $thumbnail;
         
     } else {
 
