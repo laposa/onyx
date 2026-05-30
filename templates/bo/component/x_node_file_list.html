@@ -34,6 +34,7 @@
                 hx-post="/request/bo/component/file_edit"
                 hx-swap="none"
                 hx-indicator="#edit-dialog .content"
+                data-action="editFile"
                 hx-on::after-request="afterUnlink(this)"
                 hx-vals='{
                     "file[id]": "{FILE.id}",
@@ -81,7 +82,6 @@
 
     function afterUnlink(event) {
         event.parentElement.parentElement.remove();
-        htmx.trigger("#file-list-preview", "refresh");
     }
 </script>
 <!-- END: content -->
