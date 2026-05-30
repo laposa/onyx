@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2022 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -149,6 +149,7 @@ CREATE TABLE common_file (
      
     public function updateFile($data) {
         
+        $data['modified'] = date('c');
         if (!is_numeric($data['link_to_node_id'])) $data['link_to_node_id'] = 0;
         
         return $this->update($data);
