@@ -96,9 +96,9 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
 
                 // add button that goes one level up
                 if($key == count($breadcrumbs) - 2) {
-                    $this->tpl->assign('PARENT_FOLDER_BUTTON', '<a href="/backoffice/media/' . $path . '" class="folder parent"> Go to parent folder ..</a>');
+                    $this->tpl->assign('PARENT_FOLDER_BUTTON', '<a href="/backoffice/media/' . $path . '" class="folder parent">Level up ..</a>');
                 } else if (count($breadcrumbs) == 1) {
-                    $this->tpl->assign('PARENT_FOLDER_BUTTON', '<a href="/backoffice/media//" class="folder parent"> Go to parent folder .. </a>');
+                    $this->tpl->assign('PARENT_FOLDER_BUTTON', '<a href="/backoffice/media//" class="folder parent">Level up ..</a>');
                 }
             }
         }

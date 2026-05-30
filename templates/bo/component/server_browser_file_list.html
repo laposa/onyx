@@ -6,7 +6,7 @@
 
     {MESSAGES}
 
-    <fieldset class="add-folder single">
+    <div class="add-folder single">
                     
         <div class="media-breadcrumbs">{FOLDER_HEAD}</div>
         
@@ -26,7 +26,7 @@
                 <span>Create new folder</span>
             </button>
         </div>
-    </fieldset>
+    </div>
     
     <div id="server-browser-add">
     
@@ -41,7 +41,7 @@
             <div class="add-new">
                 
                 <!-- BEGIN: upload_file -->
-                <fieldset class="add-new single dropzone-wrap">
+                <div class="add-new single dropzone-wrap">
                     <div id="add-dropzone" class="row dropzone">
                         <h2>Drop files here or click to upload.</h2>
                         <p class="limits">{MAX_FILES} files max, {MAX_FILE_SIZE}MB each</p>
@@ -50,16 +50,16 @@
                         <input id="add-file-input" type="file" name="file" class="file multi" multiple /> 
                         <button type="submit" name="create" value="create"><span>Submit File</span></button><span> Max&nbsp;size:&nbsp;{MAX_FILE_SIZE} MB</span>
                     </div>
-                </fieldset>
+                </div>
                 <!-- END: upload_file -->
                 <!-- BEGIN: upload_instruction -->
-                <fieldset style="padding-top: 20px;">
+                <div style="padding-top: 20px;">
                     <div class="row">
                         <p>You are not allowed to upload any assets into this folder.</p>
                         <!-- BEGIN: root --><p>Please select a folder on the left or create a new folder.</p><!-- END: root -->
                         <!-- BEGIN: permission --><p>Please select another folder on the left or contact your administrator to change folder permissions.</p><!-- END: permission -->
                     </div>
-                </fieldset>
+                </div>
                 <!-- END: upload_instruction -->
             </div>
             <!-- END: add_new -->
