@@ -1,7 +1,7 @@
 <?php
 /** 
  *
- * Copyright (c) 2025 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2025-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -17,6 +17,9 @@ class Onyx_Controller_Bo_Component_X_Node_Type_Menu extends Onyx_Controller_Bo_C
 
         $node_types = [];
         $node_data = $node->nodeDetail($this->GET['node_id']);
+
+        $templates_info = getTemplatesInfo();
+
         //add new node settings
         if(!$node_data) {
             $node_data['node_group'] = 'page';
@@ -51,10 +54,19 @@ class Onyx_Controller_Bo_Component_X_Node_Type_Menu extends Onyx_Controller_Bo_C
             $this->tpl->assign('GROUP_VALUE', $key);
 
             foreach($value as $item) {
-                $this->tpl->assign('LABEL', ucwords(str_replace(['-', '_'], ' ', $item)));
-                $this->tpl->assign('VALUE', $item);
-                $this->tpl->assign('SELECTED', ($node_data['node_group'] == $key && $node_data['node_controller'] == $item) ? "selected='selected'" : '');
-                $this->tpl->parse("content.group.item");
+                // show only content types with visibility attribute set to true, or not set at all
+                if (
+                    $templates_info[$key][$item]['visibility'] == true ||
+                    $templates_info[$key][$item]['visibility'] === NULL
+                ) {
+                    if ($templates_info[$key][$item]['title']) $label = $templates_info[$key][$item]['title'];
+                    else $label = ucwords(str_replace(['-', '_'], ' ', $item));
+
+                    $this->tpl->assign('LABEL', $label);
+                    $this->tpl->assign('VALUE', $item);
+                    $this->tpl->assign('SELECTED', ($node_data['node_group'] == $key && $node_data['node_controller'] == $item) ? "selected='selected'" : '');
+                    $this->tpl->parse("content.group.item");
+                }
             }
 
             
@@ -64,5 +76,5 @@ class Onyx_Controller_Bo_Component_X_Node_Type_Menu extends Onyx_Controller_Bo_C
         $this->tpl->assign('NODE', $node_data);
 
         return  true;
-    } 
+    }
 }

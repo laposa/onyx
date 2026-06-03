@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2025 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2025-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -20,10 +20,7 @@ class Onyx_Controller_Bo_Component_Component_Occurences extends Onyx_Controller 
 
         $nodes = $this->Node->getNodesByController($this->GET['node_controller']);
 
-        // filter
-        require_once('controllers/bo/component/node_type_menu.php');
-        $Node_Type_Menu = new Onyx_Controller_Bo_Component_Node_Type_Menu();
-        $templates_info = $Node_Type_Menu->retrieveTemplateInfo();
+        $templates_info = getTemplatesInfo();
 
         if (is_array($nodes) && count($nodes) > 0) {
 

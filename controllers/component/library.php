@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2020-2022 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2020-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -66,18 +66,15 @@ class Onyx_Controller_Component_Library extends Onyx_Controller {
     {
         $used_content_types = $this->Node->getUsedContentTypes();
 
-        // filter
-        require_once('controllers/bo/component/node_type_menu.php');
-        $Node_Type_Menu = new Onyx_Controller_Bo_Component_Node_Type_Menu();
-        $templates_info = $Node_Type_Menu->retrieveTemplateInfo();
+        $templates_info = getTemplatesInfo();
 
         $list = [];
         foreach ($used_content_types as $item) {
 
             // show only content types with visibility attribute set to true, or not set at all
             if (
-                $templates_info['content'][$item['node_controller']]['visibility'] == true || 
-                $templates_info['content'][$item['node_controller']]['visibility'] === NULL 
+                $templates_info['content'][$item['node_controller']]['visibility'] == true ||
+                $templates_info['content'][$item['node_controller']]['visibility'] === NULL
             ) {
                 
                 $list_item = $item;

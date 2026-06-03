@@ -3,7 +3,7 @@
  * Onyx global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2025 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -321,6 +321,34 @@ function templateExists($template_name) {
     if (file_exists(ONYX_DIR . 'templates/' . $template_name . '.html')) return true;
     else return false;
 
+}
+
+/**
+ * get information from conf/node_type
+ *
+ * @return array
+ *
+ */
+function getTemplatesInfo() {
+
+    // always include general
+    require(ONYX_DIR . "conf/node_type.php");
+    $templates_info_onyx = $templates_info;
+
+    // local overwrites/extensions
+    if (file_exists(ONYX_PROJECT_DIR . "conf/node_type.php")) {
+        $templates_info = false;
+        require(ONYX_PROJECT_DIR . "conf/node_type.php");
+    }
+
+    // merge
+    if (is_array($templates_info)) {
+        $templates_info = array_merge_recursive_distinct($templates_info_onyx, $templates_info);
+    } else {
+        $templates_info = $templates_info_onyx;
+    }
+
+    return $templates_info;
 }
 
 /**
