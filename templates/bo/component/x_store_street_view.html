@@ -140,6 +140,8 @@
         <input type="hidden" name="store[id]" value="{STORE.id}" />
 
         <div class="edit-actions">
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+
             <button
                 hx-indicator="#edit-dialog .content"
                 hx-post="/request/bo/component/x_store_street_view"
@@ -151,8 +153,6 @@
             >
                 Save & Close
             </button>
-
-            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
         </div>
         
     </form>

@@ -111,6 +111,8 @@
         <input type="hidden" name="recipe[id]" value="{RECIPE.id}" />
 
         <div class="edit-actions">
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+
             <button 
                 hx-indicator="#edit-dialog .content"
                 hx-post="/request/bo/component/x_recipe_info"
@@ -122,8 +124,6 @@
             >
                 Save & Close
             </button>
-
-            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
         </div>
 
     </form>

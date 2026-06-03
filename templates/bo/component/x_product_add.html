@@ -60,13 +60,11 @@
     <input type="hidden" name="product[variety][price][type]" value="common" />
 
     <div class="edit-actions">
-        <!-- TODO: fix refresh - other listener than saveAndClose -->
-        <!-- TODO: move all posts to form in order to work with validations and such? can this be problem for components that have multiple buttons ? are there any? -->
+        <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+
         <button class="btn" type="submit" name="save" value="save">
             Add & Close
         </button>
-
-        <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
     </div>
 </form>
 
