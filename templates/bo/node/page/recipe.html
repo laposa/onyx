@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
 
-{FILE "bo/component/page_header.html"}
+{ONYX_REQUEST_header #bo/component/page_header~node_id=GET.id~}
 
 <div id="general-info"
 	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
