@@ -203,15 +203,13 @@
             if (window.FileReader) {
                 $('#add-dropzone').show();
                 // keep upload input above the dropzone with zero opacity to allow click and select
-                console.log('skovej');
-                $('#add-file').addClass('hidden');
+                $('#add-file').hide();
                 $('#add-dropzone').css("cursor", "pointer").click(function() {
                     $("#add-file-input").click();
                 });
             } else {
                 $('#add-dropzone').hide();
-                console.log('uka');
-                $('#add-file').removeClass('hidden');
+                $('#add-file').show();
             }
         }
     
