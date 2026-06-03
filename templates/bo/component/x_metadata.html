@@ -91,6 +91,8 @@
         <input type="hidden" name="node[id]" value="{GET.node_id}" />
 
         <div class="edit-actions">
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+
             <button 
                 hx-indicator="#edit-dialog .content"
                 hx-post="/request/bo/component/x_metadata"
@@ -102,8 +104,6 @@
             >
                 Save & Close
             </button>
-
-            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
         </div>
     </form>
     <!-- END: edit -->

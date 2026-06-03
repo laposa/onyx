@@ -104,6 +104,8 @@
 			<input type="hidden" name="node[id]" value="{GET.node_id}" />
 			
 			<div class="edit-actions">
+				<button class="btn secondary" type="button" onclick="closeDialog()">Close</button>
+
 				<button
 					id="generate"
 					class="{HIDDEN_GENERATE}"
@@ -123,8 +125,6 @@
 					hx-on:click="regenerateLeaflet(event)">
 					Re-generate Images From PDF
 				</a>
-
-				<button class="btn secondary" type="button" onclick="closeDialog()">Close</button>
 			</div>
 		</form>
     <!-- END: edit -->

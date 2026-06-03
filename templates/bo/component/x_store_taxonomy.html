@@ -103,6 +103,8 @@ function addNewTaxonomy() {
         <input type="hidden" name="store[id]" value="{GET.store_id}" />
 
         <div class="edit-actions">
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+
             <button 
                 hx-indicator="#edit-dialog .content"
                 hx-trigger="click"
@@ -115,8 +117,6 @@ function addNewTaxonomy() {
             >
                 Save & Close
             </button>
-
-            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
         </div>
         
     </form>
