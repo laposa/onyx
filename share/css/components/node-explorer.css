@@ -153,6 +153,9 @@
 		&.page.recipe:before {
 			background-image: url(/share/images/icons/icon_recipe.png);
 		}
+		&.page.symbolic:before {
+			background-image: url(/share/images/icons/icon_container.png);
+		}
 	}
 
 	&.empty {
