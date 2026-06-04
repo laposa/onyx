@@ -48,7 +48,6 @@
     }
   }
 
-
   #add-dropzone {
     display: flex;
     flex-direction: column;
@@ -319,6 +318,7 @@
     display: flex;
     align-self: flex-start;
     flex-wrap: wrap;
+
     .folder {
       display: flex;
       flex: 0 1 10%;
@@ -361,9 +361,16 @@
     }
 
     button {
-      width: 100%;
-      break-inside: avoid;
+      display: flex;
+      flex: 0 1 10%;
+      align-items: center;
+      padding: 5px 10px;
       margin: 5px;
+      line-height: 1;
     }
+  }
+
+  #add-file {
+    display: none;
   }
 }

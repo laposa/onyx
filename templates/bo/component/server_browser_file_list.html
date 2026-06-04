@@ -200,17 +200,20 @@
         }
         
         function showFileUploadDialog() {
-            if (window.FileReader) {
-                $('#add-dropzone').show();
-                // keep upload input above the dropzone with zero opacity to allow click and select
-                $('#add-file').hide();
-                $('#add-dropzone').css("cursor", "pointer").click(function() {
-                    $("#add-file-input").click();
-                });
-            } else {
-                $('#add-dropzone').hide();
-                $('#add-file').show();
-            }
+
+            setTimeout(() => {
+                if (window.FileReader) {
+                    $('#add-dropzone').show();
+                    // keep upload input above the dropzone with zero opacity to allow click and select
+                    $('#add-file').hide();
+                    $('#add-dropzone').css("cursor", "pointer").click(function() {
+                        $("#add-file-input").click();
+                    });
+                } else {
+                    $('#add-dropzone').hide();
+                    $('#add-file').show();
+                }
+            }, 100)
         }
     
         var overwriteDialogsOpen = 0;
