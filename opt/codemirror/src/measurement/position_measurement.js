@@ -4,7 +4,7 @@ import { collapsedSpanAround, heightAtLine, lineIsHidden, visualLine } from "../
 import { getLine, lineAtHeight, lineNo, updateLineHeight } from "../line/utils_line.js"
 import { bidiOther, getBidiPartAt, getOrder } from "../util/bidi.js"
 import { chrome, android, ie, ie_version } from "../util/browser.js"
-import { elt, removeChildren, range, removeChildrenAndAdd } from "../util/dom.js"
+import { elt, removeChildren, range, removeChildrenAndAdd, doc } from "../util/dom.js"
 import { e_target } from "../util/event.js"
 import { hasBadZoomedRects } from "../util/feature_detection.js"
 import { countColumn, findFirst, isExtendingChar, scrollerGap, skipExtendingChars } from "../util/misc.js"
@@ -61,12 +61,14 @@ function ensureLineHeights(cm, lineView, rect) {
 export function mapFromLineView(lineView, line, lineN) {
   if (lineView.line == line)
     return {map: lineView.measure.map, cache: lineView.measure.cache}
-  for (let i = 0; i < lineView.rest.length; i++)
-    if (lineView.rest[i] == line)
-      return {map: lineView.measure.maps[i], cache: lineView.measure.caches[i]}
-  for (let i = 0; i < lineView.rest.length; i++)
-    if (lineNo(lineView.rest[i]) > lineN)
-      return {map: lineView.measure.maps[i], cache: lineView.measure.caches[i], before: true}
+  if (lineView.rest) {
+    for (let i = 0; i < lineView.rest.length; i++)
+      if (lineView.rest[i] == line)
+        return {map: lineView.measure.maps[i], cache: lineView.measure.caches[i]}
+    for (let i = 0; i < lineView.rest.length; i++)
+      if (lineNo(lineView.rest[i]) > lineN)
+        return {map: lineView.measure.maps[i], cache: lineView.measure.caches[i], before: true}
+  }
 }
 
 // Render a line into the hidden node display.externalMeasured. Used
@@ -280,22 +282,22 @@ export function clearCaches(cm) {
   cm.display.lineNumChars = null
 }
 
-function pageScrollX() {
+function pageScrollX(doc) {
   // Work around https://bugs.chromium.org/p/chromium/issues/detail?id=489206
   // which causes page_Offset and bounding client rects to use
   // different reference viewports and invalidate our calculations.
-  if (chrome && android) return -(document.body.getBoundingClientRect().left - parseInt(getComputedStyle(document.body).marginLeft))
-  return window.pageXOffset || (document.documentElement || document.body).scrollLeft
+  if (chrome && android) return -(doc.body.getBoundingClientRect().left - parseInt(getComputedStyle(doc.body).marginLeft))
+  return doc.defaultView.pageXOffset || (doc.documentElement || doc.body).scrollLeft
 }
-function pageScrollY() {
-  if (chrome && android) return -(document.body.getBoundingClientRect().top - parseInt(getComputedStyle(document.body).marginTop))
-  return window.pageYOffset || (document.documentElement || document.body).scrollTop
+function pageScrollY(doc) {
+  if (chrome && android) return -(doc.body.getBoundingClientRect().top - parseInt(getComputedStyle(doc.body).marginTop))
+  return doc.defaultView.pageYOffset || (doc.documentElement || doc.body).scrollTop
 }
 
 function widgetTopHeight(lineObj) {
-  let height = 0
-  if (lineObj.widgets) for (let i = 0; i < lineObj.widgets.length; ++i) if (lineObj.widgets[i].above)
-    height += widgetHeight(lineObj.widgets[i])
+  let {widgets} = visualLine(lineObj), height = 0
+  if (widgets) for (let i = 0; i < widgets.length; ++i) if (widgets[i].above)
+    height += widgetHeight(widgets[i])
   return height
 }
 
@@ -315,8 +317,8 @@ export function intoCoordSystem(cm, lineObj, rect, context, includeWidgets) {
   else yOff -= cm.display.viewOffset
   if (context == "page" || context == "window") {
     let lOff = cm.display.lineSpace.getBoundingClientRect()
-    yOff += lOff.top + (context == "window" ? 0 : pageScrollY())
-    let xOff = lOff.left + (context == "window" ? 0 : pageScrollX())
+    yOff += lOff.top + (context == "window" ? 0 : pageScrollY(doc(cm)))
+    let xOff = lOff.left + (context == "window" ? 0 : pageScrollX(doc(cm)))
     rect.left += xOff; rect.right += xOff
   }
   rect.top += yOff; rect.bottom += yOff
@@ -330,8 +332,8 @@ export function fromCoordSystem(cm, coords, context) {
   let left = coords.left, top = coords.top
   // First move into "page" coordinate system
   if (context == "page") {
-    left -= pageScrollX()
-    top -= pageScrollY()
+    left -= pageScrollX(doc(cm))
+    top -= pageScrollY(doc(cm))
   } else if (context == "local" || !context) {
     let localBox = cm.display.sizer.getBoundingClientRect()
     left += localBox.left

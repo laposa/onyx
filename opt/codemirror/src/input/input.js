@@ -72,7 +72,7 @@ export function handlePaste(e, cm) {
   let pasted = e.clipboardData && e.clipboardData.getData("Text")
   if (pasted) {
     e.preventDefault()
-    if (!cm.isReadOnly() && !cm.options.disableInput)
+    if (!cm.isReadOnly() && !cm.options.disableInput && cm.hasFocus())
       runInOp(cm, () => applyTextInput(cm, pasted, 0, null, "paste"))
     return true
   }
@@ -114,13 +114,13 @@ export function copyableRanges(cm) {
 }
 
 export function disableBrowserMagic(field, spellcheck, autocorrect, autocapitalize) {
-  field.setAttribute("autocorrect", autocorrect ? "" : "off")
-  field.setAttribute("autocapitalize", autocapitalize ? "" : "off")
+  field.setAttribute("autocorrect", autocorrect ? "on" : "off")
+  field.setAttribute("autocapitalize", autocapitalize ? "on" : "off")
   field.setAttribute("spellcheck", !!spellcheck)
 }
 
 export function hiddenTextarea() {
-  let te = elt("textarea", null, null, "position: absolute; bottom: -1em; padding: 0; width: 1px; height: 1em; outline: none")
+  let te = elt("textarea", null, null, "position: absolute; bottom: -1em; padding: 0; width: 1px; height: 1em; min-height: 1em; outline: none")
   let div = elt("div", [te], null, "overflow: hidden; position: relative; width: 3px; height: 0px;")
   // The textarea is kept positioned near the cursor to prevent the
   // fact that it'll be scrolled into view on input from scrolling
@@ -130,6 +130,5 @@ export function hiddenTextarea() {
   else te.setAttribute("wrap", "off")
   // If border: 0; -- iOS fails to open keyboard (issue #1287)
   if (ios) te.style.border = "1px solid black"
-  disableBrowserMagic(te)
   return div
 }

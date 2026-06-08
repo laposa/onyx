@@ -1,5 +1,5 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: https://codemirror.net/LICENSE
+// Distributed under an MIT license: https://codemirror.net/5/LICENSE
 
 (function() {
   var mode = CodeMirror.getMode({indentUnit: 2}, "jsx")
@@ -95,4 +95,6 @@
      "[bracket&tag <][tag MyComponent] [attribute foo]=[string \"bar\"] [bracket&tag />]; [comment //ok]",
      "[bracket&tag <][tag MyComponent] [attribute foo]={[number 0]} [bracket&tag />]; [comment //error]")
 
+   TS("tsx_react_generics",
+      "[variable x] [operator =] [operator <] [variable T],[operator >] ([def v]: [type T]) [operator =>] [variable-2 v];")
 })()

@@ -81,6 +81,10 @@ namespace = "comment_";
     cm.lineComment(Pos(1, 0), Pos(2), {indent: true});
   }, simpleProg, "function foo() {\n//   return bar;\n// }");
 
+  test("emptyIndentedLine", "javascript", function(cm) {
+    cm.lineComment(Pos(1, 2), Pos(1, 2), {indent: true});
+  }, "function foo() {\n  \n}", "function foo() {\n  // \n}");
+
   test("singleEmptyLine", "javascript", function(cm) {
     cm.setCursor(1);
     cm.execCommand("toggleComment");
@@ -111,4 +115,21 @@ namespace = "comment_";
     cm.setCursor(1, 0)
     cm.execCommand("toggleComment")
   }, "<!-- foo\nbar -->", "<!-- foo\nbar -->")
+  
+  test("toggleWithMultipleInnerComments", "javascript", function(cm) {
+    cm.execCommand("selectAll")
+    cm.execCommand("toggleComment")
+  }, "/* foo */\na\n/* bar */\nb", "// /* foo */\n// a\n// /* bar */\n// b")
+  
+  var before = 'console.log("//string gets corrupted.");';
+  var after  = '// console.log("//string gets corrupted.");';
+  test("toggleWithStringContainingComment1", "javascript", function(cm) {
+    cm.setCursor({line: 0, ch: 16 /* after // inside string */});
+    cm.execCommand("toggleComment");
+  }, before, after)
+  test("toggleWithStringContainingComment2", "javascript", function(cm) {
+    cm.setCursor({line: 0, ch: 16 /* after // inside string */});
+    cm.execCommand("toggleComment");
+    cm.execCommand("toggleComment");
+  }, before, before)
 })();

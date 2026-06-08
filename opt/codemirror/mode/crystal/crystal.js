@@ -1,5 +1,5 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: https://codemirror.net/LICENSE
+// Distributed under an MIT license: https://codemirror.net/5/LICENSE
 
 (function(mod) {
   if (typeof exports == "object" && typeof module == "object") // CommonJS
@@ -379,7 +379,7 @@
               return "string";
             }
 
-            escaped = embed && stream.next() == "\\";
+            escaped = stream.next() == "\\" && embed;
           } else {
             stream.next();
             escaped = false;

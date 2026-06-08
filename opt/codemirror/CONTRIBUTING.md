@@ -51,6 +51,11 @@ Note that we are not accepting any new addons or modes into the main
 distribution. If you've written such a module, please distribute it as
 a separate NPM package.
 
+Code written by "AI" language models (either partially or fully) is
+**not welcome**. Both because you cannot guarantee it's not parroting
+copyrighted content, and because it tends to be of low quality and a
+waste of time to review.
+
 - Make sure you have a [GitHub Account](https://github.com/signup/free)
 - Fork [CodeMirror](https://github.com/codemirror/CodeMirror/)
   ([how to fork a repo](https://help.github.com/articles/fork-a-repo))
@@ -71,7 +76,7 @@ a separate NPM package.
 By contributing code to CodeMirror you
 
  - agree to license the contributed code under CodeMirror's [MIT
-   license](https://codemirror.net/LICENSE).
+   license](https://codemirror.net/5/LICENSE).
 
  - confirm that you have the right to contribute and license the code
    in question. (Either you hold all rights on the code, or the rights
