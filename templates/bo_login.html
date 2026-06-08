@@ -62,7 +62,7 @@ $(document).ready(function(){
     
     $('form.login').submit(function(){
         
-        var auth_url = '/edit';
+        var auth_url = '/edit?nocache=1';
         var username = $("#username").val();
         var password = $("#password").val();
         
