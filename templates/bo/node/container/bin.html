@@ -1,25 +1,38 @@
 <!-- BEGIN: content -->
-{FILE "bo/node/shared_header.html"}
+{ONYX_REQUEST_header #bo/component/page_header~node_id=GET.id~}
 
-<div class="two-column-layout fibonacci-1-1">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_title.html"}
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset class="advanced">
-            {FILE "bo/node/item_image_list.html"}
-        </fieldset>
-    </div>
+<!-- Gerneral Info -->
+<div id="general-info"
+	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#general-info">
 </div>
 
-<fieldset class="advanced">
+<fieldset>
     <legend style="display: none">Bin Contents</legend>
     <div class="row child" id="content-list-pages-wrapper" hx-get="/request/bo/component/bin_node_list" hx-target="#content-list-pages-wrapper" hx-trigger="refresh">
         {ONYX_REQUEST_page_list #bo/component/bin_node_list}
     </div>
 </fieldset>
 
-{FILE "bo/node/shared_footer.html"}
+<!-- Visibility -->
+<div id="visibility"
+	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#visibility">
+</div>
+
+<!-- Position -->
+<div id="node-position"
+	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#node-position">
+</div>
+
+<!-- Previous Versions -->
+<div id="revision-list"
+	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
+	hx-trigger="load, refresh"
+	hx-indicator="#revision-list">
+</div>
 <!-- END: content -->
