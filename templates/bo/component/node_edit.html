@@ -5,6 +5,12 @@
     class="node-edit node-{NODE.node_group}-{NODE.node_controller}">
     <div class="actions" style="float: right; padding: 10px 0 0 20px;">
         <button 
+            class="onyx-expand action" 
+            title="Expand this tab" 
+            onclick="expandNodeDetail('{NODE.id}')">
+        </button>
+
+        <button 
             class="onyx-duplicate action" 
             title="Duplicate {NODE.node_group|ucfirst} '{NODE.title}'" 
             onclick="duplicateNode('{NODE.id}','{NODE.parent}', '{NODE.node_group}', '{SUB_ITEMS}')">

@@ -96,6 +96,10 @@ button.action, a.action {
   &.onyx-duplicate:before {content: "\e14d";} /*content_copy*/
   &.onyx-bin:before {content: "\e872"; color: var(--onyx-color-danger);} /*delete*/
   &.onyx-delete:before {content: "\e5cd"; color: var(--onyx-color-danger);} /*close*/
+  &.onyx-expand::before {content: "\f830";} /*expand_content*/
+  .expanded & {
+    &.onyx-expand::before {content: "\f507";} /*collapse_content*/
+  }
 }
 
 .node-edit .actions button.action:before {
