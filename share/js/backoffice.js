@@ -299,6 +299,23 @@ $.widget("custom.combobox", {
 *   Onyx Node Actions
 */
 
+function expandNodeDetail(nodeId) {
+    let detail = $('#node-properties-edit');
+    detail.toggleClass('expanded');
+
+    if(detail.hasClass('expanded')) {
+        detail.find('.onyx-expand').attr('title', 'Collapse this tab');
+        if (typeof scrollToActive === "function") {
+            let activeLevel = document.querySelector('ul.nav-list-' + nodeId);
+            setTimeout(() => {
+                scrollToActive(activeLevel.previousSibling);
+            }, 300);
+        }
+    } else {
+        detail.find('.onyx-expand').attr('title', 'Expand this tab');
+    }
+}
+
 function duplicateNode(id, parent_id, node_group, sub_items = 0) {
     $('#node-properties-edit').addClass('htmx-request');
     if (sub_items == 0 || confirm("Are you sure you want to duplicate this node and all its children?")) {

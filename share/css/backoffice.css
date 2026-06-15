@@ -285,6 +285,10 @@ div.wrapper {
   max-width: 50%;
   height: 100%;
   transition: 0.3s ease;
+
+  &:has(+ .expanded) {
+    max-width: 20%;
+  }
 }
 
 .bo-node-detail-wrapper {
@@ -294,6 +298,10 @@ div.wrapper {
   padding: 0 10px;
   border-left: 2px solid var(--onyx-color-primary);
   position: relative;
+
+  &.expanded {
+    min-width: 80%;
+  }
 }
 
 /*
