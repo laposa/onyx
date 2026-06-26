@@ -23,7 +23,10 @@ class Onyx_Controller_Bo_Component_Node_Explorer_Level extends Onyx_Controller {
             : $_SESSION['active_pages'][0] ?? null;
 
         $active_page = $this->GET['active'] ?? 0;
-        $active_path = $this->Node->getFullPath($active_page) ?? [];
+        $active_path = $this->Node->getFullPath($active_page);
+        if ($active_path === false) {
+            $active_path = [];
+        }
         
         //fill in root and reverse
         $active_path[count($active_path)] = 0;
