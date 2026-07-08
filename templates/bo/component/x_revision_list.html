@@ -3,113 +3,108 @@
     @import url(/share/css/components/revision-list.css);
 </style>
 
-<script>
-    function toggleRevisionList(event) {
-        var tableBody = document.querySelector('#component-revision-list tbody');
-        var showMoreText = event.target;
-        
-        tableBody.classList.toggle('expanded');
-        
-        if (tableBody.classList.contains('expanded')) {
-            showMoreText.textContent = "Show Less";
-        } else {
-            showMoreText.textContent = "Show More";
-        }
-    }
-</script>
-
 {MESSAGES}
 
-<fieldset id="component-revision-list" class="component-preview revision-list">
+<!-- BEGIN: preview -->
+    <fieldset id="component-revision-list" class="component-preview revision-list">
 
-    <legend>Item Revisions</legend>
+        <legend>Item Revisions</legend>
 
-    <span class="label">Created:</span>
-    <span class="value">{NODE.created}</span>
+        <span class="label">Created:</span>
+        <span class="value">{NODE.created}</span>
 
-    <span class="label">Modified:</span>
-    <span class="value">{NODE.modified}</span>
+        <span class="label">Modified:</span>
+        <span class="value">{NODE.modified}</span>
 
-    <span class="label">Author:</span>
-    <span class="value">{NODE.author_detail.email}</span>
+        <span class="label">Author:</span>
+        <span class="value">{NODE.author_detail.email}</span>
 
-    <table cellspacing="0">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Revision ID</th>
-                <th>Created</th>
-                <th>Author</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- BEGIN: item -->
-            <!-- TODO: status is blank? -->
-            <tr class="status-{ITEM.status}">
-                <td><input type="checkbox" class="compare_chk" name="compare[]" onchange="countChecked()" value="{ITEM.id}" /></td>
-                <td>{ITEM.id}</td>
-                <td>{ITEM.created|strtotime|date('d/m/Y H:i:s', %s)}</td>
-                <td><a href="/backoffice/customers/{ITEM.customer_id}/detail" target="_blank">{ITEM.customer.email}</a></td>
-            </tr>
-            <!-- END: item -->
-            <!-- BEGIN: empty -->
-            <tr>
-                <td class="empty" colspan="4"><span class="note">No Revisions</span></td>
-            </tr>
-            <!-- END: empty -->
-        </tbody>
-        <tfoot>
-            <!-- BEGIN: show_more -->
-            <tr>
-                <td colspan="4" class="show-more">
-                    <span onclick="toggleRevisionList(event)">Show More</span>
-                </td>
-            </tr>
-            <!-- END: show_more -->
-        </tfoot>
-    </table>
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_revision_list?edit=true&node_id={NODE.id}&object={GET.object}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-dialog .content"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
 
-    <br />
+    </fieldset>
+<!-- END: preview -->
 
-    <div class="component-actions">
-        <button 
-            id="compare_btn" 
-            class="button add hidden"
-            hx-get="/request/bo/component/revision_compare&object=common_node"
-            hx-vals="js:{id: getSelectedRevisions()}"
-            hx-target="#edit-dialog .content"
-            hx-indicator="#edit-dialog .content"
-            hx-trigger="click"
-            hx-swap="innerHTML"
-            hx-on::before-request="openDialog()"
-        >
-            Compare
-        </button>
+<!-- BEGIN: edit -->
+    <div class="revision-list">
+        <h2>Restore Previous Versions</h2>
+
+        <div id="revision-detail-preview">
+
+        </div>
+        
+        <table cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Revision ID</th>
+                    <th>Created</th>
+                    <th>Author</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BEGIN: item -->
+                <tr class="status-{ITEM.status}">
+                    <td>{ITEM.id}</td>
+                    <td>{ITEM.created|strtotime|date('d/m/Y H:i:s', %s)}</td>
+                    <td><a href="/backoffice/customers/{ITEM.customer_id}/detail" target="_blank">{ITEM.customer.email}</a></td>
+                    <td>
+                        <span class="current">Current version</span>
+                        <button
+                            hx-get="/request/bo/component/revision_detail?node_id={GET.node_id}&revision_id={ITEM.id}&object={GET.object}"
+                            hx-target="#revision-detail-preview"
+                            hx-indicator="#edit-dialog .content"
+                            hx-trigger="click"
+                            hx-swap="innerHTML"
+                            class="btn detail">
+                            View Changes
+                        </button>
+
+                    </td>
+                </tr>
+                <!-- END: item -->
+                <!-- BEGIN: empty -->
+                <tr>
+                    <td class="empty" colspan="4"><span class="note">No Revisions</span></td>
+                </tr>
+                <!-- END: empty -->
+            </tbody>
+            <tfoot>
+                <!-- BEGIN: show_more -->
+                <tr>
+                    <td colspan="4" class="show-more">
+                        <span onclick="toggleRevisionList(event)">Show More</span>
+                    </td>
+                </tr>
+                <!-- END: show_more -->
+            </tfoot>
+        </table>
     </div>
-
-</fieldset>
-
-<script type="text/javascript">
-    function getSelectedRevisions() {
-        var ids = "";
-        var checked = $('input.compare_chk:checked');
-        checked.each(function(key,row) {
-            var row = $(row);
-            ids += row.val() + "+";
-        });
-        ids = ids.substring(0,ids.length - 1);
-        return ids;
-    }
-
-    function countChecked() {
-        var checked = $('input.compare_chk:checked');
-        var compare_btn = $('#compare_btn');
-        if(checked.length == 0) {
-            compare_btn.addClass('hidden');
-        } else {
-            compare_btn.removeClass('hidden');
+    
+    <script type="text/javascript">
+        function toggleRevisionList(event) {
+            var tableBody = document.querySelector('dialog .revision-list tbody');
+            var showMoreText = event.target;
+            
+            tableBody.classList.toggle('expanded');
+            
+            if (tableBody.classList.contains('expanded')) {
+                showMoreText.textContent = "Show Less";
+            } else {
+                showMoreText.textContent = "Show More";
+            }
         }
-    }
-</script>
+    </script>
+<!-- END: edit -->
 
 <!-- END: content -->
