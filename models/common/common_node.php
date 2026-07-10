@@ -744,6 +744,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                     // update existing or insert a new one
                     if (!$this->updateSingleURI($node_data_full)) $this->insertNewMappingURI($node_data_full);
             }
+            msg("Changes from revision {$revision_data['id']} have been successfully applied to {$node_data['title']}");
             return true;
         } else {
             $node_group = ucfirst($node_data['node_group']);

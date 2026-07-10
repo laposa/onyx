@@ -13,6 +13,32 @@
 					display: table-row;
 				}
 			}
+
+			span.current {
+				display: none;
+				font-style: italic;
+			}
+
+			button.detail {
+				opacity: 0;
+				transition: 0.3s ease;
+			}
+
+			tr:hover {
+				button.detail {
+					opacity: 1;
+				}
+			}
+
+			tr:first-of-type {
+				button.detail {
+					display: none;
+				}
+
+				span.current {
+					display: inline;
+				}
+			}
 		}
 
 		.show-more {
@@ -25,6 +51,18 @@
 				cursor: pointer;
 			}
 		}
+	}
+
+	hr {
+		margin: 20px 0;
+		border-color: var(--onyx-color-background-light);
+	}
+
+	.info-message {
+		padding: 10px;
+		border-radius: 10px;
+		background-color: var(--onyx-color-background-light);
+		color: var(--onyx-color-primary);
 	}
 
 	.hidden {

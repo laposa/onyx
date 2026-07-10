@@ -18,15 +18,18 @@ class Onyx_Controller_Bo_Component_X_Revision_List extends Onyx_Controller_Bo_Co
         $node = new common_node();
         $node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
 
-        require_once('models/common/common_revision.php');
-        $Revision = new common_revision();
+        if(isset($_GET['edit']) && $_GET['edit'] == 'true') {
 
-        if (in_array($this->GET['object'], common_revision::getAllowedRevisionObjects())) $object = $this->GET['object'];
-        if (is_numeric($this->GET['node_id'])) $node_id = $this->GET['node_id'];
+            require_once('models/common/common_revision.php');
+            $revision = new common_revision();
 
-        $list = $Revision->getList($object, $node_id);
+            if (in_array($this->GET['object'], common_revision::getAllowedRevisionObjects())) $object = $this->GET['object'];
+            if (is_numeric($this->GET['node_id'])) $node_id = $this->GET['node_id'];
 
-        $this->parseList($list);
+            $list = $revision->getList($object, $node_id);
+
+            $this->parseList($list);
+        }
 
         $this->tpl->assign('NODE', $node_data);
 
@@ -42,7 +45,7 @@ class Onyx_Controller_Bo_Component_X_Revision_List extends Onyx_Controller_Bo_Co
     public function parseList($list) {
 
         if (count($list) > 5) {
-            $this->tpl->parse('content.show_more');
+            $this->tpl->parse('content.edit.show_more');
         }
 
         if (count($list) > 0) {
@@ -57,10 +60,10 @@ class Onyx_Controller_Bo_Component_X_Revision_List extends Onyx_Controller_Bo_Co
                 $item['customer'] = $_cache[$item['customer_id']];
 
                 $this->tpl->assign('ITEM', $item);
-                $this->tpl->parse('content.item');
+                $this->tpl->parse('content.edit.item');
             }
         } else {
-            $this->tpl->parse('content.empty');
+            $this->tpl->parse('content.edit.empty');
         }
     }
 
