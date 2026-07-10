@@ -43,7 +43,7 @@
             <div class="info-message">Select revision below to compare differences with current version</div>
         </div>
         
-        <table cellspacing="0">
+        <table cellspacing="0" class="revision-list-table">
             <thead>
                 <tr>
                     <th>Revision ID</th>
@@ -93,7 +93,9 @@
     
     <script type="text/javascript">
         function toggleRevisionList(event) {
-            var tableBody = document.querySelector('dialog .revision-list tbody');
+            console.log('whatup');
+
+            var tableBody = document.querySelector('dialog .revision-list-table tbody');
             var showMoreText = event.target;
             
             tableBody.classList.toggle('expanded');
