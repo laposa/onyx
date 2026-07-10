@@ -1,80 +1,57 @@
 <!-- BEGIN: content -->
-{MESSAGES}
-<div class="compare-list">
-    <h3>Changes made compared to the current version</h3>
-
-    <div class="compare-list-item">
-        <div class="row">
-            <h3>Revision {REVISION.details.id}</h3>
-            <p>{REVISION.details.created|strtotime|date('d/m/Y H:i:s', %s)} by <a href="/backoffice/customers/{REVISION.details.customer_id}/detail" target="_blank">{REVISION.client_customer.username} ({REVISION.client_customer.email})</a></p>
-        </div>
-        <div class="code">
-            <!-- BEGIN: line -->
-                <div class="item {CSS_CLASS}">
-                    {LINE|htmlspecialchars}
-                </div>
-            <!-- END: line -->
-        </div>
-        <div class="btn-wrap">
-            <button onclick="restore({REVISION.details.id})" class="button add">Restore {REVISION.details.id}</button>
-        </div>
-    </div>
-
-</div>
-<style>
-    .compare-list {
-        display: flex;
-    }
-    .compare-list-item {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        flex-grow: 1;
-        flex-basis: 0;
-    }
-    .compare-list-item:nth-child(even) {
-        background:#eee;
-    }
-    .row {
-        padding:10px 15px 0;
-    }
-    .code {
-        max-width:100%;
-        overflow: scroll;
-        flex-grow: 1;
-        padding:10px 15px;
-        width:90%;
-    }
-    .code .item {
-        margin-bottom:7px;
-    }
-    .code .highlight.new {
-        color:#399839;
-    }
-    .code .highlight.modified {
-        color:#a9a722;
-    }
-    .code .highlight.removed {
-        color:#bc1b0f;
-    }
-    .btn-wrap {
-        padding:10px 15px;
-    }
-
+ <style>
+    @import url(/share/css/components/revision-detail.css);
 </style>
+
+{MESSAGES}
+
+<div class="revision-detail">
+    <h3>Changes made compared to the current version in revision <span>{REVISION.id}</span></h3>
+    <p>{REVISION.created|strtotime|date('d/m/Y H:i:s', %s)} by <a href="/backoffice/customers/{REVISION.customer_id}/detail" target="_blank">{REVISION.author.username} ({REVISION.author.email})</a></p>
+
+    <table class="changes">
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Current</th>
+                <th>Revision</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- BEGIN: line -->
+                <tr class="{CSS_CLASS}">
+                    <td>{CHANGE.attribute|htmlspecialchars}</td>
+                    <td>{CHANGE.current|htmlspecialchars}</td>
+                    <td>{CHANGE.revision|htmlspecialchars}</td>
+                </tr>
+            <!-- END: line -->
+        </tbody>
+    </table>
+    <button onclick="restore({REVISION.id})" class="button restore">Apply</button>
+</div>
+
+<hr>
+
 <script type="text/javascript">
     // TRIGGER ALERT
     function restore(id) {
-        var res = confirm("Are you sure you want to restore revision " + id + "?");
-        if (res == true) {
-            $.ajax({
-                url: '/request/bo/component/revision_restore?id=' + id
-            }).done(function(response) {
-                console.log('RESPONSE: ', response);
-            });
+        document.querySelector('#edit-dialog .content').classList.add('htmx-request');
 
+        if (!confirm("Are you sure you want to restore changes from this revision to current version?")) {
+            document.querySelector('#edit-dialog .content').classList.remove('htmx-request');
+            return;
+        } else {
+            htmx.ajax('GET', '/request/bo/component/revision_restore?id=' + id,
+                {
+                    target: '#edit-dialog .content',
+                    swap: 'innerHTML',
+                }).then(() => {
+                    document.querySelector('#edit-dialog .content').classList.remove('htmx-request');
+                    closeDialog();
+                    htmx.trigger('#node-properties-edit', 'loadDetail');
+            });
         }
     }
-
 </script>
 <!-- END: content -->

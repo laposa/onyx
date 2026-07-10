@@ -10,14 +10,14 @@
 
         <legend>Item Revisions</legend>
 
+        <span class="label">Author:</span>
+        <span class="value">{NODE.author_detail.email}</span>
+
         <span class="label">Created:</span>
         <span class="value">{NODE.created}</span>
 
-        <span class="label">Modified:</span>
+        <span class="label">Last Modified:</span>
         <span class="value">{NODE.modified}</span>
-
-        <span class="label">Author:</span>
-        <span class="value">{NODE.author_detail.email}</span>
 
         <div class="component-actions">
             <button
@@ -37,10 +37,10 @@
 
 <!-- BEGIN: edit -->
     <div class="revision-list">
-        <h2>Restore Previous Versions</h2>
+        <h2>Restore Previous Changes</h2>
 
         <div id="revision-detail-preview">
-
+            <div class="info-message">Select revision below to compare differences with current version</div>
         </div>
         
         <table cellspacing="0">

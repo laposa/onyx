@@ -42,33 +42,42 @@ class Onyx_Controller_Bo_Component_Revision_Detail extends Onyx_Controller {
             $revision = new common_revision();
 
             $revision = $revision->getRevisionById($id);
-            $revision_changes['content'] = unserialize($revision['content']);
+            $revision_changes = unserialize($revision['content']);
 
-            ksort($revision_changes['content']);
+            ksort($revision_changes);
 
             // TODO: add component name to revisions so we can easily look for specific changes?
 
-            unset($revision_changes['content']['modified']);
-            $this->node_data['custom_fields'] = serialize($this->node_data['custom_fields']);
+            unset($revision_changes['modified']);
+            $this->node_data['custom_fields'] = unserialize($this->node_data['custom_fields']);
+            $revision_changes['custom_fields'] = json_decode($revision_changes['custom_fields']);
+            $revision['author'] = $customer->getDetail($revision['customer_id']);
 
             // check for changes made 
             if($this->node_data != false) {
-                foreach($revision_changes['content'] as $attribute => $value) {
+                foreach($revision_changes as $attribute => $value) {
                     if($this->node_data[$attribute] == $value) {
-                        unset($revision_changes['content'][$attribute]);
+                        unset($revision_changes[$attribute]);
                     }
                 }
             }
 
-            $revision_changes['author'] = $customer->getDetail($revision_changes['content']['customer_id']);
-
             // parse changes to template
-            foreach($revision_changes['content'] as $attribute => $value) {
-                $this->tpl->assign('LINE', $attribute.": ".$value);
+            foreach($revision_changes as $attribute => $value) {
+
+                if($attribute == 'custom_fields') {
+                    $value = json_encode($value);
+                }
+
+                $change['attribute'] = ucwords(str_replace('_', ' ', $attribute));
+                $change['current'] = $attribute == 'custom_fields' ? json_encode($this->node_data[$attribute] ?? '') : $this->node_data[$attribute];
+                $change['revision'] = $value;
+
+                $this->tpl->assign('CHANGE', $change);
                 $this->tpl->parse('content.line');
             }
 
-            $this->tpl->assign('REVISION', $item);
+            $this->tpl->assign('REVISION', $revision);
         } else {
             $this->tpl->parse('content.empty');
         }
