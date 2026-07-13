@@ -18,7 +18,7 @@ class Onyx_Controller_Bo_Component_X_Article_Info extends Onyx_Controller_Bo_Com
 
         // get details
         $node = new common_node();
-        $node_data = $node->nodeDetail($this->GET['node_id']);
+        $node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
 
         //save
         if (isset($_POST['save'])) {
