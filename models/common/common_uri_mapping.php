@@ -610,11 +610,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
         
         if (!$this->isValidURIPath($uri)) return false;
 
-        // var_dump($uri, 'before records');
-        
         $records = $this->listing("public_uri = '$uri'");
-
-        // var_dump($records, 'after records');
 
         if (is_array($records) && count($records) > 0) return $records;
         else return false;
