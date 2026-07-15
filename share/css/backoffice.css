@@ -141,7 +141,13 @@ div.onyx-messages p.onyx-error-msg {background: transparent url(/share/images/ic
   background-color: #fbeaea;
   border-radius: 5px;
   margin-bottom: 10px;
+
+  #metadata-edit & {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
 }
+
 
 /*
 * jGrowl
