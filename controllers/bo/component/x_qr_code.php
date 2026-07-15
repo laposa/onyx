@@ -20,7 +20,7 @@ class Onyx_Controller_Bo_Component_X_Qr_Code extends Onyx_Controller_Bo_Componen
 
         // get details
         $node = new common_node();
-        $node_data = $node->nodeDetail($this->GET['node_id']);
+        $node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
 
         // nodeDetail returns custom_fields as an object and $_POST returns array
         $node_data['custom_fields'] = (array) $node_data['custom_fields'];
@@ -37,11 +37,6 @@ class Onyx_Controller_Bo_Component_X_Qr_Code extends Onyx_Controller_Bo_Componen
         else $hostname = $_SERVER['HTTP_HOST'];
 
         $url = 'https://' . $hostname . '/'. $this->GET['node_id'];
-
-        // Additional parameters
-        if($this->GET['params']) {
-            $node_data['custom_fields']['qrcode_params'] = urldecode($this->GET['params']);
-        }
 
         if ($node_data['custom_fields']['qrcode_params'] ?? false) {
             $url .= '?' . $node_data['custom_fields']['qrcode_params'];
@@ -69,6 +64,7 @@ class Onyx_Controller_Bo_Component_X_Qr_Code extends Onyx_Controller_Bo_Componen
 
             $save_data = $_POST['node'];
             $save_data['title'] = $node_data['title'];
+
             $node->nodeUpdate($save_data);
             return true;
             
