@@ -30,6 +30,7 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
 
             $_POST['node']['display_title'] = $_POST['node']['display_title'] ? 1 : 0;
             $_POST['node']['display_secondary_navigation'] = $_POST['node']['display_secondary_navigation'] ? 1 : 0;
+            
             $node->nodeUpdate($_POST['node']);
             $triggers = "";
 
