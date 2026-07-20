@@ -1,50 +1,47 @@
 <!-- BEGIN: content -->
-{MESSAGES}
-	<!-- BEGIN: confirm -->
+	{MESSAGES}
 	<script type="text/javascript">
-	function afterDelete(node_id) {
-		$("#node-id-" + node_id).empty(); // in backoffice
-		$("#node-item-id-" + node_id).empty(); // in backoffice
-		$("#onyx-fe-edit-node-id-" + node_id).empty(); // in frontoffice
-		$('#onyx-dialog').dialog( "close").empty();
-		refreshNodeList('{PARENT}', '{NODE_GROUP}');
+		function afterTrash(node_id) {
+			$("#node-id-" + node_id).empty(); // in backoffice
+			$("#node-item-id-" + node_id).empty(); // in backoffice
+			$("#onyx-fe-edit-node-id-" + node_id).empty(); // in frontoffice
+			closeDialog();
 
-		//  load parent detail, refresh level
-		htmx.trigger('#navigation-node-{PARENT}', 'click');
-	}
+			//  load parent detail, refresh level
+			htmx.trigger('#navigation-node-{PARENT}', 'click');
+		}
 	</script>
+	<!-- BEGIN: confirm -->
+		<h2>Move Item to Bin</h2>
 
-	<h2>Move Item to Bin</h2>
+		<h3>Do you really want to move {NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars} named "{NODE.title|htmlspecialchars}" to bin?</h3>
 
-	<h3>Do you really want to move {NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars} named "{NODE.title|htmlspecialchars}" to bin?</h3>
+		<!-- BEGIN:children -->
+				<h4>These items will be moved to bin aswell:</h4>
+				<ul>
+				<!-- BEGIN: item -->
+						<li><a href="/backoffice/content/edit/{CHILD.id}">{CHILD.title|htmlspecialchars} <sup>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</sup></a></li>
+				<!-- END: item -->
+				</ul>
+		<!-- END:children -->
 
-	<!-- BEGIN:children -->
-			<h4>These items will be moved to bin aswell:</h4>
-			<ul>
-			<!-- BEGIN: item -->
-					<li><a href="/backoffice/content/edit/{CHILD.id}">{CHILD.title|htmlspecialchars} <sup>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</sup></a></li>
-			<!-- END: item -->
-			</ul>
-	<!-- END:children -->
-
-	<!-- BEGIN:linked -->
-			<h4>Linked as shared content</h4>
-			<ul>
-			<!-- BEGIN: item -->
-					<li><a href="/backoffice/content/{LINKED.id}"> {LINKED.title|htmlspecialchars} <sup>{LINKED.node_group|htmlspecialchars}/{LINKED.node_controller|htmlspecialchars}</sup></a></li>
-			<!-- END: item -->
-			</ul>
-	<!-- END:linked -->
+		<!-- BEGIN:linked -->
+				<h4>Linked as shared content</h4>
+				<ul>
+				<!-- BEGIN: item -->
+						<li><a href="/backoffice/content/{LINKED.id}"> {LINKED.title|htmlspecialchars} <sup>{LINKED.node_group|htmlspecialchars}/{LINKED.node_controller|htmlspecialchars}</sup></a></li>
+				<!-- END: item -->
+				</ul>
+		<!-- END:linked -->
 	<!-- END: confirm -->
 
 	<div class="edit-actions">
 		<button 
 			class="button delete remove fakelink" 
 			hx-get="/request/bo/component/node_bin?id={NODE.id}&trash=1&confirm={CONFIRMATION_CODE}"
-			hx-target="#edit-dialog .content"
 			hx-indicator="#edit-dialog .content"
 			hx-trigger="click"
-			hx-on::after-request="afterDelete()"">
+			hx-on::after-request="afterTrash({NODE.id})">
 			Yes,&nbsp;move to bin
 		</button>
 	</div>

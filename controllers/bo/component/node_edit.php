@@ -55,6 +55,12 @@ class Onyx_Controller_Bo_Component_Node_Edit extends Onyx_Controller {
         $this->setContent($_Onyx_Request->getContent());
         $this->tpl->assign("SUB_CONTENT", $this->content);
 
+        if($node_data['parent'] == $Node->conf['id_map-bin']) {
+            $this->tpl->parse('content.form.delete');
+        } else {
+            $this->tpl->parse('content.form.trash');
+        }
+
         if (!isset($this->GET['ajax']) || $this->GET['ajax'] == 0) $this->tpl->parse('content.form');
 
         return true;

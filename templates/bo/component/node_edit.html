@@ -16,6 +16,7 @@
             onclick="duplicateNode('{NODE.id}','{NODE.parent}', '{NODE.node_group}', '{SUB_ITEMS}')">
         </button>
 
+        <!-- BEGIN: trash -->
         <button 
             hx-get="/request/bo/component/node_bin~id={NODE.id}:trash=1~"
             hx-target="#edit-dialog .content"
@@ -26,6 +27,20 @@
             class="onyx-bin action" 
             title="Move {NODE.node_group|ucfirst} '{NODE.title}' to bin">
         </button>
+        <!-- END: trash -->
+
+        <!-- BEGIN: delete -->
+        <button
+            hx-get="/request/bo/component/node_delete?id={NODE.id}&delete=1"
+            hx-target="#edit-dialog .content"
+            hx-indicator="#edit-dialog .content"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-on::before-request="openDialog()"
+            class="onyx-delete action" 
+            title="Delete {NODE.node_group|ucfirst} '{NODE.title}' forever">
+        </button>
+        <!-- END: delete -->
     </div>
     {SUB_CONTENT}
 </div>
