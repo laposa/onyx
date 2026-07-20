@@ -13,17 +13,19 @@
         <thead>
             <tr>
                 <th>Attribute</th>
-                <th>Current</th>
-                <th>Revision</th>
+                <th>Current Value</th>
+                <th></th>
+                <th>Revision Value</th>
             </tr>
         </thead>
 
         <tbody>
             <!-- BEGIN: line -->
                 <tr class="{CSS_CLASS}">
-                    <td>{CHANGE.attribute|htmlspecialchars}</td>
-                    <td>{CHANGE.current|htmlspecialchars}</td>
-                    <td>{CHANGE.revision|htmlspecialchars}</td>
+                    <td>{CHANGE.attribute}</td>
+                    <td>{CHANGE.current}</td>
+                    <td>⇒</td>
+                    <td>{CHANGE.revision}</td>
                 </tr>
             <!-- END: line -->
         </tbody>
