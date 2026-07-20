@@ -14,4 +14,28 @@
 		top: 10px;
 		right: 10px;
 	}
+
+	table {
+
+		/* attribute */
+		th:nth-child(1) {
+			width: 30%;
+		}
+
+		/* current value */
+		th:nth-child(2) {
+			width: 30%;
+		}
+
+		/* arrow */
+		th:nth-child(3) {
+			width: 10%;
+		}
+
+		/* revision value */
+		th:nth-child(4) {
+			width: 30%;
+		}
+
+	}
 }
