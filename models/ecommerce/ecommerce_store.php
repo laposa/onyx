@@ -307,6 +307,69 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
             return false;
         }
     }
+
+    /**
+     * duplicateStore
+     * 
+     * @param integer $original_store_id
+     * @return integer $id
+     */
+
+    public function duplicateStore($original_store_id)
+    {
+        require_once('models/ecommerce/ecommerce_store_image.php');
+        require_once('models/ecommerce/ecommerce_store_taxonomy.php');
+
+        $image = new ecommerce_store_image();
+        $taxonomy = new ecommerce_store_taxonomy();
+
+        // read original node
+        $original_store_data = $this->detail($original_store_id);
+        
+        // copy and modify
+        $new_store_data = $original_store_data;
+        $new_store_data['title'] = "{$new_store_data['title']} (copy)";
+        $new_store_data['created'] = $new_store_data['modified'] = date('c');
+        unset($new_store_data['id']);
+        
+        // insert as new
+        $new_store_id = $this->insertStore($new_store_data);
+        if (!is_numeric($new_store_id)) {
+            msg("store_duplicate: Cannot create copy of store ID $original_store_id", 'error');
+            return false;
+        }
+
+        // read related images
+        $original_images = $image->listing("node_id = $original_store_id");
+
+        // duplicate images
+        if (is_array($original_images)) {
+            foreach ($original_images as $original_image) {
+                $new_image = $original_image;
+                $new_image['node_id'] = $new_store_id;
+                $new_image['modified'] = date('c');
+                $new_image['customer_id'] = (int) Onyx_Bo_Authentication::getInstance()->getUserId();
+                unset($new_image['id']);
+                $image_id = $image->insert($new_image);
+            }
+        }
+
+        // read taxonomy relations
+        $original_categories = $taxonomy->listing("node_id = $original_store_id");
+
+        // duplicate taxonomy relations
+        if (is_array($original_categories)) {
+            foreach ($original_categories as $category) {
+                $new_category = $category;
+                $new_category['node_id'] = $new_store_id;
+                unset($new_category['id']);
+                $category_id = $taxonomy->insert($new_category);
+            }
+        }
+
+        return $new_store_id;
+    }
+
     /**
      * get filtered store list
      *

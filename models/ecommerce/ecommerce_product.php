@@ -241,6 +241,71 @@ CREATE TABLE ecommerce_product (
         }
 
     }
+
+    /**
+     * duplicateProduct
+     * 
+     * @param integer $original_product_id
+     * @return integer $id
+     */
+
+    public function duplicateProduct($original_product_id)
+    {
+        // require_once('models/ecommerce/ecommerce_product_image.php');
+        // require_once('models/ecommerce/ecommerce_product_taxonomy.php');
+
+        // $image = new ecommerce_product_image();
+        // $taxonomy = new ecommerce_product_taxonomy();
+
+        // // read original node
+        // $original_product_data = $this->detail($original_product_id);
+
+        // // TODO: think of a way to duplicate varieties and product itself, since SKU code can be anything and does not allow duplicates
+        
+        // // copy and modify
+        // $new_product_data = $original_product_data;
+        // $new_product_data['name'] = "{$new_product_data['name']} (copy)";
+        // $new_product_data['created'] = $new_product_data['modified'] = date('c');
+        // unset($new_product_data['id']);
+        
+        // // insert as new
+        // $new_product_id = $this->insertProduct($new_product_data);
+        // if (!is_numeric($new_product_id)) {
+        //     msg("product_duplicate: Cannot create copy of product ID $original_product_id", 'error');
+        //     return false;
+        // }
+
+        // // read related images
+        // $original_images = $image->listing("node_id = $original_product_id");
+
+        // // duplicate images
+        // if (is_array($original_images)) {
+        //     foreach ($original_images as $original_image) {
+        //         $new_image = $original_image;
+        //         $new_image['node_id'] = $new_store_id;
+        //         $new_image['modified'] = date('c');
+        //         $new_image['customer_id'] = (int) Onyx_Bo_Authentication::getInstance()->getUserId();
+        //         unset($new_image['id']);
+        //         $image_id = $image->insert($new_image);
+        //     }
+        // }
+
+        // // read taxonomy relations
+        // $original_categories = $taxonomy->listing("node_id = $original_store_id");
+
+        // // duplicate taxonomy relations
+        // if (is_array($original_categories)) {
+        //     foreach ($original_categories as $category) {
+        //         $new_category = $category;
+        //         $new_category['node_id'] = $new_store_id;
+        //         unset($new_category['id']);
+        //         $category_id = $taxonomy->insert($new_category);
+        //     }
+        // }
+
+        // return $new_store_id;
+    }
+
     /**
      * getDetail
      */

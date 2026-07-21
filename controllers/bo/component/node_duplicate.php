@@ -32,5 +32,4 @@ class Onyx_Controller_Bo_Component_Node_Duplicate extends Onyx_Controller {
 
         return $new_node_id > 0;
     }
-
 }

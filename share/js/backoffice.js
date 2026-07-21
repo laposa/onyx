@@ -321,7 +321,6 @@ function duplicateNode(id, parent_id, node_group, sub_items = 0) {
     if (sub_items == 0 || confirm("Are you sure you want to duplicate this node and all its children?")) {
         $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
             popupMessage($(data).find("div.onyx-messages"));
-            // refreshNodeList(parent_id, node_group);
             $('#node-properties-edit').removeClass('htmx-request');
             htmx.trigger('.nav-list-' + parent_id, 'navRefresh');
         });

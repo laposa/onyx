@@ -2744,6 +2744,35 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
             if ($this->conf['unpublish_on_duplicate']) $new_node_data['publish'] = 0;
         }
         unset($new_node_data['id']);
+        
+        // duplicate associated product/store/recipe if there is any
+        switch ($original_node_data['node_controller']) {
+            case 'product':
+                // TODO: think of a way to duplicate varieties and product itself, since SKU code can be anything and does not allow duplicates
+                // require_once('models/ecommerce/ecommerce_product.php');
+                // $product = new ecommerce_product();
+                // $new_product_id = $product->duplicateProduct($original_node_data['content']);
+                // if (is_numeric($new_product_id)) $new_node_data['content'] = $new_product_id;
+                unset($new_node_data['content']);
+            break;
+
+            case 'store':
+                require_once('models/ecommerce/ecommerce_store.php');
+                $store = new ecommerce_store();
+                $new_store_id = $store->duplicateStore($original_node_data['content']);
+                if (is_numeric($new_store_id)) $new_node_data['content'] = $new_store_id;
+            break;
+
+            case 'recipe':
+                require_once('models/ecommerce/ecommerce_recipe.php');
+                $recipe = new ecommerce_recipe();
+                $new_recipe_id = $recipe->duplicateRecipe($original_node_data['content']);
+                if (is_numeric($new_recipe_id)) $new_node_data['content'] = $new_recipe_id;
+            break;
+
+            default:
+            break;
+        }
 
         // insert as new
         $new_node_id = $this->nodeInsert($new_node_data);
