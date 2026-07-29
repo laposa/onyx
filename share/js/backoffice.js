@@ -316,19 +316,14 @@ function expandNodeDetail(nodeId) {
     }
 }
 
+// TODO: possibly deprecated, need to determine whether linked components are still being used
 function duplicateNode(id, parent_id, node_group, sub_items = 0) {
     $('#node-properties-edit').addClass('htmx-request');
     if (sub_items == 0 || confirm("Are you sure you want to duplicate this node and all its children?")) {
-        // $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
-        //     popupMessage($(data).find("div.onyx-messages"));
-        //     $('#node-properties-edit').removeClass('htmx-request');
-        //     htmx.trigger('.nav-list-' + parent_id, 'navRefresh');
-        // });
-
-        htmx.ajax('GET', '/request/bo/component/node_duplicate?id='+id).then(() => {
-            popupMessage("div.onyx-messages");
-            $('#node-properties-edit').removeClass('htmx-request'); 
-            
+        $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
+            popupMessage($(data).find("div.onyx-messages"));
+            $('#node-properties-edit').removeClass('htmx-request');
+            htmx.trigger('.nav-list-' + parent_id, 'navRefresh');
         });
     } else {
         return false;
