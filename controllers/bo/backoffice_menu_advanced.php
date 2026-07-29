@@ -43,6 +43,9 @@ class Onyx_Controller_Bo_Backoffice_Menu_Advanced extends Onyx_Controller_Bo_Bac
         if ($auth->hasAnyPermission('configuration')) $this->tpl->parse('content.configuration');
         if ($auth->hasAnyPermission('currency') && $isEcommerce) $this->tpl->parse('content.currency');
         if ($auth->hasAnyPermission('api') && $isEcommerce) $this->tpl->parse('content.api');
+        if ($auth->hasAnyPermission('products') && $isEcommerce) $this->tpl->parse('content.products');
+        if ($auth->hasAnyPermission('recipes') && $isEcommerce) $this->tpl->parse('content.recipes');
+        if ($auth->hasAnyPermission('stores') && $isEcommerce) $this->tpl->parse('content.stores');
 
         return true;
         

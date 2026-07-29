@@ -148,6 +148,12 @@ div.onyx-messages p.onyx-error-msg {background: transparent url(/share/images/ic
   }
 }
 
+.info-message {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--onyx-color-background-light);
+  color: var(--onyx-color-primary);
+}
 
 /*
 * jGrowl

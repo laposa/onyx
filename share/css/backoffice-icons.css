@@ -112,7 +112,7 @@ div.onyx-edit-content {
   padding: 0 0 50px 5px;
 }
 
-.onyx-fe-edit-node-container a.onyx-fe-action {
+.onyx-fe-edit-node-container .onyx-fe-action {
   background: none;
   border: none;
   padding: 0;
@@ -120,6 +120,7 @@ div.onyx-edit-content {
   text-decoration: none;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   &:before {
     font-family: 'Material Icons';

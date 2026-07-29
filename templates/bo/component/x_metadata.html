@@ -5,14 +5,14 @@
         
         <legend>Path</legend>
 
-        <span class="label">Current full path:</span>
-        <span class="value"><a href="{NODE_URL}" id="node-full-path-url" target="_blank">{NODE_URL}</a></span>
-
         <!-- BEGIN: conflict -->
             <div class="error-message">
                 <strong>Warning:</strong> Current path is already in use and overridden by another node (<a href="/backoffice/content/{CONFLICTING_NODE}">{CONFLICTING_NODE}</a>). Please change the slug to avoid conflicts.
             </div>
         <!-- END: conflict -->
+
+        <span class="label">Current full path:</span>
+        <span class="value"><a href="{NODE_URL}" id="node-full-path-url" target="_blank">{NODE_URL}</a></span>
 
         <span class="label">Browser Title:</span>
         <span class="value">{NODE.browser_title}</span>
