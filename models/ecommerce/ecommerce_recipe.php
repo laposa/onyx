@@ -175,8 +175,7 @@ CREATE TABLE ecommerce_recipe (
     /**
      * insert recipe
      */
-    function insertRecipe($data)
-    {
+    function insertRecipe($data) {
         $data['priority'] = 0;
         $data['publish'] = 1;
         $data['created'] = date('c');
@@ -195,8 +194,7 @@ CREATE TABLE ecommerce_recipe (
     /**
      * update recipe
      */
-    function updateRecipe($data)
-    {
+    function updateRecipe($data) {
         // set values
         $data['modified'] = date('c');
             
@@ -209,19 +207,68 @@ CREATE TABLE ecommerce_recipe (
         $data['other_data'] = serialize($data['other_data'] ?? '');
 
         if ($id = $this->update($data)) {
-            msg("{$data['node_group']} {$data['title']} (id={$data['id']}) has been updated");
             return $id;
         } else {
-            msg("Cannot update {$data['node_group']} {$data['title']} (id={$data['id']})", 'error');
             return false;
         }
+    }
+
+    function duplicateRecipe($original_recipe_id) {
+        require_once('models/ecommerce/ecommerce_recipe_image.php');
+        require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
+        require_once('models/ecommerce/ecommerce_recipe_ingredients.php');
+
+        $image = new ecommerce_recipe_image();
+        $taxonomy = new ecommerce_recipe_taxonomy();
+        $ingredients = new ecommerce_recipe_ingredients();
+
+        // read original node
+        $original_recipe_data = $this->detail($original_recipe_id);
+        
+        // copy and modify
+        $new_recipe_data = $original_recipe_data;
+        $new_recipe_data['title'] = "{$new_recipe_data['title']} (copy)";
+        $new_recipe_data['created'] = $new_recipe_data['modified'] = date('c');
+        unset($new_recipe_data['id']);
+
+        // insert as new
+        $new_recipe_id = $this->insertRecipe($new_recipe_data);
+        if (!is_numeric($new_recipe_id)) {
+            msg("recipe_duplicate: Cannot create copy of recipe ID $original_recipe_id", 'error');
+            return false;
+        }
+
+        // duplicate images
+        $original_images = $image->listing("node_id = $original_recipe_id");
+        if (is_array($original_images)) {
+            foreach ($original_images as $original_image) {
+                $new_image = $original_image;
+                $new_image['node_id'] = $new_recipe_id;
+                $new_image['modified'] = date('c');
+                $new_image['customer_id'] = (int) Onyx_Bo_Authentication::getInstance()->getUserId();
+                unset($new_image['id']);
+                $image_id = $image->insert($new_image);
+            }
+        }
+
+        // duplicate ingredients
+        $original_ingredients = $ingredients->listing("recipe_id = $original_recipe_id");
+        if (is_array($original_ingredients)) {
+            foreach ($original_ingredients as $original_ingredient) {
+                $new_ingredient = $original_ingredient;
+                $new_ingredient['recipe_id'] = $new_recipe_id;
+                unset($new_ingredient['id']);
+                $ingredients->insert($new_ingredient);
+            }
+        }
+
+        return $new_recipe_id;
     }
 
     /**
      * prepareRecipeSql
      */
-    private function prepareRecipeSql($keywords, $ready_time, $taxonomy_id, $product_variety_sku, $publish, $count_only = false)
-    {
+    private function prepareRecipeSql($keywords, $ready_time, $taxonomy_id, $product_variety_sku, $publish, $count_only = false) {
         $select = "";
         $keywordsWhere = "";
         $where = "";
@@ -313,8 +360,7 @@ CREATE TABLE ecommerce_recipe (
      * @param  boolean $publish            Publish filter
      * @return array
      */
-    function getFilteredRecipeList($keywords = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $limit_per_page = false, $limit_from = false, $order_by = false, $order_dir = false, $publish = 1)
-    {
+    function getFilteredRecipeList($keywords = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $limit_per_page = false, $limit_from = false, $order_by = false, $order_dir = false, $publish = 1) {
         /**
          * initialise
          */
@@ -400,8 +446,7 @@ CREATE TABLE ecommerce_recipe (
      * getFilteredRecipeCount
      */
 
-    function getFilteredRecipeCount($keywords = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $publish = 1)
-    {
+    function getFilteredRecipeCount($keywords = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $publish = 1) {
         $sql = $this->prepareRecipeSql($keywords, $ready_time, $taxonomy_id, $product_variety_sku, $publish, true);
         $count = $this->executeSql($sql);
         return (int)$count[0]['count'];
@@ -597,8 +642,7 @@ CREATE TABLE ecommerce_recipe (
      * @return string author name
      */
 
-    public function getRecipeAuthorName($item)
-	{
+    public function getRecipeAuthorName($item) {
         require_once('models/common/common_taxonomy.php');
 
         $this->Taxonomy = new common_taxonomy();

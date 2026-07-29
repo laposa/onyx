@@ -315,8 +315,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
      * @return integer $id
      */
 
-    public function duplicateStore($original_store_id)
-    {
+    public function duplicateStore($original_store_id) {
         require_once('models/ecommerce/ecommerce_store_image.php');
         require_once('models/ecommerce/ecommerce_store_taxonomy.php');
 

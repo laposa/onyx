@@ -2719,8 +2719,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
      * recursivelly duplicate node and its contens
      */
 
-    public function duplicateNode($original_node_id, $new_parent_id = false, $new_priority = false, $new_parent_container = false)
-    {
+    public function duplicateNode($original_node_id, $new_parent_id = false, $new_priority = false, $new_parent_container = false) {
         require_once('models/common/common_image.php');
         require_once('models/common/common_node_taxonomy.php');
 
@@ -2749,10 +2748,6 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
         switch ($original_node_data['node_controller']) {
             case 'product':
                 // TODO: think of a way to duplicate varieties and product itself, since SKU code can be anything and does not allow duplicates
-                // require_once('models/ecommerce/ecommerce_product.php');
-                // $product = new ecommerce_product();
-                // $new_product_id = $product->duplicateProduct($original_node_data['content']);
-                // if (is_numeric($new_product_id)) $new_node_data['content'] = $new_product_id;
                 unset($new_node_data['content']);
             break;
 
