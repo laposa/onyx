@@ -4,7 +4,7 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: wrapper -->
 <!-- BEGIN: backend_wrapper_before -->
-<div class="onyx-fe-edit-node-container {NODE.extra_css_class}">
+<div class="onyx-fe-edit-node-container {NODE.extra_css_class}" id="fe-node-{NODE.id}">
     <div id="onyx-fe-edit-node-id-{NODE.id}">
         <!-- END: backend_wrapper_before -->
         <!-- BEGIN: fe_layout_property -->
@@ -69,8 +69,18 @@
                     onmouseout="$('#onyx-fe-edit-node-id-{NODE.id}').removeClass('onyx-highlight-edit');">
                     <span>Edit {NODE.node_controller}</span>
                 </a>
-                <a class="onyx-fe-action onyx-duplicate" title="Duplicate content {NODE.title|htmlspecialchars}" href="#{NODE.id}"
-                    onclick="duplicateNode({NODE.id}); return false;"><span>Duplicate</span></a>
+                <button 
+                    class="onyx-fe-action onyx-duplicate" 
+                    title="Duplicate {NODE.node_group|ucfirst} '{NODE.title}'" 
+                    hx-get="/request/bo/component/node_duplicate?id={NODE.id}&render=true"
+                    hx-indicator="#content"
+                    hx-target="#fe-node-{NODE.id}"
+                    hx-on::after-request="popupMessage('div.onyx-messages');"
+                    hx-swap="afterend"
+                    onmouseover="$('#onyx-fe-edit-node-id-{NODE.id}').addClass('onyx-highlight-edit');"
+                    onmouseout="$('#onyx-fe-edit-node-id-{NODE.id}').removeClass('onyx-highlight-edit');"
+                >
+                </button>
                 <a class="onyx-fe-action onyx-bin"
                     title="Move {NODE.node_group} {NODE.title|htmlspecialchars} ({NODE.node_controller}) to bin"
                     href="#{NODE.id}"><span>Move to bin</span>

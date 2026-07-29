@@ -25,6 +25,15 @@ class Onyx_Controller_Bo_Component_Node_Duplicate extends Onyx_Controller {
 
         if ($new_node_id) {
             msg("Content successfully duplicated.");
+
+            if($this->GET['render'] == 'true') {
+                // render new node in front-end edit
+                $_Onyx_Request = new Onyx_Request("node~id=$new_node_id~");
+                $this->tpl->assign('NODE_DETAIL', $_Onyx_Request->getContent());
+            } else {
+                // load new node in back-office
+                header('HX-Trigger: {"loadNewNode":{"nodeId" :"'.$new_node_id.'"}}');
+            }
         } else {
             msg("Content duplication failed.", 'error');
         }
