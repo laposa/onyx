@@ -379,7 +379,8 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
             $fullpath = "";
             
             foreach ($fp as $f) {
-                if ($f['node_group'] == 'page') {
+                //generate URL only for pages and bin, exlude system folders and contents and such
+                if ($f['node_group'] == 'page' || $f['id'] == $Node->conf['id_map-bin']) {
                 
                     if ($f['uri_title'] != '') $title = $this->cleanTitle($f['uri_title']);
                     else $title = $this->cleanTitle($f['title']);
@@ -439,11 +440,10 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
                 $sql = "UPDATE common_uri_mapping SET public_uri = regexp_replace(public_uri, '{$old_uri}/', '{$new_uri}/') WHERE id != {$item['id']} AND type = 'generic';";
                 if (!is_array($this->executeSql($sql))) msg("Couldn't update sub-pages URLs", 'error');
                 
-                // insert 301 redirect, not for pages moved to bin
-                if ($node_data['parent'] != $this->conf['bin_id']) {
-                    if ($this->insertRedirects($old_uri, $new_uri, $node_data['id'])) msg("Created 301 redirects for previous path $old_uri");
-                    else msg("Redirect generator for previous path $old_uri failed", 'error');
-                }
+                // insert 301 redirect
+                if ($this->insertRedirects($old_uri, $new_uri, $node_data['id'])) msg("Created 301 redirects for previous path $old_uri");
+                else msg("Redirect generator for previous path $old_uri failed", 'error');
+                
                 // the update was successful, altough some errors could happen
                 return true;
         
@@ -599,6 +599,20 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
         $records = $this->listing("type = '301' AND public_uri = '$uri'");
 
         if (is_array($records) && count($records) > 0) return $records[0];
+        else return false;
+    }
+
+    /**
+     * get existing URI
+     */
+     
+    function getExistingURI($uri) {
+        
+        if (!$this->isValidURIPath($uri)) return false;
+
+        $records = $this->listing("public_uri = '$uri'");
+
+        if (is_array($records) && count($records) > 0) return $records;
         else return false;
     }
 

@@ -241,6 +241,7 @@ CREATE TABLE ecommerce_product (
         }
 
     }
+
     /**
      * getDetail
      */

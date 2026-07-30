@@ -141,6 +141,18 @@ div.onyx-messages p.onyx-error-msg {background: transparent url(/share/images/ic
   background-color: #fbeaea;
   border-radius: 5px;
   margin-bottom: 10px;
+
+  #metadata-edit & {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+}
+
+.info-message {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--onyx-color-background-light);
+  color: var(--onyx-color-primary);
 }
 
 /*

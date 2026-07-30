@@ -77,8 +77,8 @@ function refreshDeleteContent() {
 
 function duplicateNode(node_id) {
     $("#onyx-dialog").hide().load("/request/bo/component/node_duplicate~id="+node_id+"~", '', function (responseText, textStatus, XMLHttpRequest) {
-            popupMessage("#onyx-dialog div.onyx-messages");
-            $('#onyx-fe-edit-node-id-'+node_id).parent().after($("#onyx-dialog").html()).hide().slideDown("slow");
+        popupMessage("#onyx-dialog div.onyx-messages");
+        $('#onyx-fe-edit-node-id-'+node_id).parent().after($("#onyx-dialog").html()).hide().slideDown("slow");
     });
 }
 

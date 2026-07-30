@@ -58,13 +58,6 @@
 		border-color: var(--onyx-color-background-light);
 	}
 
-	.info-message {
-		padding: 10px;
-		border-radius: 10px;
-		background-color: var(--onyx-color-background-light);
-		color: var(--onyx-color-primary);
-	}
-
 	.hidden {
 			display: none;
 	}

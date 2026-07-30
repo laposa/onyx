@@ -5,6 +5,12 @@
         
         <legend>Path</legend>
 
+        <!-- BEGIN: conflict -->
+            <div class="error-message">
+                <strong>Warning:</strong> Current path is already in use and overridden by another node (<a href="/backoffice/content/{CONFLICTING_NODE}">{CONFLICTING_NODE}</a>). Please change the slug to avoid conflicts.
+            </div>
+        <!-- END: conflict -->
+
         <span class="label">Current full path:</span>
         <span class="value"><a href="{NODE_URL}" id="node-full-path-url" target="_blank">{NODE_URL}</a></span>
 
@@ -51,10 +57,17 @@
                 onchange="var value = $(this).attr('value'); if (value.indexOf('{_SERVER.HTTP_HOST}') != -1) {growlMessage('Invalid slug, don\'t use actual URL'); $(this).attr('value', '');}"
                 placeholder="{NODE_URL_LAST_SEGMENT}"
             />
-            
+
             <div class="additional-info">
                 Current full path: <a href="{NODE_URL}" id="node-full-path-url" target="_blank">{NODE_URL}</a>
             </div>
+
+            <!-- BEGIN: conflict -->
+                <div class="error-message">
+                    <strong>Warning:</strong> Current path is already in use and overridden by another node (<a href="/backoffice/content/{CONFLICTING_NODE}">{CONFLICTING_NODE}</a>). Please change the slug to avoid conflicts.
+                </div>
+            <!-- END: conflict -->
+             
         </div>
 
         <!-- Browser Title -->
