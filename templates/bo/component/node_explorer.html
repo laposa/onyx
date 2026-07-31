@@ -40,13 +40,6 @@
         }
     });
 
-    //remove node from explorer after delete
-    document.body.addEventListener('removeNode', function(event) {
-        if (event.detail && event.detail.nodeId) {
-            document.getElementById('navigation-node-' + event.detail.nodeId).remove();
-        }
-    });
-
     function scrollToActive(list) {
         var activeItem = list.querySelector('li.active');
         var explorer = document.querySelector('.levels');

@@ -64,7 +64,6 @@ class Onyx_Controller_Bo_Component_Node_Bin extends Onyx_Controller {
                     if ($this->GET['confirm'] === $confirmation_code) {
                         if ($Node->moveToBin($delete_id)) {
                             msg("{$node_data['node_group']} \"{$node_data['title']}\" (id={$node_data['id']}) has been moved to bin");
-                            header('HX-Trigger: {"removeNode":{"nodeId" :"'.$delete_id.'"} }');
                         } else {
                             msg("Can't move to bin!", 'error');
                         }
