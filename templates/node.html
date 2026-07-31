@@ -34,20 +34,19 @@
             >
             </button>
 
-            <a class="onyx-fe-action onyx-bin" title="Move {NODE.node_group} ({NODE.node_controller}) to bin" href="#{NODE.id}"
-                onclick="
-                    makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_bin~id={NODE.id}:bin=1~');
-                    $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, 
-                    open: function() {
-                        $('#onyx-fe-edit-node-id-{NODE.id}')
-                        .addClass('onyx-highlight-edit')
-                    }, close: function() {
-                        $('#onyx-fe-edit-node-id-{NODE.id}')
-                        .removeClass('onyx-highlight-edit')}}); return false" onmouseover="$('#onyx-fe-edit-node-id-{NODE.id}')
-                        .addClass('onyx-highlight-delete');" onmouseout="$('#onyx-fe-edit-node-id-{NODE.id}')
-                        .removeClass('onyx-highlight-delete');">
-                <span>Delete</span>
-            </a>
+            <button 
+                class="onyx-fe-action onyx-bin" 
+                title="Move {NODE.node_group|ucfirst} '{NODE.title}' to bin"
+                hx-get="/request/bo/component/node_bin~id={NODE.id}:trash=1~"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-dialog .content"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                onmouseover="$('#onyx-fe-edit-node-id-{NODE.id}').addClass('onyx-highlight-delete');"
+                onmouseout="$('#onyx-fe-edit-node-id-{NODE.id}').removeClass('onyx-highlight-delete');"
+            >
+            </button>
         </div>
         <!-- END: fe_layout_property -->
 
@@ -99,6 +98,8 @@
                     hx-trigger="click"
                     hx-swap="innerHTML"
                     hx-on::before-request="openDialog()"
+                    onmouseover="$('#onyx-fe-edit-node-id-{NODE.id}').addClass('onyx-highlight-delete');"
+                    onmouseout="$('#onyx-fe-edit-node-id-{NODE.id}').removeClass('onyx-highlight-delete');"
                 >
                 </button>
 
