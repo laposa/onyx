@@ -8,6 +8,7 @@
 @import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
 @import url(/share/css/variables.css);
 @import url(/share/css/backoffice-icons.css);
+@import url(/share/css/components/edit-dialog.css);
 
 #onyx-header { 
 	position: fixed; 

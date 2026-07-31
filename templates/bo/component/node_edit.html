@@ -1,13 +1,6 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<script type="text/javascript">
-    function afterDuplicate(parent_id) {
-        popupMessage("div.onyx-messages");
-        htmx.trigger('.nav-list-' + parent_id, 'navRefresh');
-    }
-</script>
-
 <!-- BEGIN: form -->
 <div 
     class="node-edit node-{NODE.node_group}-{NODE.node_controller}">
@@ -25,7 +18,7 @@
             hx-confirm="Are you sure you want to duplicate this node and all its children?"
             hx-indicator="#node-properties-edit"
             hx-swap="noswap"
-            hx-on::after-request="afterDuplicate({NODE.parent})"
+            hx-on::after-request="popupMessage('div.onyx-messages');"
         >
         </button>
 

@@ -89,10 +89,19 @@
                     onmouseout="$('#onyx-fe-edit-node-id-{NODE.id}').removeClass('onyx-highlight-edit');"
                 >
                 </button>
-                <a class="onyx-fe-action onyx-bin"
-                    title="Move {NODE.node_group} {NODE.title|htmlspecialchars} ({NODE.node_controller}) to bin"
-                    href="#{NODE.id}"><span>Move to bin</span>
-                </a>
+
+                <button 
+                    class="onyx-fe-action onyx-bin" 
+                    title="Move {NODE.node_group|ucfirst} '{NODE.title}' to bin"
+                    hx-get="/request/bo/component/node_bin~id={NODE.id}:trash=1~"
+                    hx-target="#edit-dialog .content"
+                    hx-indicator="#edit-dialog .content"
+                    hx-trigger="click"
+                    hx-swap="innerHTML"
+                    hx-on::before-request="openDialog()"
+                >
+                </button>
+
                 <!-- BEGIN: edit_source -->
                 <a class="onyx-fe-action onyx-edit-source" title="Edit source" href="/backoffice/content/{NODE.id}">
                     <span>Edit Source</span>

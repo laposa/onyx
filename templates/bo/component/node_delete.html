@@ -3,10 +3,6 @@
 
     <script type="text/javascript">
         function afterNodeDelete(node_id) {
-            $('.bo-page').addClass('htmx-request');
-
-            $("#node-id-" + node_id).empty();
-            $("#node-item-id-" + node_id).empty();
             closeDialog();
 
             //  load parent detail, refresh level

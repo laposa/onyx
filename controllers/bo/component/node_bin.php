@@ -62,29 +62,14 @@ class Onyx_Controller_Bo_Component_Node_Bin extends Onyx_Controller {
                     
                     //delete only if confirmation code match
                     if ($this->GET['confirm'] === $confirmation_code) {
-                        
                         if ($Node->moveToBin($delete_id)) {
-                        
                             msg("{$node_data['node_group']} \"{$node_data['title']}\" (id={$node_data['id']}) has been moved to bin");
-                        
                             header('HX-Trigger: {"removeNode":{"nodeId" :"'.$delete_id.'"} }');
-
-                            //if it was a "page", than go to parent page
-                            if ($this->GET['ajax'] == 0) {
-                                if ($node_data['node_group'] == 'page') onyxGoTo("/page/{$node_data['parent']}");
-                                else onyxGoTo($_SESSION['last_diff'], 2);
-                            }
-                        
                         } else {
-                            
                             msg("Can't move to bin!", 'error');
-                        
                         }
-                        
                     } else {
-                        
                         msg("node_bin: incorrect confirmation code", 'error');
-                    
                     }
                                         
                 } else {

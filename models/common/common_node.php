@@ -1950,7 +1950,9 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         
     }
 
-    function deleteFromBin($node_id) {
+    function deleteFromBin($node_data) {
+
+        $node_id = $node_data['id'] ?? null;
 
         if (!is_numeric($node_id)) {
             msg("deleteFromBin: node_id isn't numeric", 'error');
@@ -1960,10 +1962,33 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         $parents = $this->getFullPath($node_id) ?? [];
 
         if(in_array($this->conf['id_map-bin'], $parents)) {
+
+            if(is_numeric($node_data['content']))$this->deleteAssociatedNode($node_data);
+
             return $this->delete($node_id);
         } else {
             msg("deleteFromBin: node needs to be moved into Bin first in order to be deleted", 'error');
             return false;
+        }
+    }
+
+    function deleteAssociatedNode($node_data) {
+        switch($node_data['node_controller']) {
+            case 'product':
+                require_once("models/ecommerce/ecommerce_product.php");
+                $product = new ecommerce_product();
+                $product->delete($node_data['content']);
+                break;
+            case 'recipe':
+                require_once("models/ecommerce/ecommerce_recipe.php");
+                $recipe = new ecommerce_recipe();
+                $recipe->delete($node_data['content']);
+                break;
+            case 'store':
+                require_once("models/ecommerce/ecommerce_store.php");
+                $store = new ecommerce_store();
+                $store->delete($node_data['content']);
+                break;
         }
     }
     
