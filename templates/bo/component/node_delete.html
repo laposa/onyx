@@ -1,40 +1,49 @@
 <!-- BEGIN: content -->
-{MESSAGES}
-<!-- BEGIN: confirm -->
-<script type="text/javascript">
-function confirmDeleteNode(node_id) {
-    makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_delete~id=' + node_id + ':delete=1:confirm={CONFIRMATION_CODE}:ajax=1~', function() {
-        $("#node-id-" + node_id).empty();
-        $("#node-item-id-" + node_id).empty();
-        $('#onyx-dialog').dialog( "close").empty();
-        refreshNodeList('{PARENT}', 'bin');
-    });
-    return false;
-}
-</script>
+    {MESSAGES}
 
-<div style="padding: 10px;">
-<p><em>Note: this operation is irreversible</em></p>
-<p>Do you really want to delete {NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars} named "{NODE.title|htmlspecialchars}"? <br><br><button class="button delete remove fakelink" onclick="confirmDeleteNode('{GET.id}');">Yes,&nbsp;Delete</button></p>
+    <script type="text/javascript">
+        function afterNodeDelete(node_id) {
+            closeDialog();
 
-<!-- BEGIN:children -->
-    <h5>Will delete as well</h5>
-    <ul>
-    <!-- BEGIN: item -->
-        <li><a href="/backoffice/content/edit/{CHILD.id}">{CHILD.title|htmlspecialchars} <sup>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</sup></a></li>
-    <!-- END: item -->
-    </ul>
-<!-- END:children -->
+            //  load parent detail, refresh level
+            htmx.trigger('#navigation-node-{PARENT}', 'click');
+        }
+    </script>
 
-<!-- BEGIN:linked -->
-    <h5>Linked as shared content</h5>
-    <ul>
-    <!-- BEGIN: item -->
-        <li><a href="/backoffice/content/{LINKED.id}"> {LINKED.title|htmlspecialchars} <sup>{LINKED.node_group|htmlspecialchars}/{LINKED.node_controller|htmlspecialchars}</sup></a></li>
-    <!-- END: item -->
-    </ul>
-<!-- END:linked -->
+    <!-- BEGIN: confirm -->
 
-</div>
-<!-- END: confirm -->
+        <h2>Delete Item Forever</h2>
+        <h3>Do you really want to delete {NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars} named "{NODE.title|htmlspecialchars}" forever?</h3>
+        <p><em>Note: this operation is irreversible</em></p>
+
+        <!-- BEGIN:children -->
+            <h5>Will delete as well</h5>
+            <ul>
+            <!-- BEGIN: item -->
+                <li><a href="/backoffice/content/edit/{CHILD.id}">{CHILD.title|htmlspecialchars} <sup>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</sup></a></li>
+            <!-- END: item -->
+            </ul>
+        <!-- END:children -->
+
+        <!-- BEGIN:linked -->
+            <h5>Linked as shared content</h5>
+            <ul>
+            <!-- BEGIN: item -->
+                <li><a href="/backoffice/content/{LINKED.id}"> {LINKED.title|htmlspecialchars} <sup>{LINKED.node_group|htmlspecialchars}/{LINKED.node_controller|htmlspecialchars}</sup></a></li>
+            <!-- END: item -->
+            </ul>
+        <!-- END:linked -->
+
+    <!-- END: confirm -->
+
+    <div class="edit-actions">
+        <button 
+            class="button delete remove fakelink" 
+            hx-get="/request/bo/component/node_delete?id={NODE.id}&delete=1&confirm={CONFIRMATION_CODE}"
+            hx-indicator="#edit-dialog .content"
+            hx-trigger="click"
+            hx-on::after-request="afterNodeDelete({NODE.id})">
+            Yes,&nbsp;Delete
+        </button>
+    </div>
 <!-- END: content -->

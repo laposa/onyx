@@ -408,10 +408,6 @@ function trashNode(event, id) {
             $('#node-properties-edit').removeClass('htmx-request');
         },
     });
-
-    makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_bin~id='+id+':trash=1~');
-    $('#onyx-dialog').dialog('open');
-    return false;
 }
 
 function deleteNode(event, id) {

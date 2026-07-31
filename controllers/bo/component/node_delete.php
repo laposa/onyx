@@ -40,20 +40,18 @@ class Onyx_Controller_Bo_Component_Node_Delete extends Onyx_Controller {
              */
              
             if (!array_search($delete_id, $id_map)) {
-            
     
                 if (!is_array($node_data)) {
                     msg("Content ID {$delete_id} does not exists", 'error');
                     return false;
                 }
                 
-                
                 if ($this->GET['confirm']) {
                     
                     //delete only if confirmation code match
                     if ($this->GET['confirm'] === $confirmation_code) {
 
-                        if ($Node->deleteFromBin($delete_id)) {
+                        if ($Node->deleteFromBin($node_data)) {
 
                             msg("{$node_data['node_group']} \"{$node_data['title']}\" (id={$node_data['id']}) has been permanently deleted");
                         

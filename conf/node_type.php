@@ -93,8 +93,8 @@ if (ONYX_ECOMMERCE) {
     $templates_info['content']['special_offer_list'] = ['title' => 'Special Offers List', 'description'=>'', 'visibility'=>true];
     $templates_info['content']['recipe_list'] = ['title' => 'Recipe List', 'description'=>'', 'visibility'=>true];
 
-    $templates_info['page']['recipe'] = ['title' => 'Recipe', 'description'=>'', 'visibility'=>false];
-    $templates_info['page']['store'] = ['title' => 'Store', 'description'=>'', 'visibility'=>false];
+    $templates_info['page']['recipe'] = ['title' => 'Recipe', 'description'=>'', 'visibility'=>true];
+    $templates_info['page']['store'] = ['title' => 'Store', 'description'=>'', 'visibility'=>true];
     $templates_info['page']['product'] = ['title' => 'Product', 'description'=>'', 'visibility'=>true];
     $templates_info['page']['product_browse'] = ['title' => 'Products Browse', 'description'=>'', 'visibility'=>true];
     
