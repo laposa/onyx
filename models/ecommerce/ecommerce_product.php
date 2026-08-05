@@ -264,8 +264,9 @@ CREATE TABLE ecommerce_product (
 
         unset($new_product_data['id']);
         unset($new_product_data['variety']['id']);
-        bar_dump($new_product_data, "Duplicating product ID $original_product_id");
-        die();
+        unset($new_product_data['variety']['price']['id']);
+        unset($new_product_data['variety']['price']['value_net']);
+        unset($new_product_data['variety']['price']['value_gross']);
 
         // insert as new
         $new_product_id = $this->insertFullProduct($new_product_data);
