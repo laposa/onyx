@@ -243,6 +243,42 @@ CREATE TABLE ecommerce_product (
     }
 
     /**
+     * duplicateProduct
+     * 
+     * @param integer $original_product_id
+     * @return integer $id
+     */
+
+    public function duplicateProduct($original_product_id) {
+        // read original node
+        $original_product_data = $this->getProductDetail($original_product_id);
+
+        // copy and modify
+        $new_product_data = $original_product_data;
+        $new_product_data['name'] = "{$new_product_data['name']} (copy)";
+        $new_product_data['created'] = $new_product_data['modified'] = date('c');
+
+        $new_product_data['variety'] = $original_product_data['variety'][0];
+        $new_product_data['variety']['name'] = "{$new_product_data['variety']['name']} (copy)";
+        $new_product_data['variety']['sku'] = "{$new_product_data['variety']['sku']} (copy)";
+
+        unset($new_product_data['id']);
+        unset($new_product_data['variety']['id']);
+        unset($new_product_data['variety']['price']['id']);
+        unset($new_product_data['variety']['price']['value_net']);
+        unset($new_product_data['variety']['price']['value_gross']);
+
+        // insert as new
+        $new_product_id = $this->insertFullProduct($new_product_data);
+        if (!is_numeric($new_product_id)) {
+            msg("product_duplicate: Cannot create copy of product ID $original_product_id", 'error');
+            return false;
+        }
+
+        return $new_product_id;
+    }
+
+    /**
      * getDetail
      */
 
