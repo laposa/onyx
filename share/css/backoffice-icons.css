@@ -85,12 +85,17 @@ button.action, a.action {
   padding: 0;
   color: var(--onyx-color-primary);
   font-weight: normal;
+  text-decoration: none;
 
   &:before {
     font-family: 'Material Icons';
     font-size: 20px; 
     margin: 0 5px; 
     content: "\e8b8"; /*settings*/
+  }
+
+  &:hover {
+    text-decoration: none;
   }
   
   &.onyx-duplicate:before {content: "\e14d";} /*content_copy*/
