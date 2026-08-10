@@ -257,6 +257,8 @@
             target: '#node-properties-edit',
             values: { id: event.target.dataset.sourceId },
             indicator: '#detail-loading'
+        }).then(function() {
+            document.querySelector('#node-properties-edit').setAttribute('hx-get', '/request/bo/component/node_edit?id=' + event.target.dataset.sourceId);
         });
     }
 
