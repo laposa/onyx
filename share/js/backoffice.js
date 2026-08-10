@@ -581,3 +581,16 @@ $(document).on('click','.navigation-list-item', function(e) {
     $(this).siblings('.navigation-list-item.active').removeClass('active');
     $(this).addClass('active');
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Listeners related to x_node_position coponent
+    document.body.addEventListener("refreshAfterParentChange", function(evt){
+        htmx.trigger(document.querySelector('#node-explorer'), 'explorerRefresh');
+    });
+
+    document.body.addEventListener("refreshAfterMove", function(evt){
+        var parent_id = evt.detail.nodeId;
+        if(parent_id) htmx.trigger(document.querySelector('.nav-list-' + parent_id), 'navRefresh');
+    });
+});

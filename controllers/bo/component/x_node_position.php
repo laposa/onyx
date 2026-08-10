@@ -26,6 +26,14 @@ class Onyx_Controller_Bo_Component_X_Node_Position extends Onyx_Controller_Bo_Co
             $save_data = $_POST['node'];
             $save_data['title'] = $node_data['title'];
             $node->nodeUpdate($save_data);
+
+            if($save_data['parent'] != $node_data['parent']) {
+                //trigger whole explorer refresh
+                header('HX-Trigger: refreshAfterParentChange');
+            } else if ($save_data['priority'] != $node_data['priority']) {
+                //trigger only level refresh
+                header('HX-Trigger: {"refreshAfterMove":{"nodeId" :"'.$node_data['parent'].'"}}');
+            }
             return true;
             
         }
