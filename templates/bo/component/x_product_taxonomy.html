@@ -13,8 +13,8 @@ function addNewTaxonomy() {
                 var template = $('#template-rt-select').html();
                 
                 var html_append = template;
-                html_append = html_append.replace('__ID__', node_id);
-                html_append = html_append.replace('__TITLE__', title);
+                html_append = html_append.replace(/__ID__/g, node_id);
+                html_append = html_append.replace(/__TITLE__/g, title);
                 $('dialog #rt-select').append(html_append);
                 
             },
@@ -91,7 +91,7 @@ function addNewTaxonomy() {
                 <li>
                     <div class="category-item">
                         <input type="hidden" name="relation_taxonomy[]" value="__ID__" />
-                        <div class="breadcrumb"><a href="/backoffice/content/__ID__">__TITLE__</a></div>
+                        <div class="breadcrumb"><a href="/backoffice/advanced/taxonomy/properties/__ID__"><span>__TITLE__</span></a></div>
                         <a class="onyx-delete action" href="#" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)"></a>
                     </div>
                 </li>
