@@ -220,8 +220,9 @@
     }
 
     function levelRefresh(event) {
-        const actualLevel = event.target.closest('ul').nextElementSibling;
+        const actualLevel = event.target.closest('.loading-wrapper').nextElementSibling.querySelector('ul');
         const actualLevelId = actualLevel.id.replace('navigation-level-', '');
+        const emptyLevelWrapper = document.createElement('div');
         const emptyLevel = document.createElement('ul');
 
         actualLevel.classList.add('nav-list-' + event.target.dataset.sourceId);
@@ -229,15 +230,17 @@
         actualLevel.setAttribute('hx-trigger', 'navRefresh');
         actualLevel.setAttribute('hx-swap', 'innerHTML');
         actualLevel.setAttribute('hx-on::after-request', 'scrollToActive(this);');
-        actualLevel.setAttribute('hx-indicator', '#navigation-level-' + actualLevelId);
+        actualLevel.setAttribute('hx-indicator', '#loading-level-' + actualLevelId);
         actualLevel.setAttribute('data-parent-id', event.target.dataset.sourceId);
 
         htmx.process(actualLevel);
 
+        emptyLevelWrapper.classList.add('loading-wrapper');
+        emptyLevelWrapper.id = 'loading-level-' + (parseInt(actualLevelId) + 1);
         emptyLevel.classList.add('navigation-list', 'empty');
         emptyLevel.id = 'navigation-level-' + (parseInt(actualLevelId) + 1);
 
-        let next = actualLevel.nextElementSibling;
+        let next = actualLevel.parentNode.nextElementSibling;
         while (next) {
             let toRemove = next;
             next = next.nextElementSibling;
@@ -249,7 +252,8 @@
         });
 
         scrollToActive(actualLevel);
-        actualLevel.parentNode.appendChild(emptyLevel);
+        emptyLevelWrapper.appendChild(emptyLevel);
+        actualLevel.closest('.levels').appendChild(emptyLevelWrapper);
     }
 
     function loadDetailOnClick(event) {
@@ -266,23 +270,29 @@
 
 <div class="levels">
     <!-- BEGIN: level -->
-    <ul 
-        id="navigation-level-{LEVEL}"
-        class="navigation-list nav-list-{ROOT}"
-        hx-get="/request/bo/component/node_explorer_level?id={ROOT}&active={ACTIVE_PAGE}"
-        hx-trigger="load, navRefresh"
-        hx-swap="innerHTML"
-        hx-on::after-request="scrollToActive(this);"
-        hx-indicator="#navigation-level-{LEVEL}"
-        data-parent-id="{ROOT}"
-    >
-    </ul>
+     <div class="loading-wrapper" id="loading-level-{LEVEL}">
+        <ul 
+            id="navigation-level-{LEVEL}"
+            class="navigation-list nav-list-{ROOT}"
+            hx-get="/request/bo/component/node_explorer_level?id={ROOT}&active={ACTIVE_PAGE}"
+            hx-trigger="load, navRefresh"
+            hx-swap="innerHTML"
+            hx-on::after-request="scrollToActive(this);"
+            hx-indicator="#loading-level-{LEVEL}"
+            data-parent-id="{ROOT}"
+        >
+        </ul>
+     </div>
+    
     <!-- END: level -->
-    <ul 
-        id="navigation-level-{LAST}"
-        class="navigation-list empty"
-        hx-indicator="#navigation-level-{LAST}"
-    >
-    </ul>
+    <div class="loading-wrapper" id="loading-level-{LAST}">
+        <ul 
+            id="navigation-level-{LAST}"
+            class="navigation-list empty"
+            hx-indicator="#loading-level-{LAST}"
+        >
+        </ul>
+    </div>
+    
 </div>
 <!-- END: content -->
