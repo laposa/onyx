@@ -111,6 +111,10 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
      */
      
     public function assignAndParse($image_list) {
+
+        if(!$image_list) {
+            return false;
+        }
         
         $img_path = $this->getImagePath();
 

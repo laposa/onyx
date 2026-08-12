@@ -41,6 +41,10 @@ class Onyx_Controller_Component_Image_Gallery extends Onyx_Controller_Component_
      */
     
     public function displayThumbnails($image_list) {
+
+        if(!$image_list) {
+            return false;
+        }
         
         /**
          * display thumbnails only if there is more than one item
