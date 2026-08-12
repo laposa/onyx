@@ -188,7 +188,7 @@ div.node-edit div.htmx-request {
   margin-top: 30px;
 }
 
-div.htmx-request, ul.htmx-request {
+div.htmx-request {
   position: relative;
 
   &:before {

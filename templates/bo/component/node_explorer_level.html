@@ -8,12 +8,12 @@
     hx-get="/request/bo/component/node_explorer_level~id={ITEM.id}:active={ITEM.id}~"
     hx-trigger="click"
     hx-target="#navigation-level-{TARGET}"
-    hx-indicator="#navigation-level-{TARGET}"
+    hx-indicator="#loading-level-{TARGET}"
     data-source-id="{ITEM.id}"
     data-parent-id="{ITEM.parent}"
     hx-on::before-request="loadDetailOnClick(event)"
     hx-on::after-request="levelRefresh(event)"
-    >
+>
     <span class="icon {ITEM.node_group} {ITEM.node_controller}" title="{ITEM.node_group}/{ITEM.node_controller}"></span>
     <span class="item-label">{ITEM.title|htmlspecialchars}</span>
 </li>

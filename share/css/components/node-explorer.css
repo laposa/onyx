@@ -163,7 +163,7 @@
 		width: 0;
 	}
 
-	&.htmx-request {
+	.loading-wrapper.htmx-request & {
 		min-width: 250px;
 	}
 
