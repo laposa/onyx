@@ -96,8 +96,8 @@ class client_group extends Onyx_Model {
         
         $data = $this->detail($id);
         
-        $data['search_filter'] = unserialize($data['search_filter']);
-        if ($data['other_data']) $data['other_data'] = unserialize($data['other_data']);
+        $data['search_filter'] = unserialize($data['search_filter'], ['allowed_classes' => false]);
+        if ($data['other_data']) $data['other_data'] = unserialize($data['other_data'], ['allowed_classes' => false]);
                     
         return $data;
     }
@@ -117,8 +117,8 @@ class client_group extends Onyx_Model {
         
         foreach ($list as $item) {
         
-            $item['search_filter'] = unserialize($item['search_filter'] ?? '');
-            if ($item['other_data']) $item['other_data'] = unserialize($item['other_data']);
+            $item['search_filter'] = unserialize($item['search_filter'] ?? '', ['allowed_classes' => false]);
+            if ($item['other_data']) $item['other_data'] = unserialize($item['other_data'], ['allowed_classes' => false]);
             
             $final_list[] = $item;
         
