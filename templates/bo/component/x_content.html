@@ -1,0 +1,78 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+     <script type="text/javascript">
+
+        if (hugerte.get('component-content-preview')) {
+            hugerte.get('component-content-preview').destroy();
+        }
+
+        setTimeout(() => {
+            hugerte.init({
+                selector:'#component-content-preview',
+                content_css: "/css/style.css?{ONYX_CACHE_VERSION}",
+                content_style: "body#hugerte {margin: 1em;}",
+                readonly: true,
+                menubar: false,
+                toolbar: false,
+                statusbar: false,
+                plugins: 'autoresize',
+            });
+        }, 100);
+
+    </script>
+
+    <fieldset id="component-node-content" class="component-preview">
+
+        <legend>Content</legend>
+
+        <br>
+
+        <textarea id="component-content-preview" class="big"" style="width: 100%; height: auto;" "rows="20" cols="20">{NODE.content|htmlspecialchars}</textarea>
+        
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_content?node_id={GET.node_id}&edit=true"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-dialog .content"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="node-content-edit">
+
+        <h2>Edit Content</h2>
+
+        <textarea name="node[content]" id="component-content" class="big" style="width: 100%; height: auto;" rows="20" cols="20">{NODE.content|htmlspecialchars}</textarea>
+        
+        {ONYX_REQUEST_tinymce1 #bo/tinymce~id=GET.id:relation=node:edit_elements=component-content:theme=advanced~}
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="node[id]" value="{GET.node_id}" />
+
+        <div class="edit-actions">
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+
+            <button 
+                hx-indicator="#edit-dialog .content"
+                hx-post="/request/bo/component/x_content"
+                class="btn" 
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+        </div>
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->
