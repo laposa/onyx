@@ -1,0 +1,59 @@
+<!-- BEGIN: content -->
+{ONYX_REQUEST_header #bo/component/page_header~node_id=GET.id~}
+
+<!-- Gerneral Info -->
+<div id="general-info"
+	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#general-info">
+</div>
+
+<!-- Component specific -->
+<div id="custom-component"
+	hx-get="/request/bo/component/custom?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#custom-component">
+</div>
+
+<!-- Content -->
+<div id="node-content"
+	hx-get="/request/bo/component/x_content?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#node-content">
+</div>
+
+<!-- Node Images -->
+<div id="node-images"
+	hx-get="/request/bo/component/x_node_files?node_id={GET.id}&relation=node&type=add_to_node"
+	hx-trigger="load"
+	hx-indicator="#node-images">
+</div>
+
+<!-- Visibility -->
+<div id="visibility"
+	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#visibility">
+</div>
+
+<!-- Position -->
+<div id="node-position"
+	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#node-position">
+</div>
+
+<!-- Advanced Settings -->
+<div id="advanced-settings"
+	hx-get="/request/bo/component/x_advanced_settings?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#advanced-settings">
+</div>
+
+<!-- Previous Versions -->
+<div id="revision-list"
+	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
+	hx-trigger="load, refresh"
+	hx-indicator="#revision-list">
+</div>
+<!-- END: content -->

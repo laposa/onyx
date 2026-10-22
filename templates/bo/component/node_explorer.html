@@ -91,7 +91,7 @@
             targetList = draggedItem.parentElement;
             let message;
             let isActive = draggedItem.classList.contains('active');
-            let activeId = document.querySelector('.levels ul.navigation-list:nth-last-child(2)').dataset.parentId;
+            let activeId = document.querySelector('.levels .loading-wrapper:nth-last-child(2) ul').dataset.parentId;
 
             // check for drop on item first
             const acceptChild = document.querySelector('li.accept-child');
@@ -170,8 +170,8 @@
                 const rect = dropTarget.getBoundingClientRect();
                 const mouseY = e.clientY - rect.top;
 
-                draggedItem.setAttribute('hx-target', '#' + dropTarget.parentElement.nextElementSibling.id);
-                draggedItem.setAttribute('hx-indicator', '#' + dropTarget.parentElement.nextElementSibling.id);
+                draggedItem.setAttribute('hx-target', '#' + dropTarget.closest('.loading-wrapper').nextElementSibling.querySelector('ul').id);
+                draggedItem.setAttribute('hx-indicator', '#' + dropTarget.closest('.loading-wrapper').nextElementSibling.id);
 
                 if (mouseY > rect.height / 2) {
                     dropTarget.parentNode.insertBefore(draggedItem, dropTarget.nextSibling);

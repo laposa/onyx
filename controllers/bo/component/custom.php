@@ -29,6 +29,12 @@ class Onyx_Controller_Bo_Component_Custom extends Onyx_Controller_Bo_Component_X
             
         }
 
+        // pick component template by node_controller
+        $template = "bo/component/custom/{$node_data['node_controller']}.html";
+        if (!preg_match('/^[a-z0-9_-]+$/', $node_data['node_controller']) || getTemplateDir($template) == '') return false;
+        $this->_template_dir = getTemplateDir($template);
+        $this->_initTemplate($template);
+
         // parent node
         $this->tpl->assign('NODE', $node_data);
 
