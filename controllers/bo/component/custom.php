@@ -35,6 +35,8 @@ class Onyx_Controller_Bo_Component_Custom extends Onyx_Controller_Bo_Component_X
         $this->_template_dir = getTemplateDir($template);
         $this->_initTemplate($template);
 
+        $this->parseContentTags();
+
         // parent node
         $this->tpl->assign('NODE', $node_data);
 

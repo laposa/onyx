@@ -1,12 +1,12 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
-    if (hugerte.get('{TINYMCE.edit_elements}')) {
-        hugerte.get('{TINYMCE.edit_elements}').destroy();
+    if (hugerte.get('{TINYMCE.edit_element}')) {
+        hugerte.get('{TINYMCE.edit_element}').destroy();
     }
 
     setTimeout(() => {
         hugerte.init({
-            selector:'#{TINYMCE.edit_elements}',
+            selector:'#{TINYMCE.edit_element}',
             menubar: "false",
             ui_mode: "split",
             toolbar: "bold italic underline",

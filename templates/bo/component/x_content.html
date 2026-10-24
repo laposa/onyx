@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 {MESSAGES}
     <!-- BEGIN: preview -->
-     <script type="text/javascript">
+    <script type="text/javascript">
 
         if (hugerte.get('component-content-preview')) {
             hugerte.get('component-content-preview').destroy();
@@ -53,7 +53,7 @@
 
         <textarea name="node[content]" id="component-content" class="big" style="width: 100%; height: auto;" rows="20" cols="20">{NODE.content|htmlspecialchars}</textarea>
         
-        {ONYX_REQUEST_tinymce1 #bo/tinymce~id=GET.id:relation=node:edit_elements=component-content:theme=advanced~}
+        {ONYX_REQUEST_tinymce1 #bo/tinymce~id=GET.id:edit_element=component-content~}
 
         <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
         <input type="hidden" name="node[id]" value="{GET.node_id}" />

@@ -12,7 +12,9 @@ class Onyx_Controller_Bo_Tinymce_Simple extends Onyx_Controller {
      */
      
     public function mainAction() {
-        $tinymce['edit_elements'] = isset($this->GET['edit_elements']) ? ($this->GET['edit_elements'] == '' ? 'edit-content' : $this->GET['edit_elements']) : '';
+
+        $tinymce['edit_element'] = isset($this->GET['edit_element']) ? ($this->GET['edit_element'] == '' ? 'edit-content' : $this->GET['edit_element']) : '';
+        
         $this->tpl->assign('TINYMCE', $tinymce);
         return true;
     }
