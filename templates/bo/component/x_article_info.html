@@ -66,7 +66,7 @@
                 name="node[content]" 
             >{NODE.content|htmlspecialchars}</textarea>
         </div>
-        {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.node_id:relation=node:role=RTE_description:mode=exact:edit_elements=node-content:theme=advanced~}
+        {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.node_id:edit_element=node-content~}
 
         <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
         <input type="hidden" name="node[id]" value="{GET.node_id}" />

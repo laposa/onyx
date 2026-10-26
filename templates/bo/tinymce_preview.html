@@ -1,0 +1,23 @@
+<!-- BEGIN: content -->
+<script type="text/javascript">
+
+    if (hugerte.get('{TINYMCE.edit_element}')) {
+        hugerte.get('{TINYMCE.edit_element}').destroy();
+    }
+
+    setTimeout(() => {
+        hugerte.init({
+            selector:'#{TINYMCE.edit_element}',
+            content_css: "/css/style.css?{ONYX_CACHE_VERSION}",
+            content_style: "body#hugerte {margin: 1em;}",
+            readonly: true,
+            menubar: false,
+            toolbar: false,
+            statusbar: false,
+            plugins: 'autoresize',
+        });
+    }, 100);
+
+</script>
+
+<!-- END: content -->
