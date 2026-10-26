@@ -15,20 +15,6 @@
 	hx-indicator="#custom-component">
 </div>
 
-<!-- Content -->
-<div id="node-content"
-	hx-get="/request/bo/component/x_content?node_id={GET.id}"
-	hx-trigger="load, refresh"
-	hx-indicator="#node-content">
-</div>
-
-<!-- Node Images -->
-<div id="node-images"
-	hx-get="/request/bo/component/x_node_files?node_id={GET.id}&relation=node&type=add_to_node"
-	hx-trigger="load"
-	hx-indicator="#node-images">
-</div>
-
 <!-- Visibility -->
 <div id="visibility"
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
