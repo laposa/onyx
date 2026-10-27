@@ -126,6 +126,9 @@ div.onyx-edit-content {
   display: flex;
   align-items: center;
   cursor: pointer;
+  width: auto;
+  height: 40px;
+  margin: 0;
 
   &:before {
     font-family: 'Material Icons';

@@ -583,14 +583,18 @@ $(document).on('click','.navigation-list-item', function(e) {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-
     // Listeners related to x_node_position coponent
-    document.body.addEventListener("refreshAfterParentChange", function(evt){
-        htmx.trigger(document.querySelector('#node-explorer'), 'explorerRefresh');
-    });
-
     document.body.addEventListener("refreshAfterMove", function(evt){
         var parent_id = evt.detail.nodeId;
         if(parent_id) htmx.trigger(document.querySelector('.nav-list-' + parent_id), 'navRefresh');
+    });
+
+    // component refresh listeners
+    document.body.addEventListener("refreshNodeExplorer", function(){
+        htmx.trigger(document.getElementById('node-explorer'), 'explorerRefresh');
+    });
+
+    document.body.addEventListener("refreshPathComponent", function(){
+        htmx.trigger(document.getElementById('metadata'), 'refresh');
     });
 });
