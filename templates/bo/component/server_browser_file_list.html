@@ -16,10 +16,10 @@
 
             {SUBFOLDERS}
             
-            <button 
+            <button
                 hx-get="/request/bo/component/x_folder_add?folder={FOLDER}"
                 hx-trigger="click"
-                hx-target="#file-dialog .content"
+                hx-target="#folder-add-slot"
                 hx-indicator="#file-dialog .content"
                 hx-on::before-request="openFileDialog();"
             >
