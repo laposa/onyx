@@ -5,6 +5,9 @@
     $(document).ready(function(){
         $(document).on('click', '.media-breadcrumbs a, .media-subfolders a', function(e) {
             e.preventDefault();
+
+            closeFolderAdd();
+            
             // Only change url when clicking through media library page, not edit dialog
             let newLink = window.location.origin + $(this).attr('href');
 
