@@ -8,13 +8,26 @@ function openDialog() {
 }
 
 function openFileDialog() {
-    document.querySelector("#file-dialog").showModal();
+    const dialog = document.querySelector("#file-dialog");
+    if (!dialog.open) dialog.showModal();
 }
 
 function closeFileDialog() {
+    document.querySelector("#folder-add-slot").innerHTML = '';
     document.querySelector("#file-dialog .content").innerHTML = '';
     document.querySelector("#file-dialog").close();
 }
+
+// folder add form lives in its own slot, so file dialog content (e.g. server browser) stays untouched
+function closeFolderAdd() {
+    popupMessage("#folder-add-slot div.onyx-messages");
+    document.querySelector("#folder-add-slot").innerHTML = '';
+    if (document.querySelector("#file-dialog .content").innerHTML.trim() === '') {
+        document.querySelector("#file-dialog").close();
+    }
+}
+
+document.addEventListener('folderAdded', closeFolderAdd);
 
 function closeDialog() {
     document.querySelector("#edit-dialog .content").innerHTML = '';
@@ -31,6 +44,7 @@ function refreshComponent(triggerButton) {
 document.addEventListener('htmx:afterRequest', (event) => {
     popupMessage("#edit-dialog div.onyx-messages");
     popupMessage("#file-dialog div.onyx-messages");
+    popupMessage("#folder-add-slot div.onyx-messages");
 
     if (event.target.id == 'saveAndClose') {
         closeDialog();
@@ -54,11 +68,6 @@ document.addEventListener('htmx:afterRequest', (event) => {
     if (event.target.dataset.action == 'addProduct' || event.target.dataset.action == 'addStore' || event.target.dataset.action == 'addRecipe') {
         closeDialog();
         htmx.trigger('#node-properties-edit', 'loadDetail');
-    }
-
-    if (event.target.dataset.action == 'addFolder') {
-        closeFileDialog();
-        htmx.trigger('#server-browser-file-list-wrapper', 'refresh');
     }
 
     if (event.target.dataset.action == 'addProductVariety') {
@@ -583,14 +592,18 @@ $(document).on('click','.navigation-list-item', function(e) {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-
     // Listeners related to x_node_position coponent
-    document.body.addEventListener("refreshAfterParentChange", function(evt){
-        htmx.trigger(document.querySelector('#node-explorer'), 'explorerRefresh');
-    });
-
     document.body.addEventListener("refreshAfterMove", function(evt){
         var parent_id = evt.detail.nodeId;
         if(parent_id) htmx.trigger(document.querySelector('.nav-list-' + parent_id), 'navRefresh');
+    });
+
+    // component refresh listeners
+    document.body.addEventListener("refreshNodeExplorer", function(){
+        htmx.trigger(document.getElementById('node-explorer'), 'explorerRefresh');
+    });
+
+    document.body.addEventListener("refreshPathComponent", function(){
+        htmx.trigger(document.getElementById('metadata'), 'refresh');
     });
 });

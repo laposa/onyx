@@ -5,6 +5,9 @@
     $(document).ready(function(){
         $(document).on('click', '.media-breadcrumbs a, .media-subfolders a', function(e) {
             e.preventDefault();
+
+            closeFolderAdd();
+            
             // Only change url when clicking through media library page, not edit dialog
             let newLink = window.location.origin + $(this).attr('href');
 
@@ -32,7 +35,7 @@
         id="server-browser-file-list-wrapper"
         class="server-browser"
         hx-get="/request/bo/component/server_browser_file_list?type={TYPE}&role={ROLE}&node_id={NODE_ID}&relation={RELATION}&file_id={FILE_ID}&open={GET.open}"
-        hx-trigger="load, refresh"
+        hx-trigger="load, refresh, folderAdded from:body"
         hx-loading="server-browser-loading">
     </div>
 </div>

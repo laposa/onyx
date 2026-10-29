@@ -23,6 +23,14 @@ class Onyx_Controller_Bo_Component_Node_Edit extends Onyx_Controller {
         
         $Node = new common_node();
         $node_data = $Node->detail($node_id);
+
+        // node doesn't exist, fall back to homepage
+        if (!is_array($node_data) || empty($node_data['node_group'])) {
+            msg("node_edit: node ID $node_id doesn't exist, showing homepage instead", 'error');
+            $node_id = $Node->conf['id_map-homepage'];
+            $node_data = $Node->detail($node_id);
+        }
+
         $this->tpl->assign("NODE", $node_data);
 
         $sub_items = count($Node->getChildren($node_data['id']) ?? []);

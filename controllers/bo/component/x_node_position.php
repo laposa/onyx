@@ -29,7 +29,7 @@ class Onyx_Controller_Bo_Component_X_Node_Position extends Onyx_Controller_Bo_Co
 
             if($save_data['parent'] != $node_data['parent']) {
                 //trigger whole explorer refresh
-                header('HX-Trigger: refreshAfterParentChange');
+                header('HX-Trigger: refreshNodeExplorer');
             } else if ($save_data['priority'] != $node_data['priority']) {
                 //trigger only level refresh
                 header('HX-Trigger: {"refreshAfterMove":{"nodeId" :"'.$node_data['parent'].'"}}');

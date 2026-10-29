@@ -9,6 +9,7 @@ dialog.edit-dialog {
 	border: none;
 	border-radius: 10px;
 	position: relative;
+	flex-direction: column;
 
 	&[open] {
 		display: flex;
@@ -52,7 +53,7 @@ dialog.edit-dialog {
 		}
 	}
 
-	.content, #variety-more-details {
+	.content, #variety-more-details, #folder-add-slot {
 		width: 100%;
 	}
 
@@ -307,6 +308,7 @@ dialog.edit-dialog {
 
 		.server-browser-wrapper {
 			height: 100%;
+			padding: 0;
 		}
 
 		.image-dialog {
