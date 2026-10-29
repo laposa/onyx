@@ -308,6 +308,7 @@ dialog.edit-dialog {
 
 		.server-browser-wrapper {
 			height: 100%;
+			padding: 0;
 		}
 
 		.image-dialog {
