@@ -61,6 +61,7 @@
         let sourcePosition = null;
         let sourceList = null;
         let targetList = null;
+        let between = [null, null];
 
         if (explorer.dataset.dragAndDropInitialized) return;
         explorer.dataset.dragAndDropInitialized = true;
@@ -76,7 +77,6 @@
             sourceNodeId = draggedItem.dataset.sourceId;
             sourceNodeTitle = draggedItem.querySelector('.item-label').innerText;
             sourcePosition = [...sourceList.children].indexOf(draggedItem);
-            startPosition = sourcePosition;
             e.dataTransfer.effectAllowed = 'move'; // Explicitly set the allowed effect
             draggedItem.classList.add('dragging');
             setTimeout(function() { draggedItem.classList.add('hidden'); }, 400);
@@ -120,19 +120,23 @@
                 // dragging in the same column
                 position = [...draggedItem.parentElement.children].indexOf(draggedItem);
                 if(sourcePosition == position) return;
+                between[0] = draggedItem.previousElementSibling ? draggedItem.previousElementSibling.dataset.sourceId : null;
+                between[1] = draggedItem.nextElementSibling ? draggedItem.nextElementSibling.dataset.sourceId : null;
                 parentId = draggedItem.dataset.parentId || 0;
                 message = "";
             } else {
                 //dragging between different columns
                 parentId = targetList.dataset.parentId || 0;
                 position = [...draggedItem.parentElement.children].indexOf(draggedItem);
+                between[0] = draggedItem.previousElementSibling ? draggedItem.previousElementSibling.dataset.sourceId : null;
+                between[1] = draggedItem.nextElementSibling ? draggedItem.nextElementSibling.dataset.sourceId : null;
                 parentTitle = parentId == 0 ? 'Home' : document.querySelector('#navigation-node-' + parentId + ' .item-label').innerText;
                 message = "Are you sure you want to move item \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") under the parent node \"" + parentTitle + "\" (" + parentId + ") to position " + (position + 1) + "?"
             }
             
             if (message.length == 0 || confirm(message)) {
                 document.querySelector('#node-explorer').classList.add('htmx-request');
-                updateNodePosition(sourceNodeId, parentId, position, function() {
+                updateNodePosition(sourceNodeId, parentId, between, function() {
                     //adding has-children class to new parent if necessary
                     if(acceptChild && !acceptChild.classList.contains('has-children')) {
                         acceptChild.classList.add('has-children');
@@ -202,14 +206,14 @@
             }
         });
 
-        function updateNodePosition(nodeId, parentId, position, callback) {
+        function updateNodePosition(nodeId, parentId, between, callback) {
             $.post(
                 "/request/bo/component/node_move",
                 {
                     csrf_token: getCSRFToken(),
                     source_node_id: nodeId,
                     destination_node_id: parentId,
-                    position: position
+                    between: between
                 },
                 function (data) {
                     popupMessage(data);

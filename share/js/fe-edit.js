@@ -127,27 +127,27 @@ function feEditStartDragDrop() {
 
 function feEditDragDrop(event, ui) {
     var source_node_id = $(ui.item).attr('id').replace('node-id-', '');
-    var position = $(ui.item).parent().children().index(ui.item);
+    var between = [];
+    between[0] = $(ui.item).prev().attr('id') ? $(ui.item).prev().attr('id').replace('node-id-', '') : null;
+    between[1] = $(ui.item).next().attr('id') ? $(ui.item).next().attr('id').replace('node-id-', '') : null;
     var destination_id = $(ui.item).parent().attr('id');
-    //var temp = $(event.target).attr('id').replace('onyx-layout-container-', '').split('-');
     var temp = destination_id.replace('onyx-layout-container-', '').split('-');
     var destination_node_id = temp[0];
     var destination_container_id = temp[1];
 
-    console.log("receive: Source id " + source_node_id + ", Destination id " + destination_node_id + ", Destination container " + destination_container_id + ", Position " + position);
-    feEditNodeMove(source_node_id, destination_node_id, destination_container_id, position);
+    feEditNodeMove(source_node_id, destination_node_id, destination_container_id, between); 
     
     return false;
 }
 
 
-function feEditNodeMove(source_node_id, destination_node_id, destination_container_id, position) {
+function feEditNodeMove(source_node_id, destination_node_id, destination_container_id, between) {
     $.post("/request/bo/component/node_move", {
         csrf_token: getCSRFToken(),
         source_node_id: source_node_id,
         destination_node_id: destination_node_id,
         container: destination_container_id,
-        position: position}, 
+        between: between}, 
         function (data) {
             popupMessage(data);
         });
