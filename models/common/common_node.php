@@ -1912,17 +1912,17 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * move item
      */
     
-    function moveItem($source_id, $destination_id, $position, $container = 0) {
+    function moveItem($source_id, $destination_id, $between, $container = 0) {
     
-        if (!is_numeric($source_id) || !is_numeric($destination_id) || !is_numeric($position)) return false;
+        if (!is_numeric($source_id) || !is_numeric($destination_id) || !is_array($between)) return false;
 
         $node_data = $this->getDetail($source_id);
         unset($node_data['author_detail']);
         unset($node_data['custom_fields']);
         $node_data['parent'] = $destination_id;
         $node_data['parent_container'] = $container;
-        
-        if ($this->changePosition($node_data, $position)) return true;
+
+        if ($this->changePosition($node_data, $between)) return true;
         else return false;
     }
     
@@ -1996,46 +1996,77 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * change position
      */
      
-    function changePosition($item_data, $position) {
-    
-        if (!is_numeric($item_data['id']) || !is_numeric($position)) return false;
+    function changePosition($item_data, $between) {
+
+        if (!is_numeric($item_data['id']) || !is_array($between)) return false;
 
         //get list of all siblings
-        if ($sibling_list = $this->getChildren($item_data['parent'], 'priority DESC, id ASC')) {
+        $children = $this->getChildren($item_data['parent'], 'priority DESC, id ASC');
+        if (is_array($children)) {
 
-            //add item to sibling list if not exists (eg when moving to another parent)
-            if (!in_array($item_data['id'], array_column($sibling_list ?? [], 'id'))) {
-                $sibling_list = array_merge(
-                    array_slice( $sibling_list ?? [], 0, $position),
-                    array($item_data),
-                    array_slice( $sibling_list ?? [], $position)
-                );
-            }
-            
-            $sibling_count = count($sibling_list);
-            
-            $i = 0;
-            
-            foreach ($sibling_list as $sibling) {
-            
-                //msg("$i Sibling id {$sibling['id']} with priority {$sibling['priority']}");
-                if ($sibling['id'] == $item_data['id']) {
-                    $new_priority = ($sibling_count - $position) * 10 + 5;
-                    $item_data['priority'] = $new_priority;
-                    $this->nodeUpdate($item_data);
+            $children_by_id = array_column($children, null, 'id');
+            $prev = $children_by_id[$between[0]] ?? null;
+            $next = $children_by_id[$between[1]] ?? null;
+
+            $item_data['priority'] = 0;
+
+            if($prev && $next) {
+                if ($prev['priority'] - $next['priority'] <= 1) {
+                    $this->resortChildrenPriorities($children, $item_data, $between[0], $between[1]);
+                    return true;
                 } else {
-                    $new_priority = ($sibling_count - $i) * 10;
-                    $i++;
-                    $this->updateSingleAttribute('priority', $new_priority, $sibling['id']);
+                    $item_data['priority'] = ($prev['priority'] + $next['priority']) / 2;
                 }
             }
+
+            if($prev && !$next) {
+                if ($prev['priority'] <= 1) {
+                    $this->resortChildrenPriorities($children, $item_data, $between[0], $between[1]);
+                    return true;
+                } else {
+                    $item_data['priority'] = $prev['priority'] / 2;
+                }
+            }
+
+            if(!$prev && $next) {
+                $item_data['priority'] = $next['priority'] + 100;
+            }
+
+            $this->nodeUpdate($item_data);
             
             return true;
             
         } else {
-            
+
             return false;
         
+        }
+    }
+
+    /*
+     * Re-sort children priorities if necessary
+     */
+    function resortChildrenPriorities($children, $item_data, $prev_id, $next_id) {
+        
+        msg("Could not calculate proper priority. Triggering re-sort for all nodes.");
+
+        // remove item if it's already among children (move within the same parent)
+        $children = array_values(array_filter($children, fn($child) => $child['id'] != $item_data['id']));
+        
+        // find insert position: right after prev, or right before next, or at the end
+        $ids = array_column($children, 'id');
+        if ($prev_id && ($index = array_search($prev_id, $ids)) !== false) $position = $index + 1;
+        else if ($next_id && ($index = array_search($next_id, $ids)) !== false) $position = $index;
+        else $position = count($children);
+        
+        array_splice($children, $position, 0, [$item_data]);
+        
+        $children_count = count($children);
+        
+        foreach ($children as $key => $child) {
+            $new_priority = ($children_count - $key) * 100;
+            $child['priority'] = $new_priority;
+            $this->nodeUpdate($child);
         }
     }
     
