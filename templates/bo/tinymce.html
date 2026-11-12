@@ -3,13 +3,13 @@
 
 function tinyMCEinit() {
 
-    if (hugerte.get('{TINYMCE.edit_elements}')) {
-        hugerte.get('{TINYMCE.edit_elements}').destroy();
+    if (hugerte.get('{TINYMCE.edit_element}')) {
+        hugerte.get('{TINYMCE.edit_element}').destroy();
     }
 
     setTimeout(() => {
         hugerte.init({
-            selector:'#{TINYMCE.edit_elements}',
+            selector:'#{TINYMCE.edit_element}',
             ui_mode: "split",
             theme_advanced_toolbar_location : "top",
             theme_advanced_toolbar_align : "left",
@@ -39,7 +39,7 @@ function tinyMCEinit() {
             image_advtab: true,
             advlink_styles: "button=button;viewMore=viewMore",/*for Insert/edit links*/
             file_picker_callback: function(callback, value, meta) {
-                onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta);
+                onyxFileBrowserCallBack_{TINYMCE.relation}_{GET.id}(callback, value, meta);
             },
             paste_auto_cleanup_on_paste : true,
             paste_strip_class_attributes : "all",
@@ -74,7 +74,7 @@ function tinyMCEinit() {
 }
 
 
-function onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) {
+function onyxFileBrowserCallBack_{TINYMCE.relation}_{GET.id}(callback, value, meta) {
 
     // Provide file and text for the link dialog
     if (meta.filetype == 'file') {
@@ -96,7 +96,7 @@ function onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) 
     // Provide image and alt text for the image and media dialog
     if (meta.filetype == 'image' || meta.filetype == 'media') {
         
-        var url = '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE';
+        var url = '/popup/files/{TINYMCE.relation}/{GET.id}?type=RTE&role=RTE';
         
         hugerte.activeEditor.windowManager.openUrl({
             title: 'Onyx File Browser',

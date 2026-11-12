@@ -1,88 +1,94 @@
 .node-files {
-	margin-bottom: 20px;
-	width: 100%;
+  margin-bottom: 20px;
+  width: 100%;
 
-	&.htmx-request {
-		min-height: 20px;
-		width: 100%;
+  &.htmx-request {
+    min-height: 20px;
+    width: 100%;
+  }
+
+	.image-hints {
+		list-style-position: inside;
+		padding-left: 0;
 	}
 
-	.node-files-wrapper {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-	}
+  .node-files-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
-	.row-file {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		padding: 10px;
-		border-radius: 4px;
-		background-color: var(--onyx-color-primary-opaque);
+  .row-file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: var(--onyx-color-primary-opaque);
 
-		.node-img {
-			max-width: 100px;
-			max-height: 100px;
-			min-width: 100px;
-			cursor: pointer;
+    .node-img {
+      max-width: 100px;
+      max-height: 100px;
+      min-width: 100px;
+      cursor: pointer;
 
-			&:hover + .file-name {
-				color: var(--onyx-color-primary);
-			}
-		}
+      &:hover+.file-name {
+        color: var(--onyx-color-primary);
+      }
+    }
 
-		.file-name {
-			cursor: pointer;
-			transition: 0.3s ease;
+    .file-name {
+      cursor: pointer;
+      transition: 0.3s ease;
 
-			&:hover {
-				color: var(--onyx-color-primary);
-			}
-		}
+      &:hover {
+        color: var(--onyx-color-primary);
+      }
+    }
 
-		.file-actions {
-			margin-left: auto;
+    .file-actions {
+      margin-left: auto;
 
-			button.remove {
-				visibility: hidden;
-				opacity: 0;
-				transition: 0.3s ease;
-			}
-		}
+      button.remove {
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.3s ease;
+      }
+    }
 
-		&:nth-child(2n+1) {
-			background-color: var(--onyx-color-background-light);
-		}
+    &:nth-child(2n+1) {
+      background-color: var(--onyx-color-background-light);
+    }
 
-		&:hover {
-			.file-actions button.remove {
-				visibility: visible;
-				opacity: 1;
-			}
-	}
+    &:hover {
+      .file-actions button.remove {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
 
-	.placeholder {
-    position: relative;
-    padding-bottom: 10px;
-
-    &:after {
-      content: "Move here";
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      top: 0;
-      left: 0;
-      width: 100%;
+    .placeholder {
       position: relative;
-      transition: 0.5s ease;
-      opacity: 0;
-      max-height: 0;
-      height: 50px;
-      color: var(--onyx-color-primary);
-      border: 2px dashed transparent;
-      border-radius: 5px;
-      animation: growPlaceholder 0.5s ease forwards;
+      padding-bottom: 10px;
+
+      &:after {
+        content: "Move here";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        position: relative;
+        transition: 0.5s ease;
+        opacity: 0;
+        max-height: 0;
+        height: 50px;
+        color: var(--onyx-color-primary);
+        border: 2px dashed transparent;
+        border-radius: 5px;
+        animation: growPlaceholder 0.5s ease forwards;
+      }
     }
   }
 }
@@ -93,9 +99,10 @@
     opacity: 0;
     border: transparent;
   }
+
   to {
     max-height: 50px;
     opacity: 1;
-		border-color: var(--onyx-color-primary);
+    border-color: var(--onyx-color-primary);
   }
 }

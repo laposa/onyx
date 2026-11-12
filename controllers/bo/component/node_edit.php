@@ -37,7 +37,11 @@ class Onyx_Controller_Bo_Component_Node_Edit extends Onyx_Controller {
         $controller = "bo/node/{$node_data['node_group']}/{$node_controller}";
         
         if (getTemplateDir($controller . ".html") == '') {
-            $controller_html = "bo/node/{$node_data['node_group']}/default";
+            if ($node_data['node_group'] == 'content' && getTemplateDir("bo/component/custom/{$node_controller}.html") != '') {
+                $controller_html = "bo/node/content/custom";
+            } else {
+                $controller_html = "bo/node/{$node_data['node_group']}/default";
+            }
         } else {
             $controller_html = $controller;
         }

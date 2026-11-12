@@ -64,7 +64,7 @@
                 name="recipe[description]" 
                 id="recipe-description" 
             >{RECIPE.description|htmlspecialchars}</textarea>
-            {ONYX_REQUEST_tinymce_teaser #bo/tinymce_simple~id=GET.node_id:edit_elements=recipe-description~}
+            {ONYX_REQUEST_tinymce_teaser #bo/tinymce_simple~edit_element=recipe-description~}
         </div>
 
         <!-- Instructions -->
@@ -74,7 +74,7 @@
                 name="recipe[instructions]" 
                 id="recipe-instructions" 
             >{RECIPE.instructions|htmlspecialchars}</textarea>
-            {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.node_id:relation=recipe:role=RTE_description:mode=exact:edit_elements=recipe-instructions:theme=advanced~}
+            {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.node_id:relation=recipe:edit_element=recipe-instructions~}
         </div>
 
         <div class="row text">

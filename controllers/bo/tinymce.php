@@ -13,11 +13,8 @@ class Onyx_Controller_Bo_Tinymce extends Onyx_Controller {
      
     public function mainAction() {
     
-        $tinymce['mode'] = isset($this->GET['mode']) ? ($this->GET['mode'] == '' ? 'exact' : $this->GET['mode']) : '';
-        $tinymce['edit_elements'] = isset($this->GET['edit_elements']) ? ($this->GET['edit_elements'] == '' ? 'edit-content' : $this->GET['edit_elements']) : '';
+        $tinymce['edit_element'] = isset($this->GET['edit_element']) ? ($this->GET['edit_element'] == '' ? 'edit-content' : $this->GET['edit_element']) : '';
         $tinymce['relation'] = isset($this->GET['relation']) ? ($this->GET['relation'] == '' ? 'node' : $this->GET['relation']) : '';
-        $tinymce['role'] = isset($this->GET['role']) ? ($this->GET['role'] == '' ? 'RTE' : $this->GET['role']) : '';
-        $tinymce['theme'] = isset($this->GET['theme']) ? ($this->GET['theme'] == '' ? 'advanced' : $this->GET['theme']) : '';
 
         $this->tpl->assign('TINYMCE', $tinymce);
 
