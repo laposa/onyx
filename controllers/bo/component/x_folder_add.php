@@ -32,6 +32,7 @@ class Onyx_Controller_Bo_Component_X_Folder_Add extends Onyx_Controller {
                     msg("Cannot create folder $new_folder in $actual_folder", 'error');
                 } else {
                     msg("Folder $new_folder has been created in $actual_folder");
+                    header('HX-Trigger: folderAdded');
                 }
             } else {
                 msg("Folder name cannot be empty", 'error');

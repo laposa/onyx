@@ -45,6 +45,11 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
             //trigger name refresh if node name changed
             if($_POST['node']['title'] != $node_data['title']) {
                 $triggers .= '"updateNodeName": { "nodeId" :"'.$node_data['id'].'", "nodeName" : "'.$_POST['node']['title'].'" },';
+            
+                //additionally, if the slug is default, trigger slug refresh as well
+                if(!$node_data['uri_title']) {
+                    $triggers .= '"refreshPathComponent": {},';
+                }
             }
 
             if ($triggers != "") {

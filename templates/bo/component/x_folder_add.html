@@ -2,11 +2,10 @@
 {MESSAGES}
 <form 
     id="folder-add-edit"
-    hx-indicator="#edit-dialog .content"
     hx-post="/request/bo/component/x_folder_add"
+    hx-target="this"
+    hx-swap="outerHTML"
     hx-validate="true"
-    data-action="addFolder"
-    data-node-id="{GET.node_id}"
 >
     <h2>Add a New Folder</h2>
 
@@ -28,10 +27,10 @@
 
     <div class="edit-actions">
         <button class="btn" type="submit" name="save" value="save" >
-            Add & Close
+            Add folder
         </button>
 
-        <button class="btn secondary" type="button" onclick="closeFileDialog()">Cancel</button>
+        <button class="btn secondary" type="button" onclick="closeFolderAdd()">Cancel</button>
     </div>
 </form>
 <!-- END: content -->

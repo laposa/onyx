@@ -16,10 +16,10 @@
 
             {SUBFOLDERS}
             
-            <button 
+            <button
                 hx-get="/request/bo/component/x_folder_add?folder={FOLDER}"
                 hx-trigger="click"
-                hx-target="#file-dialog .content"
+                hx-target="#folder-add-slot"
                 hx-indicator="#file-dialog .content"
                 hx-on::before-request="openFileDialog();"
             >
@@ -132,8 +132,8 @@
     <!-- END: list -->
             
     <!-- BEGIN: empty -->
-    <div class="empty">
-        <p style="padding: 2em;">This folder is empty. Do you want to remove this folder? <br><br><a class="button delete remove" onclick="deleteFolder()"><span>Yes, delete?</span></a></p>
+    <div class="info-message">
+        This folder is empty. Do you want to remove this folder?<br><br><a class="button delete remove" onclick="deleteFolder()"><span>Yes, delete</span></a>
     </div>
     <!-- END: empty -->
                 

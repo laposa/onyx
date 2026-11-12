@@ -318,7 +318,9 @@
     display: flex;
     align-self: flex-start;
     flex-wrap: wrap;
-
+    margin-bottom: 16px;
+    gap: 5px;
+    
     .folder {
       display: flex;
       flex: 0 1 10%;
@@ -329,7 +331,6 @@
       border: 1px solid rgb(208, 208, 208);
       border-radius: 5px;
       transition: 0.3s ease;
-      margin: 5px;
       break-inside: avoid;
       text-decoration: none;
       color: var(--text-color);
@@ -365,7 +366,6 @@
       flex: 0 1 10%;
       align-items: center;
       padding: 5px 10px;
-      margin: 5px;
       line-height: 1;
     }
   }
