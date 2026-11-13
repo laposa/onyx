@@ -668,32 +668,24 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if (isset($_SESSION['client']['customer']['id']) && (!isset($node_data['customer_id']) || !is_numeric($node_data['customer_id']))) $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
         
         //populate only if ACL in use, otherwise save as empty
-        //leave untouched when not submitted (partial updates, e.g. X components)
-        if (array_key_exists('display_permission_group_acl', $node_data)) {
-            if (is_array($node_data['display_permission_group_acl'])) {
-                if (in_array('0', $node_data['display_permission_group_acl']) || in_array('1', $node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = serialize($node_data['display_permission_group_acl']);
-                else $node_data['display_permission_group_acl'] = '';
-            } else if (!is_string($node_data['display_permission_group_acl'])) {
-                $node_data['display_permission_group_acl'] = '';
-            }
+        if (is_array($node_data['display_permission_group_acl'] ?? null)) {
+            if (in_array('0', $node_data['display_permission_group_acl']) || in_array('1', $node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = serialize($node_data['display_permission_group_acl']);
+            else $node_data['display_permission_group_acl'] = '';
+        } else {
+            $node_data['display_permission_group_acl'] = '';
         }
-
+        
         /**
          * valid parent
          */
-
-        if (!$this->validateParent($node_data['id'], $node_data['parent'] ?? null)) return false;
-
+         
+        if (!$this->validateParent($node_data['id'], $node_data['parent'])) return false;
+        
         /**
          * commit update
          */
-
+        
         if ($this->update($node_data)) {
-            if (!$this->lastUpdateChanged()) {
-                msg("Item '{$node_data['title']}' (id={$node_data['id']}) has no changes");
-                return true;
-            }
-
             if ($node_data['node_group'] == 'page') {
                 // update existing or insert a new one
                 if (!$this->updateSingleURI($node_data)) $this->insertNewMappingURI($node_data);
