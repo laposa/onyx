@@ -41,15 +41,10 @@ class Onyx_Controller_Bo_Component_Revision_Detail extends Onyx_Controller {
             $revision = new common_revision();
 
             $revision = $revision->getRevisionById($id);
+            $revision['author'] = $customer->getDetail($revision['customer_id']);
             $revision_changes = unserialize($revision['content']);
 
             ksort($revision_changes);
-
-            // TODO: add component name to revisions so we can easily look for specific changes?
-
-            unset($revision_changes['modified']);
-            $revision_changes['custom_fields'] = json_decode($revision_changes['custom_fields']);
-            $revision['author'] = $customer->getDetail($revision['customer_id']);
 
             // check for changes made 
             if($this->node_data != false) {
@@ -62,10 +57,6 @@ class Onyx_Controller_Bo_Component_Revision_Detail extends Onyx_Controller {
 
             // parse changes to template
             foreach($revision_changes as $attribute => $value) {
-
-                if($attribute == 'custom_fields') {
-                    $value = json_encode($value);
-                }
 
                 $change['attribute'] = ucwords(str_replace('_', ' ', $attribute));
                 $change['current'] = $this->node_data[$attribute];

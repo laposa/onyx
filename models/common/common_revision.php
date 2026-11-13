@@ -2,7 +2,7 @@
 /**
  * class common_revision
  *
- * Copyright (c) 2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2014-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -163,7 +163,7 @@ class common_revision extends Onyx_Model {
      
     static function getAllowedRevisionObjects() {
          
-         return array('common_node', 'ecommerce_product', 'ecommerce_product_variety');
+         return ['common_node', 'common_file', 'common_image', 'common_configuration', 'ecommerce_offer', 'ecommerce_offer_group', 'ecommerce_product', 'ecommerce_product_image', 'ecommerce_product_variety', 'ecommerce_price', 'ecommerce_recipe', 'ecommerce_recipe_image','ecommerce_offer_product_variety', 'ecommerce_offer_taxonomy', 'ecommerce_store', 'ecommerce_store_image'];
          
     }
     
