@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014-2022 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2014-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -18,8 +18,7 @@ class Onyx_Controller_Bo_Component_Revision_Detail extends Onyx_Controller {
         $node = new common_node();
         $revision = new common_revision();
 
-        $this->node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
-        $this->node_data['custom_fields'] = serialize($this->node_data['custom_fields']);
+        $this->node_data = $node->detail($this->GET['node_id'] ?? $_POST['node']['id']);
 
         if (in_array($this->GET['object'], common_revision::getAllowedRevisionObjects())) $object = $this->GET['object'];
         $selected_id = $this->GET['revision_id'];
@@ -49,7 +48,6 @@ class Onyx_Controller_Bo_Component_Revision_Detail extends Onyx_Controller {
             // TODO: add component name to revisions so we can easily look for specific changes?
 
             unset($revision_changes['modified']);
-            $this->node_data['custom_fields'] = unserialize($this->node_data['custom_fields']);
             $revision_changes['custom_fields'] = json_decode($revision_changes['custom_fields']);
             $revision['author'] = $customer->getDetail($revision['customer_id']);
 
@@ -70,7 +68,7 @@ class Onyx_Controller_Bo_Component_Revision_Detail extends Onyx_Controller {
                 }
 
                 $change['attribute'] = ucwords(str_replace('_', ' ', $attribute));
-                $change['current'] = $attribute == 'custom_fields' ? json_encode($this->node_data[$attribute] ?? '') : $this->node_data[$attribute];
+                $change['current'] = $this->node_data[$attribute];
                 $change['revision'] = $value;
 
                 $this->tpl->assign('CHANGE', $change);
