@@ -1,6 +1,10 @@
 <!-- BEGIN: content -->
 {FILE "bo/node/shared_header.html"}
 <fieldset>
+  <div class="row">
+    <label>Title</label>
+    <input type="text" name="node[title]" value="{NODE.title|htmlspecialchars}" />
+  </div>
   {FILE "bo/node/item_image_list.html"}
 </fieldset>
 {FILE "bo/node/shared_footer.html"}
