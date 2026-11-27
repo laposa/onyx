@@ -1,24 +1,13 @@
 <!-- BEGIN: content -->
-{FILE "bo/node/form_open.html"}
-
+{FILE "bo/node/shared_header.html"}
 <fieldset>
-    {FILE "bo/node/item_title.html"}
-    {FILE "bo/node/item_display_title.html"}
-</fieldset>
-<fieldset class="advanced">
-    {FILE "bo/node/item_taxonomy.html"}
-</fieldset>
-
-
-<fieldset>
-    {ONYX_REQUEST_imagelist1 #bo/component/file_list~type=add_to_node:relation=node:node_id=GET.id~}
-    <p>Only last associated image will be visible. Use Image Gallery for multiple images. For mixing of differnet content types, like images and vidoes, use Slider Layout.</p>
-</fieldset>
-
-<fieldset>
-    {FILE "bo/node/item_link.html"}
+  {FILE "bo/node/item_image_list.html"}
 </fieldset>
 <fieldset>
+    <div class="row">
+        <label>Title</label>    
+        <input type="text" name="node[title]" value="{NODE.title|htmlspecialchars}" />
+      </div>
     <div class="row">
         <input type="checkbox" name="node[component][show_caption]" value="1" id="node-component-show-caption" {CHECKED_node_component_show_caption} /> <label for="node-component-show-caption">Show caption</label>
     </div>
@@ -36,6 +25,5 @@
         {FILE "bo/node/item_content.html"}
     </div>
 </fieldset>
-
 {FILE "bo/node/shared_footer.html"}
 <!-- END: content -->
